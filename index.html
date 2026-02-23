@@ -19,16 +19,17 @@
     :root {
       --cream: #faf8f4;          /* EDIT THIS: Main background colour */
       --blush: #e8b4a0;          /* EDIT THIS: Primary accent (blush pink/peach) */
-      --blush-light: #f5ddd4;    /* EDIT THIS: Light version of accent (used in cards) */
+      --blush-dark: #d4907a;     /* Darker blush for hover states */
+      --blush-light: #f5ddd4;    /* Light blush for card backgrounds */
       --sage: #b8c9a3;           /* EDIT THIS: Secondary accent (sage green) */
       --sage-light: #dde8d5;     /* Light sage for backgrounds */
-      --brown: #3d2b1f;          /* EDIT THIS: Main text colour (dark warm brown) */
-      --brown-mid: #7a5c4e;      /* EDIT THIS: Subtitle / secondary text */
-      --brown-light: #c4a898;    /* Light text (captions, placeholders) */
+      --brown: #3d2b1f;          /* EDIT THIS: Main dark text colour */
+      --brown-mid: #7a5c4e;      /* EDIT THIS: Secondary text colour */
+      --brown-light: #c4a898;    /* Light/muted text */
       --white: #ffffff;
-      --card-bg: #fffdf9;        /* Card background (very slightly warm white) */
-      --border: #f0e8e1;         /* Subtle border colour */
-      --shadow: rgba(61, 43, 31, 0.08);
+      --card-bg: #fffdf9;        /* Card background */
+      --border: #f0e8e1;         /* Subtle border */
+      --shadow: rgba(61, 43, 31, 0.10);
     }
 
     /* ============================================================
@@ -41,7 +42,7 @@
     }
 
     html {
-      scroll-behavior: smooth; /* Smooth scrolling when nav links are clicked */
+      scroll-behavior: smooth;
     }
 
     body {
@@ -58,12 +59,11 @@
       line-height: 1.2;
     }
 
-    /* Section heading style used across the page */
     .section-label {
       font-family: 'Nunito', sans-serif;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--blush);
       margin-bottom: 0.5rem;
@@ -86,20 +86,31 @@
        NAVIGATION BAR
        ============================================================ */
     nav {
-      position: sticky;
+      position: fixed;
       top: 0;
+      left: 0;
+      right: 0;
       z-index: 100;
-      background: rgba(250, 248, 244, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
-      height: 70px;
+      /* Starts transparent over the hero photo, becomes opaque on scroll */
+      background: rgba(250, 248, 244, 0);
+      backdrop-filter: blur(0px);
+      border-bottom: 1px solid transparent;
+      padding: 0 2.5rem;
+      height: 72px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      transition: background 0.4s, backdrop-filter 0.4s, border-color 0.4s;
     }
 
-    /* ===== EDIT THIS: Bakery name in the nav bar ===== */
+    /* Class added by JS when user scrolls down — nav becomes opaque */
+    nav.scrolled {
+      background: rgba(250, 248, 244, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom-color: var(--border);
+    }
+
+    /* Nav logo */
     .nav-logo {
       display: flex;
       flex-direction: column;
@@ -107,20 +118,30 @@
       text-decoration: none;
     }
 
+    /* EDIT THIS: Bakery name in nav */
     .nav-logo-main {
       font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 700;
-      color: var(--brown);
+      color: var(--white);
       letter-spacing: -0.01em;
+      transition: color 0.4s;
     }
 
-    /* Korean subtitle under the logo */
+    nav.scrolled .nav-logo-main {
+      color: var(--brown);
+    }
+
     .nav-logo-sub {
-      font-size: 0.7rem;
-      color: var(--blush);
-      letter-spacing: 0.1em;
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.12em;
       font-weight: 600;
+      transition: color 0.4s;
+    }
+
+    nav.scrolled .nav-logo-sub {
+      color: var(--blush);
     }
 
     /* Nav links */
@@ -132,99 +153,86 @@
 
     .nav-links a {
       text-decoration: none;
-      color: var(--brown-mid);
+      color: rgba(255,255,255,0.85);
       font-weight: 600;
-      font-size: 0.9rem;
-      letter-spacing: 0.02em;
-      transition: color 0.2s;
+      font-size: 0.88rem;
+      letter-spacing: 0.03em;
+      transition: color 0.3s;
+    }
+
+    nav.scrolled .nav-links a {
+      color: var(--brown-mid);
     }
 
     .nav-links a:hover {
-      color: var(--blush);
+      color: var(--blush) !important;
     }
 
-    /* Order button in nav */
+    /* Follow Us pill button */
     .nav-order-btn {
-      background: var(--blush);
+      background: var(--blush) !important;
       color: var(--white) !important;
-      padding: 0.45rem 1.1rem;
+      padding: 0.45rem 1.2rem;
       border-radius: 999px;
       transition: background 0.2s, transform 0.2s !important;
     }
 
     .nav-order-btn:hover {
-      background: #d99a84 !important;
-      color: var(--white) !important;
+      background: var(--blush-dark) !important;
       transform: translateY(-1px);
     }
 
     /* ============================================================
-       HERO SECTION
+       HERO SECTION — Full-bleed background photo
        ============================================================ */
     #hero {
-      min-height: 90vh;
+      /* EDIT THIS: Hero background photo URL — swap out the Unsplash URL for your own photo */
+      background-image:
+        linear-gradient(to bottom,
+          rgba(30, 18, 10, 0.55) 0%,
+          rgba(30, 18, 10, 0.35) 40%,
+          rgba(30, 18, 10, 0.6) 100%),
+        url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1800&q=85&fit=crop&crop=center');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed; /* Parallax-like effect as you scroll */
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 4rem 2rem;
+      padding: 5rem 2rem 4rem;
       position: relative;
-      overflow: hidden;
-    }
-
-    /* Decorative blobs in the background */
-    #hero::before {
-      content: '';
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      border-radius: 50%;
-      background: var(--blush-light);
-      opacity: 0.5;
-      top: -100px;
-      right: -100px;
-      filter: blur(60px);
-    }
-
-    #hero::after {
-      content: '';
-      position: absolute;
-      width: 400px;
-      height: 400px;
-      border-radius: 50%;
-      background: var(--sage-light);
-      opacity: 0.5;
-      bottom: -80px;
-      left: -80px;
-      filter: blur(60px);
     }
 
     .hero-content {
       position: relative;
       z-index: 1;
-      max-width: 680px;
+      max-width: 720px;
     }
 
-    /* Decorative emoji/icon above the main title */
+    /* Decorative icon above the headline */
     .hero-icon {
       font-size: 3.5rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.2rem;
       display: block;
       animation: float 3s ease-in-out infinite;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
     }
 
     @keyframes float {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+      50% { transform: translateY(-10px); }
     }
 
-    /* ===== EDIT THIS: Main hero headline ===== */
+    /* EDIT THIS: Main hero headline */
     .hero-title {
-      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-size: clamp(3rem, 7.5vw, 5.5rem);
       font-weight: 700;
-      color: var(--brown);
-      line-height: 1.1;
+      color: var(--white);
+      line-height: 1.08;
       margin-bottom: 0.5rem;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
     }
 
     .hero-title em {
@@ -232,21 +240,25 @@
       color: var(--blush);
     }
 
-    /* ===== EDIT THIS: Korean tagline under the main title ===== */
+    /* EDIT THIS: Korean tagline */
     .hero-korean {
-      font-size: 1rem;
-      color: var(--blush);
-      letter-spacing: 0.15em;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.22em;
       margin-bottom: 1.5rem;
       font-weight: 600;
+      text-transform: uppercase;
     }
 
-    /* ===== EDIT THIS: Hero subtitle paragraph ===== */
+    /* EDIT THIS: Hero subtitle */
     .hero-subtitle {
       font-size: 1.15rem;
-      color: var(--brown-mid);
-      margin-bottom: 2.5rem;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 2.8rem;
       line-height: 1.7;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     /* Hero CTA buttons */
@@ -260,60 +272,101 @@
     .btn-primary {
       background: var(--blush);
       color: var(--white);
-      padding: 0.85rem 2rem;
+      padding: 0.9rem 2.2rem;
       border-radius: 999px;
       text-decoration: none;
       font-weight: 700;
       font-size: 0.95rem;
       transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 4px 16px rgba(232, 180, 160, 0.4);
+      box-shadow: 0 4px 20px rgba(232, 180, 160, 0.5);
     }
 
     .btn-primary:hover {
-      background: #d99a84;
+      background: var(--blush-dark);
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(232, 180, 160, 0.5);
+      box-shadow: 0 8px 28px rgba(232, 180, 160, 0.6);
     }
 
     .btn-secondary {
-      background: transparent;
-      color: var(--brown);
-      padding: 0.85rem 2rem;
+      background: rgba(255,255,255,0.12);
+      color: var(--white);
+      padding: 0.9rem 2.2rem;
       border-radius: 999px;
       text-decoration: none;
       font-weight: 700;
       font-size: 0.95rem;
-      border: 2px solid var(--border);
-      transition: border-color 0.2s, transform 0.2s;
+      border: 2px solid rgba(255,255,255,0.5);
+      backdrop-filter: blur(8px);
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
     }
 
     .btn-secondary:hover {
-      border-color: var(--blush);
-      color: var(--blush);
+      background: rgba(255,255,255,0.22);
+      border-color: rgba(255,255,255,0.8);
       transform: translateY(-2px);
     }
 
-    /* Floating decorative items around the hero */
-    .hero-floats {
+    /* Scroll-down nudge at the bottom of hero */
+    .hero-scroll-hint {
       position: absolute;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.5);
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      animation: bounce 2s ease-in-out infinite;
     }
 
-    .float-item {
-      position: absolute;
-      font-size: 1.8rem;
-      opacity: 0.2;
-      animation: float 4s ease-in-out infinite;
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
     }
 
-    .float-item:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
-    .float-item:nth-child(2) { top: 20%; right: 12%; animation-delay: 0.8s; }
-    .float-item:nth-child(3) { bottom: 25%; left: 8%; animation-delay: 1.5s; }
-    .float-item:nth-child(4) { bottom: 20%; right: 10%; animation-delay: 0.4s; }
-    .float-item:nth-child(5) { top: 50%; left: 5%; animation-delay: 2s; }
-    .float-item:nth-child(6) { top: 45%; right: 6%; animation-delay: 1.2s; }
+    /* ============================================================
+       PHOTO MOOD STRIP — horizontal row of cafe photos
+       ============================================================ */
+    .photo-strip {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1.4fr;
+      height: 280px;
+      overflow: hidden;
+    }
+
+    /* EDIT THIS: Each strip photo — swap the background-image URL for your own photos */
+    .strip-photo {
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.5s ease;
+      overflow: hidden;
+    }
+
+    .strip-photo:hover {
+      transform: scale(1.04);
+    }
+
+    /* The four strip photos */
+    .strip-photo:nth-child(1) {
+      /* Korean cafe interior / warm seating */
+      background-image: url('https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=800&q=80&fit=crop');
+    }
+    .strip-photo:nth-child(2) {
+      /* Bread / pastries close-up */
+      background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&q=80&fit=crop');
+    }
+    .strip-photo:nth-child(3) {
+      /* Matcha / drinks */
+      background-image: url('https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=600&q=80&fit=crop');
+    }
+    .strip-photo:nth-child(4) {
+      /* Cafe counter / display */
+      background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80&fit=crop');
+    }
 
     /* ============================================================
        SIGNATURE ITEMS / MENU SECTION
@@ -327,7 +380,7 @@
       margin-bottom: 3.5rem;
     }
 
-    /* Grid of menu item cards — 3 columns on desktop, 2 on tablet, 1 on mobile */
+    /* 3-column grid, collapses on mobile */
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -341,88 +394,97 @@
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 2rem 1.5rem;
-      text-align: left;
-      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
-      position: relative;
       overflow: hidden;
-    }
-
-    .menu-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--blush), var(--sage));
-      opacity: 0;
-      transition: opacity 0.25s;
+      text-align: left;
+      transition: transform 0.25s, box-shadow 0.25s;
     }
 
     .menu-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 16px 40px var(--shadow);
-      border-color: var(--blush-light);
+      box-shadow: 0 20px 48px var(--shadow);
     }
 
-    .menu-card:hover::before {
-      opacity: 1;
+    /* Photo thumbnail at the top of each card */
+    /* EDIT THIS: Each card has a background-image — swap these for your own food photos */
+    .menu-card-photo {
+      height: 160px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
     }
 
-    /* Emoji icon for each menu item */
-    .menu-card-icon {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      display: block;
+    .menu-card:nth-child(1) .menu-card-photo {
+      background-image: url('https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=500&q=80&fit=crop');
+    }
+    .menu-card:nth-child(2) .menu-card-photo {
+      background-image: url('https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=500&q=80&fit=crop');
+    }
+    .menu-card:nth-child(3) .menu-card-photo {
+      background-image: url('https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=500&q=80&fit=crop');
+    }
+    .menu-card:nth-child(4) .menu-card-photo {
+      background-image: url('https://images.unsplash.com/photo-1488477304112-4944851de03d?w=500&q=80&fit=crop');
+    }
+    .menu-card:nth-child(5) .menu-card-photo {
+      background-image: url('https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=500&q=80&fit=crop');
+    }
+    .menu-card:nth-child(6) .menu-card-photo {
+      background-image: url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=500&q=80&fit=crop');
     }
 
-    /* ===== EDIT THIS: Item names ===== */
+    /* Tag badge overlaid on the photo */
+    .menu-card-tag {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brown);
+      background: rgba(250, 248, 244, 0.92);
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Card body below the photo */
+    .menu-card-body {
+      padding: 1.4rem 1.4rem 1.5rem;
+    }
+
+    /* EDIT THIS: Item names */
     .menu-card-name {
       font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: 600;
       color: var(--brown);
       margin-bottom: 0.4rem;
     }
 
-    /* ===== EDIT THIS: Item descriptions ===== */
+    /* EDIT THIS: Item descriptions */
     .menu-card-desc {
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       color: var(--brown-mid);
       line-height: 1.6;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.1rem;
     }
 
-    /* Price tag */
     .menu-card-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    /* ===== EDIT THIS: Prices — find all data-price attributes to change them ===== */
+    /* EDIT THIS: Prices — search for data-price to find them all */
     .menu-card-price {
       font-weight: 700;
       font-size: 1.05rem;
-      color: var(--blush);
-    }
-
-    /* Small tag label on each card */
-    .menu-card-tag {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--brown-light);
-      background: var(--cream);
-      padding: 0.2rem 0.6rem;
-      border-radius: 999px;
-      border: 1px solid var(--border);
+      color: var(--blush-dark);
     }
 
     /* ============================================================
-       ABOUT SECTION
+       ABOUT SECTION — text + photo collage
        ============================================================ */
     #about {
       padding: 6rem 2rem;
@@ -440,8 +502,8 @@
       align-items: center;
     }
 
-    /* ===== EDIT THIS: About text ===== */
-    .about-text .section-label { text-align: left; }
+    /* EDIT THIS: About text on the left */
+    .about-text .section-label,
     .about-text .section-title { text-align: left; }
 
     .about-text p {
@@ -450,42 +512,45 @@
       font-size: 1.02rem;
     }
 
-    .about-text p strong {
-      color: var(--brown);
+    .about-text p strong { color: var(--brown); }
+
+    /* Photo collage on the right side of About */
+    /* EDIT THIS: Swap the Unsplash URLs for your own bakery/kitchen photos */
+    .about-photos {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 240px 180px;
+      gap: 0.75rem;
     }
 
-    /* Decorative visual on the right side of About */
-    .about-visual {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .about-card {
-      background: var(--cream);
-      border: 1px solid var(--border);
+    .about-photo {
       border-radius: 16px;
-      padding: 1.2rem 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      transition: transform 0.4s;
     }
 
-    .about-card-icon {
-      font-size: 1.8rem;
-      flex-shrink: 0;
+    .about-photo:hover {
+      transform: scale(1.02);
     }
 
-    .about-card-text strong {
-      display: block;
-      font-weight: 700;
-      color: var(--brown);
-      font-size: 0.95rem;
+    /* Tall photo — spans both rows on the left */
+    .about-photo.tall {
+      grid-row: span 2;
+      /* EDIT THIS: Left tall photo — shows a baker / kitchen scene */
+      background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=85&fit=crop');
     }
 
-    .about-card-text span {
-      font-size: 0.85rem;
-      color: var(--brown-mid);
+    /* Two smaller photos on the right */
+    .about-photo.sm-top {
+      /* EDIT THIS: Top-right photo — breads or pastries */
+      background-image: url('https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=500&q=80&fit=crop');
+    }
+
+    .about-photo.sm-bot {
+      /* EDIT THIS: Bottom-right photo — cafe interior or plated item */
+      background-image: url('https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=500&q=80&fit=crop');
     }
 
     /* ============================================================
@@ -508,7 +573,6 @@
       margin: 0 auto;
     }
 
-    /* Info cards for location/hours/contact */
     .visit-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -538,17 +602,15 @@
       display: block;
     }
 
-    .visit-card a:hover {
-      color: var(--blush);
-    }
+    .visit-card a:hover { color: var(--blush); }
 
-    /* ===== EDIT THIS: Opening hours highlight ===== */
+    /* EDIT THIS: Closed day badge */
     .hours-note {
       display: inline-block;
       margin-top: 0.75rem;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
-      color: var(--blush);
+      color: var(--blush-dark);
       background: var(--blush-light);
       padding: 0.25rem 0.75rem;
       border-radius: 999px;
@@ -556,49 +618,79 @@
     }
 
     /* ============================================================
-       INSTAGRAM STRIP
+       INSTAGRAM / PHOTO GALLERY SECTION
        ============================================================ */
     #instagram {
       padding: 4rem 2rem;
-      background: var(--card-bg);
-      border-top: 1px solid var(--border);
+      background: var(--brown);
       text-align: center;
     }
 
     .insta-header {
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .insta-header .section-label {
+      color: var(--blush);
+    }
+
+    .insta-header h2 {
+      color: var(--white);
+      font-size: 1.9rem;
+      margin-bottom: 0.5rem;
     }
 
     .insta-header p {
-      color: var(--brown-mid);
-      margin-top: 0.5rem;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
     }
 
-    /* Placeholder grid where you'd embed actual Instagram posts */
+    /* Photo grid — 6 square tiles */
+    /* EDIT THIS: Each tile background-image is a photo — swap for your own or your IG photos */
     .insta-grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      gap: 0.75rem;
+      gap: 0.5rem;
       max-width: 1000px;
-      margin: 0 auto 2rem;
+      margin: 0 auto 2.5rem;
     }
 
     .insta-tile {
       aspect-ratio: 1;
-      background: var(--cream);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      transition: transform 0.2s;
+      background-size: cover;
+      background-position: center;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
       cursor: pointer;
     }
 
-    .insta-tile:hover {
-      transform: scale(1.05);
+    /* Hover overlay on gallery tiles */
+    .insta-tile::after {
+      content: '📸';
+      position: absolute;
+      inset: 0;
+      background: rgba(232, 180, 160, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: 10px;
     }
+
+    .insta-tile:hover::after {
+      opacity: 1;
+    }
+
+    /* EDIT THIS: Replace these Unsplash URLs with your actual Instagram photos */
+    .insta-tile:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400&q=80&fit=crop'); }
+    .insta-tile:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400&q=80&fit=crop'); }
+    .insta-tile:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=400&q=80&fit=crop'); }
+    .insta-tile:nth-child(4) { background-image: url('https://images.unsplash.com/photo-1506459225024-1428097a7e18?w=400&q=80&fit=crop'); }
+    .insta-tile:nth-child(5) { background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80&fit=crop'); }
+    .insta-tile:nth-child(6) { background-image: url('https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=400&q=80&fit=crop'); }
 
     .insta-follow-btn {
       display: inline-flex;
@@ -606,17 +698,17 @@
       gap: 0.5rem;
       background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
       color: white;
-      padding: 0.75rem 1.75rem;
+      padding: 0.8rem 1.9rem;
       border-radius: 999px;
       text-decoration: none;
       font-weight: 700;
       font-size: 0.9rem;
       transition: opacity 0.2s, transform 0.2s;
-      box-shadow: 0 4px 16px rgba(220, 39, 67, 0.3);
+      box-shadow: 0 4px 20px rgba(220, 39, 67, 0.4);
     }
 
     .insta-follow-btn:hover {
-      opacity: 0.9;
+      opacity: 0.88;
       transform: translateY(-2px);
     }
 
@@ -624,8 +716,8 @@
        FOOTER
        ============================================================ */
     footer {
-      background: var(--brown);
-      color: rgba(255,255,255,0.6);
+      background: #2a1c12;
+      color: rgba(255,255,255,0.5);
       padding: 2.5rem 2rem;
       text-align: center;
     }
@@ -638,77 +730,87 @@
     }
 
     footer .footer-korean {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       letter-spacing: 0.15em;
       color: var(--blush);
       margin-bottom: 1.2rem;
     }
 
-    footer p {
-      font-size: 0.85rem;
-    }
+    footer p { font-size: 0.85rem; }
 
     footer a {
       color: var(--blush);
       text-decoration: none;
     }
 
-    footer a:hover {
-      text-decoration: underline;
-    }
+    footer a:hover { text-decoration: underline; }
 
     /* ============================================================
-       MOBILE RESPONSIVE STYLES
+       MOBILE RESPONSIVE
        ============================================================ */
-    @media (max-width: 900px) {
-      /* Stack menu cards to 2 columns on tablet */
+    @media (max-width: 1000px) {
       .menu-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+    }
 
-      /* Stack about section vertically */
+    @media (max-width: 900px) {
       .about-inner {
         grid-template-columns: 1fr;
         gap: 2.5rem;
       }
 
-      /* Stack visit cards to 1 column */
-      .visit-grid {
-        grid-template-columns: 1fr;
-        max-width: 400px;
+      .about-photos {
+        grid-template-rows: 200px 150px;
       }
 
-      /* Shrink Instagram grid */
+      .visit-grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+      }
+
       .insta-grid {
         grid-template-columns: repeat(3, 1fr);
+      }
+
+      .photo-strip {
+        grid-template-columns: 1fr 1fr;
+        height: 360px;
       }
     }
 
     @media (max-width: 600px) {
-      /* Single column on mobile */
-      .menu-grid {
-        grid-template-columns: 1fr;
-      }
-
-      nav {
-        padding: 0 1rem;
-      }
+      nav { padding: 0 1.2rem; }
 
       .nav-links {
         gap: 1rem;
       }
 
-      /* Hide "Order Online" link on very small screens */
-      .nav-links li:last-child {
-        display: none;
-      }
+      /* Hide Follow Us button on very small screens */
+      .nav-links li:last-child { display: none; }
 
-      #hero {
-        padding: 3rem 1.5rem;
-      }
+      #hero { padding: 5rem 1.5rem 4rem; }
 
       #menu, #about, #visit, #instagram {
-        padding: 4rem 1.5rem;
+        padding: 4rem 1.2rem;
+      }
+
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-photos {
+        grid-template-columns: 1fr;
+        grid-template-rows: 220px 160px 160px;
+      }
+
+      .about-photo.tall {
+        grid-row: span 1;
+      }
+
+      .photo-strip {
+        grid-template-columns: 1fr 1fr;
+        height: 260px;
       }
 
       .insta-grid {
@@ -721,10 +823,10 @@
 
   <!-- ===================================================
        NAVIGATION BAR
-       Edit: logo name, nav links
+       EDIT: Bakery name, nav links
        =================================================== -->
-  <nav>
-    <!-- EDIT THIS: Change your bakery name in the logo -->
+  <nav id="main-nav">
+    <!-- EDIT THIS: Bakery logo/name -->
     <a class="nav-logo" href="#hero">
       <span class="nav-logo-main">Haru Bakery House</span>
       <span class="nav-logo-sub">하루 베이커리</span>
@@ -741,21 +843,12 @@
 
   <!-- ===================================================
        HERO SECTION
-       Edit: headline, tagline, subtitle text, button labels
+       The background photo is set in the CSS above — search for "Hero background photo URL"
+       EDIT: headline, Korean tagline, subtitle, button labels
        =================================================== -->
   <section id="hero">
-    <!-- Floating decorative bakery emojis (background) -->
-    <div class="hero-floats" aria-hidden="true">
-      <span class="float-item">🍞</span>
-      <span class="float-item">🌸</span>
-      <span class="float-item">🧁</span>
-      <span class="float-item">🍰</span>
-      <span class="float-item">☕</span>
-      <span class="float-item">🌿</span>
-    </div>
-
     <div class="hero-content">
-      <!-- EDIT THIS: The big icon above the title -->
+      <!-- EDIT THIS: The icon above the headline -->
       <span class="hero-icon" aria-hidden="true">🥐</span>
 
       <!-- EDIT THIS: Main headline -->
@@ -763,10 +856,10 @@
         Baked fresh,<br><em>every single day.</em>
       </h1>
 
-      <!-- EDIT THIS: Korean tagline -->
+      <!-- EDIT THIS: Korean tagline (means "baked fresh daily") -->
       <p class="hero-korean">매일 신선하게 구워집니다</p>
 
-      <!-- EDIT THIS: Subtitle paragraph under the headline -->
+      <!-- EDIT THIS: Subtitle under headline -->
       <p class="hero-subtitle">
         Slow-baked with love and Korean soul. Each morning we start from scratch —
         because the best things in life shouldn't be rushed.
@@ -778,99 +871,123 @@
         <a href="#visit" class="btn-secondary">Find Us</a>
       </div>
     </div>
+
+    <!-- Scroll hint at the bottom of the hero -->
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <span>scroll</span>
+      <span>↓</span>
+    </div>
   </section>
 
   <!-- ===================================================
+       PHOTO MOOD STRIP
+       Four photos side by side — EDIT the background-image URLs in the CSS above
+       Search for "strip-photo" to find them
+       =================================================== -->
+  <div class="photo-strip" aria-hidden="true">
+    <div class="strip-photo"></div>
+    <div class="strip-photo"></div>
+    <div class="strip-photo"></div>
+    <div class="strip-photo"></div>
+  </div>
+
+  <!-- ===================================================
        MENU / SIGNATURE ITEMS SECTION
-       Edit: item names, descriptions, prices, emoji icons
-       To find all prices easily, search for "data-price"
+       EDIT: item names, descriptions, prices
+       EDIT: card photos — search for "menu-card-photo" in the CSS
        =================================================== -->
   <section id="menu">
     <div class="menu-header">
       <p class="section-label">Signature Items</p>
-      <!-- EDIT THIS: Section heading -->
+      <!-- EDIT THIS: Menu section heading -->
       <h2 class="section-title">Made to be savoured</h2>
-      <p class="section-subtitle">Each item is handcrafted daily in small batches. When it's gone, it's gone.</p>
+      <p class="section-subtitle">Handcrafted daily in small batches. When it's gone, it's gone.</p>
     </div>
 
     <div class="menu-grid">
 
       <!-- ===== MENU ITEM 1 ===== -->
-      <!-- EDIT THIS: Icon, name, description, price, tag label -->
+      <!-- EDIT THIS: Name, description, price, tag label -->
       <div class="menu-card">
-        <span class="menu-card-icon" aria-hidden="true">🍮</span>
-        <div class="menu-card-name">Soufflé Cheesecake</div>
-        <div class="menu-card-desc">
-          Light as a cloud and melts on your tongue. Japanese-style, baked fresh each morning.
-        </div>
-        <div class="menu-card-footer">
-          <span class="menu-card-price" data-price="7.50">$7.50</span><!-- EDIT THIS: Price -->
+        <div class="menu-card-photo">
           <span class="menu-card-tag">Fan Favourite</span>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Soufflé Cheesecake</div><!-- EDIT THIS: Item name -->
+          <div class="menu-card-desc">Light as a cloud and melts on your tongue. Japanese-style, baked fresh each morning.</div><!-- EDIT THIS: Description -->
+          <div class="menu-card-footer">
+            <span class="menu-card-price" data-price="7.50">$7.50</span><!-- EDIT THIS: Price -->
+          </div>
         </div>
       </div>
 
       <!-- ===== MENU ITEM 2 ===== -->
       <div class="menu-card">
-        <span class="menu-card-icon" aria-hidden="true">🥖</span>
-        <div class="menu-card-name">Red Bean Cream Bun</div>
-        <div class="menu-card-desc">
-          Pillowy milk bread filled with sweet Korean red bean paste and lightly whipped cream.
-        </div>
-        <div class="menu-card-footer">
-          <span class="menu-card-price" data-price="5.50">$5.50</span><!-- EDIT THIS: Price -->
+        <div class="menu-card-photo">
           <span class="menu-card-tag">Daily Special</span>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Red Bean Cream Bun</div>
+          <div class="menu-card-desc">Pillowy milk bread filled with sweet Korean red bean paste and lightly whipped cream.</div>
+          <div class="menu-card-footer">
+            <span class="menu-card-price" data-price="5.50">$5.50</span><!-- EDIT THIS: Price -->
+          </div>
         </div>
       </div>
 
       <!-- ===== MENU ITEM 3 ===== -->
       <div class="menu-card">
-        <span class="menu-card-icon" aria-hidden="true">🍃</span>
-        <div class="menu-card-name">Matcha Danish</div>
-        <div class="menu-card-desc">
-          Flaky butter layers, premium ceremonial-grade matcha cream, dusted with powdered sugar.
-        </div>
-        <div class="menu-card-footer">
-          <span class="menu-card-price" data-price="6.50">$6.50</span><!-- EDIT THIS: Price -->
+        <div class="menu-card-photo">
           <span class="menu-card-tag">Staff Pick</span>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Matcha Danish</div>
+          <div class="menu-card-desc">Flaky butter layers, ceremonial-grade matcha cream, dusted with powdered sugar.</div>
+          <div class="menu-card-footer">
+            <span class="menu-card-price" data-price="6.50">$6.50</span><!-- EDIT THIS: Price -->
+          </div>
         </div>
       </div>
 
       <!-- ===== MENU ITEM 4 ===== -->
       <div class="menu-card">
-        <span class="menu-card-icon" aria-hidden="true">🍓</span>
-        <div class="menu-card-name">Strawberry Shortcake</div>
-        <div class="menu-card-desc">
-          Seasonal strawberries, cloud-light whipped cream, and a delicate génoise sponge.
-        </div>
-        <div class="menu-card-footer">
-          <span class="menu-card-price" data-price="8.00">$8.00</span><!-- EDIT THIS: Price -->
+        <div class="menu-card-photo">
           <span class="menu-card-tag">Seasonal</span>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Strawberry Shortcake</div>
+          <div class="menu-card-desc">Seasonal strawberries, cloud-light whipped cream, and a delicate génoise sponge.</div>
+          <div class="menu-card-footer">
+            <span class="menu-card-price" data-price="8.00">$8.00</span><!-- EDIT THIS: Price -->
+          </div>
         </div>
       </div>
 
       <!-- ===== MENU ITEM 5 ===== -->
       <div class="menu-card">
-        <span class="menu-card-icon" aria-hidden="true">🧇</span>
-        <div class="menu-card-name">Croffle</div>
-        <div class="menu-card-desc">
-          A croissant-waffle hybrid pressed golden. Cinnamon sugar, honeycomb butter on the side.
-        </div>
-        <div class="menu-card-footer">
-          <span class="menu-card-price" data-price="6.00">$6.00</span><!-- EDIT THIS: Price -->
+        <div class="menu-card-photo">
           <span class="menu-card-tag">Korean Trend</span>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Croffle</div>
+          <div class="menu-card-desc">Croissant-waffle hybrid pressed golden. Cinnamon sugar, honeycomb butter on the side.</div>
+          <div class="menu-card-footer">
+            <span class="menu-card-price" data-price="6.00">$6.00</span><!-- EDIT THIS: Price -->
+          </div>
         </div>
       </div>
 
       <!-- ===== MENU ITEM 6 ===== -->
       <div class="menu-card">
-        <span class="menu-card-icon" aria-hidden="true">☕</span>
-        <div class="menu-card-name">Hojicha Tiramisu</div>
-        <div class="menu-card-desc">
-          Roasted green tea meets Italian comfort. Mascarpone, espresso soak, hojicha dusting.
-        </div>
-        <div class="menu-card-footer">
-          <span class="menu-card-price" data-price="7.00">$7.00</span><!-- EDIT THIS: Price -->
+        <div class="menu-card-photo">
           <span class="menu-card-tag">Weekend Only</span>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Hojicha Tiramisu</div>
+          <div class="menu-card-desc">Roasted green tea meets Italian comfort. Mascarpone, espresso soak, hojicha dusting.</div>
+          <div class="menu-card-footer">
+            <span class="menu-card-price" data-price="7.00">$7.00</span><!-- EDIT THIS: Price -->
+          </div>
         </div>
       </div>
 
@@ -879,26 +996,26 @@
 
   <!-- ===================================================
        ABOUT SECTION
-       Edit: the story paragraphs on the left
-       The right-side cards summarise your values
+       Left: story text — EDIT the paragraphs
+       Right: photo collage — EDIT photo URLs in CSS (search "about-photo")
        =================================================== -->
   <section id="about">
     <div class="about-inner">
 
-      <!-- LEFT: Story text -->
+      <!-- LEFT: Story -->
       <div class="about-text">
         <p class="section-label">Our Story</p>
-        <!-- EDIT THIS: About section heading -->
+        <!-- EDIT THIS: About heading -->
         <h2 class="section-title">A family recipe, <em>every morning.</em></h2>
 
-        <!-- EDIT THIS: Your bakery story — change these paragraphs to your own story -->
+        <!-- EDIT THIS: Your bakery story paragraphs -->
         <p>
           Haru Bakery House began in 2021 with a simple idea: <strong>bake like you're feeding family.</strong>
           Our founder grew up watching her grandmother shape red bean buns before sunrise in a small Seoul kitchen —
-          and that warmth is what we bring to Melbourne every single day.
+          that warmth is what we bring to Melbourne every single morning.
         </p>
         <p>
-          We use <strong>no preservatives, no shortcuts</strong>. Just good flour, real butter, and seasonal
+          We use <strong>no preservatives, no shortcuts.</strong> Just good flour, real butter, and seasonal
           ingredients sourced locally. Everything you see in our cabinet was baked this morning.
         </p>
         <p>
@@ -907,37 +1024,12 @@
         </p>
       </div>
 
-      <!-- RIGHT: Value cards -->
-      <!-- EDIT THIS: Change the icons, titles, and descriptions in these cards -->
-      <div class="about-visual">
-        <div class="about-card">
-          <span class="about-card-icon" aria-hidden="true">🌅</span>
-          <div class="about-card-text">
-            <strong>Baked before sunrise</strong>
-            <span>Fresh out of the oven by 7:30am, every day</span>
-          </div>
-        </div>
-        <div class="about-card">
-          <span class="about-card-icon" aria-hidden="true">🌿</span>
-          <div class="about-card-text">
-            <strong>Local & seasonal</strong>
-            <span>Ingredients sourced from Melbourne markets</span>
-          </div>
-        </div>
-        <div class="about-card">
-          <span class="about-card-icon" aria-hidden="true">🇰🇷</span>
-          <div class="about-card-text">
-            <strong>Korean heritage</strong>
-            <span>Family recipes passed down three generations</span>
-          </div>
-        </div>
-        <div class="about-card">
-          <span class="about-card-icon" aria-hidden="true">❤️</span>
-          <div class="about-card-text">
-            <strong>Made with love</strong>
-            <span>Small batch, handcrafted — never mass produced</span>
-          </div>
-        </div>
+      <!-- RIGHT: Photo collage -->
+      <!-- EDIT: See the CSS section "about-photo" to swap the background images -->
+      <div class="about-photos">
+        <div class="about-photo tall"></div>
+        <div class="about-photo sm-top"></div>
+        <div class="about-photo sm-bot"></div>
       </div>
 
     </div>
@@ -945,54 +1037,51 @@
 
   <!-- ===================================================
        VISIT US SECTION
-       Edit: address, hours, phone, Instagram handle
+       EDIT: address, hours, phone number, email, Instagram handle
        =================================================== -->
   <section id="visit">
     <div class="visit-header">
       <p class="section-label">Come See Us</p>
       <h2 class="section-title">You know where to find us</h2>
-      <p class="section-subtitle">We're tucked in the heart of Fitzroy. Look for the warm light and the smell of fresh bread.</p>
+      <p class="section-subtitle">Tucked in the heart of Fitzroy. Look for the warm light and the smell of fresh bread.</p>
     </div>
 
     <div class="visit-grid">
 
-      <!-- EDIT THIS: Address card -->
+      <!-- EDIT THIS: Address -->
       <div class="visit-card">
         <span class="visit-card-icon" aria-hidden="true">📍</span>
         <h3>Location</h3>
         <p>
-          <!-- EDIT THIS: Your address -->
           142 Smith Street<br>
           Fitzroy VIC 3065<br>
           Melbourne, Australia
         </p>
-        <a href="https://maps.google.com" target="_blank" rel="noopener" style="margin-top:0.75rem; color: var(--blush); font-weight:600; font-size:0.85rem;">
+        <a href="https://maps.google.com" target="_blank" rel="noopener" style="margin-top:0.75rem; color:var(--blush); font-weight:700; font-size:0.85rem;">
           Get Directions →
         </a>
       </div>
 
-      <!-- EDIT THIS: Opening hours card -->
+      <!-- EDIT THIS: Opening hours -->
       <div class="visit-card">
         <span class="visit-card-icon" aria-hidden="true">🕗</span>
         <h3>Opening Hours</h3>
         <p>
-          <!-- EDIT THIS: Your opening hours -->
           Tue – Fri: 7:30am – 5pm<br>
           Sat – Sun: 8am – 4pm<br>
           Monday: Closed
         </p>
-        <span class="hours-note">Closed Mondays</span><!-- EDIT THIS: Closed day note -->
+        <span class="hours-note">Closed Mondays</span><!-- EDIT THIS: Closed day -->
       </div>
 
-      <!-- EDIT THIS: Contact card -->
+      <!-- EDIT THIS: Phone, email, Instagram handle -->
       <div class="visit-card">
         <span class="visit-card-icon" aria-hidden="true">📱</span>
         <h3>Get in Touch</h3>
-        <!-- EDIT THIS: Your phone number and Instagram handle -->
-        <a href="tel:+61398765432">(03) 9876 5432</a>
-        <a href="mailto:hello@harubakeryhouse.com">hello@harubakeryhouse.com</a>
-        <a href="https://www.instagram.com/harubakeryhouse/" target="_blank" rel="noopener" style="margin-top:0.5rem; font-weight:600; color: var(--blush);">
-          @harubakeryhouse
+        <a href="tel:+61398765432">(03) 9876 5432</a><!-- EDIT THIS: Phone number -->
+        <a href="mailto:hello@harubakeryhouse.com">hello@harubakeryhouse.com</a><!-- EDIT THIS: Email -->
+        <a href="https://www.instagram.com/harubakeryhouse/" target="_blank" rel="noopener" style="margin-top:0.5rem; font-weight:700; color:var(--blush);">
+          @harubakeryhouse<!-- EDIT THIS: Instagram handle -->
         </a>
       </div>
 
@@ -1001,44 +1090,67 @@
 
   <!-- ===================================================
        INSTAGRAM / GALLERY SECTION
-       Replace the emoji tiles with actual photos if you have them
-       Or embed an Instagram widget here later
+       Dark background section with photo grid
+       EDIT: photo URLs in CSS above (search "insta-tile")
+       EDIT: Instagram handle link below
        =================================================== -->
   <section id="instagram">
     <div class="insta-header">
-      <!-- EDIT THIS: Instagram section heading -->
       <p class="section-label">On Instagram</p>
-      <h2 class="section-title" style="font-size:1.8rem;">@harubakeryhouse</h2>
+      <!-- EDIT THIS: Instagram handle -->
+      <h2>@harubakeryhouse</h2>
       <p>Follow along for daily bakes, behind-the-scenes moments, and limited specials.</p>
     </div>
 
-    <!-- These are placeholder tiles — replace with real photos or an Instagram embed widget -->
-    <div class="insta-grid" aria-hidden="true">
-      <div class="insta-tile">🎂</div>
-      <div class="insta-tile">🥐</div>
-      <div class="insta-tile">🍵</div>
-      <div class="insta-tile">🍞</div>
-      <div class="insta-tile">🌸</div>
-      <div class="insta-tile">🍓</div>
+    <!-- Photo grid tiles — edit background-image URLs in CSS above -->
+    <div class="insta-grid">
+      <div class="insta-tile"></div>
+      <div class="insta-tile"></div>
+      <div class="insta-tile"></div>
+      <div class="insta-tile"></div>
+      <div class="insta-tile"></div>
+      <div class="insta-tile"></div>
     </div>
 
-    <!-- EDIT THIS: Change the Instagram handle in the link below -->
+    <!-- EDIT THIS: Change the Instagram handle in the href -->
     <a href="https://www.instagram.com/harubakeryhouse/" target="_blank" rel="noopener" class="insta-follow-btn">
-      <span>📸</span> Follow on Instagram
+      📸 &nbsp;Follow on Instagram
     </a>
   </section>
 
   <!-- ===================================================
        FOOTER
-       Edit: bakery name, copyright year, Instagram link
+       EDIT: bakery name, Instagram link, year
        =================================================== -->
   <footer>
-    <!-- EDIT THIS: Footer logo / bakery name -->
-    <div class="footer-logo">Haru Bakery House</div>
+    <div class="footer-logo">Haru Bakery House</div><!-- EDIT THIS: Footer name -->
     <div class="footer-korean">하루 베이커리</div>
-    <!-- EDIT THIS: Change the year and Instagram handle -->
-    <p>© 2025 Haru Bakery House. Made with love in Melbourne. &nbsp;·&nbsp; <a href="https://www.instagram.com/harubakeryhouse/" target="_blank" rel="noopener">Instagram</a></p>
+    <p>© 2025 Haru Bakery House. Made with love in Melbourne. &nbsp;·&nbsp;
+      <a href="https://www.instagram.com/harubakeryhouse/" target="_blank" rel="noopener">Instagram</a>
+    </p>
   </footer>
+
+  <!-- ===================================================
+       JAVASCRIPT
+       Just two small things:
+       1. Makes the nav bar go opaque when you scroll down
+       2. Nothing else needed — no frameworks
+       =================================================== -->
+  <script>
+    // ===== NAV SCROLL EFFECT =====
+    // Watches if the user has scrolled past the hero
+    // and adds the "scrolled" class to the nav to make it opaque
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+    // Make nav opaque immediately if page loads already scrolled
+    if (window.scrollY > 60) nav.classList.add('scrolled');
+  </script>
 
 </body>
 </html>
