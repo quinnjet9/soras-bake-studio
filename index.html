@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ===== EDIT THIS: Change your bakery name in the browser tab ===== -->
+  <title>Haru Bakery House</title>
+
+  <!-- Google Fonts — Playfair Display (elegant headings) + Nunito (friendly body text) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       COLOURS — Edit these to change the whole site's colour scheme
+       ============================================================ */
+    :root {
+      --cream: #faf8f4;          /* EDIT THIS: Main background colour */
+      --blush: #e8b4a0;          /* EDIT THIS: Primary accent (blush pink/peach) */
+      --blush-light: #f5ddd4;    /* EDIT THIS: Light version of accent (used in cards) */
+      --sage: #b8c9a3;           /* EDIT THIS: Secondary accent (sage green) */
+      --sage-light: #dde8d5;     /* Light sage for backgrounds */
+      --brown: #3d2b1f;          /* EDIT THIS: Main text colour (dark warm brown) */
+      --brown-mid: #7a5c4e;      /* EDIT THIS: Subtitle / secondary text */
+      --brown-light: #c4a898;    /* Light text (captions, placeholders) */
+      --white: #ffffff;
+      --card-bg: #fffdf9;        /* Card background (very slightly warm white) */
+      --border: #f0e8e1;         /* Subtle border colour */
+      --shadow: rgba(61, 43, 31, 0.08);
+    }
+
+    /* ============================================================
+       GLOBAL RESET & BASE STYLES
+       ============================================================ */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth; /* Smooth scrolling when nav links are clicked */
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--cream);
+      color: var(--brown);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    /* ===== TYPOGRAPHY HELPERS ===== */
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+      line-height: 1.2;
+    }
+
+    /* Section heading style used across the page */
+    .section-label {
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--blush);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: var(--brown);
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      color: var(--brown-mid);
+      font-size: 1.05rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ============================================================
+       NAVIGATION BAR
+       ============================================================ */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 248, 244, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ===== EDIT THIS: Bakery name in the nav bar ===== */
+    .nav-logo {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-decoration: none;
+    }
+
+    .nav-logo-main {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--brown);
+      letter-spacing: -0.01em;
+    }
+
+    /* Korean subtitle under the logo */
+    .nav-logo-sub {
+      font-size: 0.7rem;
+      color: var(--blush);
+      letter-spacing: 0.1em;
+      font-weight: 600;
+    }
+
+    /* Nav links */
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--brown-mid);
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--blush);
+    }
+
+    /* Order button in nav */
+    .nav-order-btn {
+      background: var(--blush);
+      color: var(--white) !important;
+      padding: 0.45rem 1.1rem;
+      border-radius: 999px;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+
+    .nav-order-btn:hover {
+      background: #d99a84 !important;
+      color: var(--white) !important;
+      transform: translateY(-1px);
+    }
+
+    /* ============================================================
+       HERO SECTION
+       ============================================================ */
+    #hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative blobs in the background */
+    #hero::before {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: var(--blush-light);
+      opacity: 0.5;
+      top: -100px;
+      right: -100px;
+      filter: blur(60px);
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: var(--sage-light);
+      opacity: 0.5;
+      bottom: -80px;
+      left: -80px;
+      filter: blur(60px);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+    }
+
+    /* Decorative emoji/icon above the main title */
+    .hero-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      display: block;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* ===== EDIT THIS: Main hero headline ===== */
+    .hero-title {
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 700;
+      color: var(--brown);
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--blush);
+    }
+
+    /* ===== EDIT THIS: Korean tagline under the main title ===== */
+    .hero-korean {
+      font-size: 1rem;
+      color: var(--blush);
+      letter-spacing: 0.15em;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    /* ===== EDIT THIS: Hero subtitle paragraph ===== */
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--brown-mid);
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    /* Hero CTA buttons */
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--blush);
+      color: var(--white);
+      padding: 0.85rem 2rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(232, 180, 160, 0.4);
+    }
+
+    .btn-primary:hover {
+      background: #d99a84;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(232, 180, 160, 0.5);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--brown);
+      padding: 0.85rem 2rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: 2px solid var(--border);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--blush);
+      color: var(--blush);
+      transform: translateY(-2px);
+    }
+
+    /* Floating decorative items around the hero */
+    .hero-floats {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .float-item {
+      position: absolute;
+      font-size: 1.8rem;
+      opacity: 0.2;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .float-item:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+    .float-item:nth-child(2) { top: 20%; right: 12%; animation-delay: 0.8s; }
+    .float-item:nth-child(3) { bottom: 25%; left: 8%; animation-delay: 1.5s; }
+    .float-item:nth-child(4) { bottom: 20%; right: 10%; animation-delay: 0.4s; }
+    .float-item:nth-child(5) { top: 50%; left: 5%; animation-delay: 2s; }
+    .float-item:nth-child(6) { top: 45%; right: 6%; animation-delay: 1.2s; }
+
+    /* ============================================================
+       SIGNATURE ITEMS / MENU SECTION
+       ============================================================ */
+    #menu {
+      padding: 6rem 2rem;
+      text-align: center;
+    }
+
+    .menu-header {
+      margin-bottom: 3.5rem;
+    }
+
+    /* Grid of menu item cards — 3 columns on desktop, 2 on tablet, 1 on mobile */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Individual menu card */
+    .menu-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      text-align: left;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .menu-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--blush), var(--sage));
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px var(--shadow);
+      border-color: var(--blush-light);
+    }
+
+    .menu-card:hover::before {
+      opacity: 1;
+    }
+
+    /* Emoji icon for each menu item */
+    .menu-card-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    /* ===== EDIT THIS: Item names ===== */
+    .menu-card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--brown);
+      margin-bottom: 0.4rem;
+    }
+
+    /* ===== EDIT THIS: Item descriptions ===== */
+    .menu-card-desc {
+      font-size: 0.88rem;
+      color: var(--brown-mid);
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+
+    /* Price tag */
+    .menu-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ===== EDIT THIS: Prices — find all data-price attributes to change them ===== */
+    .menu-card-price {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--blush);
+    }
+
+    /* Small tag label on each card */
+    .menu-card-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--brown-light);
+      background: var(--cream);
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+    }
+
+    /* ============================================================
+       ABOUT SECTION
+       ============================================================ */
+    #about {
+      padding: 6rem 2rem;
+      background: var(--card-bg);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    /* ===== EDIT THIS: About text ===== */
+    .about-text .section-label { text-align: left; }
+    .about-text .section-title { text-align: left; }
+
+    .about-text p {
+      color: var(--brown-mid);
+      margin-bottom: 1.2rem;
+      font-size: 1.02rem;
+    }
+
+    .about-text p strong {
+      color: var(--brown);
+    }
+
+    /* Decorative visual on the right side of About */
+    .about-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .about-card {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .about-card-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .about-card-text strong {
+      display: block;
+      font-weight: 700;
+      color: var(--brown);
+      font-size: 0.95rem;
+    }
+
+    .about-card-text span {
+      font-size: 0.85rem;
+      color: var(--brown-mid);
+    }
+
+    /* ============================================================
+       VISIT US / INFO SECTION
+       ============================================================ */
+    #visit {
+      padding: 6rem 2rem;
+      text-align: center;
+    }
+
+    .visit-header {
+      margin-bottom: 3.5rem;
+    }
+
+    .visit-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Info cards for location/hours/contact */
+    .visit-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+
+    .visit-card-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .visit-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+      color: var(--brown);
+    }
+
+    .visit-card p, .visit-card a {
+      color: var(--brown-mid);
+      font-size: 0.92rem;
+      line-height: 1.8;
+      text-decoration: none;
+      display: block;
+    }
+
+    .visit-card a:hover {
+      color: var(--blush);
+    }
+
+    /* ===== EDIT THIS: Opening hours highlight ===== */
+    .hours-note {
+      display: inline-block;
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--blush);
+      background: var(--blush-light);
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ============================================================
+       INSTAGRAM STRIP
+       ============================================================ */
+    #instagram {
+      padding: 4rem 2rem;
+      background: var(--card-bg);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .insta-header {
+      margin-bottom: 2rem;
+    }
+
+    .insta-header p {
+      color: var(--brown-mid);
+      margin-top: 0.5rem;
+    }
+
+    /* Placeholder grid where you'd embed actual Instagram posts */
+    .insta-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.75rem;
+      max-width: 1000px;
+      margin: 0 auto 2rem;
+    }
+
+    .insta-tile {
+      aspect-ratio: 1;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+
+    .insta-tile:hover {
+      transform: scale(1.05);
+    }
+
+    .insta-follow-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: white;
+      padding: 0.75rem 1.75rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 4px 16px rgba(220, 39, 67, 0.3);
+    }
+
+    .insta-follow-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer {
+      background: var(--brown);
+      color: rgba(255,255,255,0.6);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    footer .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: white;
+      margin-bottom: 0.3rem;
+    }
+
+    footer .footer-korean {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      color: var(--blush);
+      margin-bottom: 1.2rem;
+    }
+
+    footer p {
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--blush);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* ============================================================
+       MOBILE RESPONSIVE STYLES
+       ============================================================ */
+    @media (max-width: 900px) {
+      /* Stack menu cards to 2 columns on tablet */
+      .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      /* Stack about section vertically */
+      .about-inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      /* Stack visit cards to 1 column */
+      .visit-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+      }
+
+      /* Shrink Instagram grid */
+      .insta-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      /* Single column on mobile */
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        padding: 0 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      /* Hide "Order Online" link on very small screens */
+      .nav-links li:last-child {
+        display: none;
+      }
+
+      #hero {
+        padding: 3rem 1.5rem;
+      }
+
+      #menu, #about, #visit, #instagram {
+        padding: 4rem 1.5rem;
+      }
+
+      .insta-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================================================
+       NAVIGATION BAR
+       Edit: logo name, nav links
+       =================================================== -->
+  <nav>
+    <!-- EDIT THIS: Change your bakery name in the logo -->
+    <a class="nav-logo" href="#hero">
+      <span class="nav-logo-main">Haru Bakery House</span>
+      <span class="nav-logo-sub">하루 베이커리</span>
+    </a>
+
+    <!-- EDIT THIS: Navigation links -->
+    <ul class="nav-links">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#visit">Visit Us</a></li>
+      <li><a href="#instagram" class="nav-order-btn">Follow Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===================================================
+       HERO SECTION
+       Edit: headline, tagline, subtitle text, button labels
+       =================================================== -->
+  <section id="hero">
+    <!-- Floating decorative bakery emojis (background) -->
+    <div class="hero-floats" aria-hidden="true">
+      <span class="float-item">🍞</span>
+      <span class="float-item">🌸</span>
+      <span class="float-item">🧁</span>
+      <span class="float-item">🍰</span>
+      <span class="float-item">☕</span>
+      <span class="float-item">🌿</span>
+    </div>
+
+    <div class="hero-content">
+      <!-- EDIT THIS: The big icon above the title -->
+      <span class="hero-icon" aria-hidden="true">🥐</span>
+
+      <!-- EDIT THIS: Main headline -->
+      <h1 class="hero-title">
+        Baked fresh,<br><em>every single day.</em>
+      </h1>
+
+      <!-- EDIT THIS: Korean tagline -->
+      <p class="hero-korean">매일 신선하게 구워집니다</p>
+
+      <!-- EDIT THIS: Subtitle paragraph under the headline -->
+      <p class="hero-subtitle">
+        Slow-baked with love and Korean soul. Each morning we start from scratch —
+        because the best things in life shouldn't be rushed.
+      </p>
+
+      <!-- EDIT THIS: Button labels and where they link -->
+      <div class="hero-buttons">
+        <a href="#menu" class="btn-primary">See Our Menu</a>
+        <a href="#visit" class="btn-secondary">Find Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       MENU / SIGNATURE ITEMS SECTION
+       Edit: item names, descriptions, prices, emoji icons
+       To find all prices easily, search for "data-price"
+       =================================================== -->
+  <section id="menu">
+    <div class="menu-header">
+      <p class="section-label">Signature Items</p>
+      <!-- EDIT THIS: Section heading -->
+      <h2 class="section-title">Made to be savoured</h2>
+      <p class="section-subtitle">Each item is handcrafted daily in small batches. When it's gone, it's gone.</p>
+    </div>
+
+    <div class="menu-grid">
+
+      <!-- ===== MENU ITEM 1 ===== -->
+      <!-- EDIT THIS: Icon, name, description, price, tag label -->
+      <div class="menu-card">
+        <span class="menu-card-icon" aria-hidden="true">🍮</span>
+        <div class="menu-card-name">Soufflé Cheesecake</div>
+        <div class="menu-card-desc">
+          Light as a cloud and melts on your tongue. Japanese-style, baked fresh each morning.
+        </div>
+        <div class="menu-card-footer">
+          <span class="menu-card-price" data-price="7.50">$7.50</span><!-- EDIT THIS: Price -->
+          <span class="menu-card-tag">Fan Favourite</span>
+        </div>
+      </div>
+
+      <!-- ===== MENU ITEM 2 ===== -->
+      <div class="menu-card">
+        <span class="menu-card-icon" aria-hidden="true">🥖</span>
+        <div class="menu-card-name">Red Bean Cream Bun</div>
+        <div class="menu-card-desc">
+          Pillowy milk bread filled with sweet Korean red bean paste and lightly whipped cream.
+        </div>
+        <div class="menu-card-footer">
+          <span class="menu-card-price" data-price="5.50">$5.50</span><!-- EDIT THIS: Price -->
+          <span class="menu-card-tag">Daily Special</span>
+        </div>
+      </div>
+
+      <!-- ===== MENU ITEM 3 ===== -->
+      <div class="menu-card">
+        <span class="menu-card-icon" aria-hidden="true">🍃</span>
+        <div class="menu-card-name">Matcha Danish</div>
+        <div class="menu-card-desc">
+          Flaky butter layers, premium ceremonial-grade matcha cream, dusted with powdered sugar.
+        </div>
+        <div class="menu-card-footer">
+          <span class="menu-card-price" data-price="6.50">$6.50</span><!-- EDIT THIS: Price -->
+          <span class="menu-card-tag">Staff Pick</span>
+        </div>
+      </div>
+
+      <!-- ===== MENU ITEM 4 ===== -->
+      <div class="menu-card">
+        <span class="menu-card-icon" aria-hidden="true">🍓</span>
+        <div class="menu-card-name">Strawberry Shortcake</div>
+        <div class="menu-card-desc">
+          Seasonal strawberries, cloud-light whipped cream, and a delicate génoise sponge.
+        </div>
+        <div class="menu-card-footer">
+          <span class="menu-card-price" data-price="8.00">$8.00</span><!-- EDIT THIS: Price -->
+          <span class="menu-card-tag">Seasonal</span>
+        </div>
+      </div>
+
+      <!-- ===== MENU ITEM 5 ===== -->
+      <div class="menu-card">
+        <span class="menu-card-icon" aria-hidden="true">🧇</span>
+        <div class="menu-card-name">Croffle</div>
+        <div class="menu-card-desc">
+          A croissant-waffle hybrid pressed golden. Cinnamon sugar, honeycomb butter on the side.
+        </div>
+        <div class="menu-card-footer">
+          <span class="menu-card-price" data-price="6.00">$6.00</span><!-- EDIT THIS: Price -->
+          <span class="menu-card-tag">Korean Trend</span>
+        </div>
+      </div>
+
+      <!-- ===== MENU ITEM 6 ===== -->
+      <div class="menu-card">
+        <span class="menu-card-icon" aria-hidden="true">☕</span>
+        <div class="menu-card-name">Hojicha Tiramisu</div>
+        <div class="menu-card-desc">
+          Roasted green tea meets Italian comfort. Mascarpone, espresso soak, hojicha dusting.
+        </div>
+        <div class="menu-card-footer">
+          <span class="menu-card-price" data-price="7.00">$7.00</span><!-- EDIT THIS: Price -->
+          <span class="menu-card-tag">Weekend Only</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================================================
+       ABOUT SECTION
+       Edit: the story paragraphs on the left
+       The right-side cards summarise your values
+       =================================================== -->
+  <section id="about">
+    <div class="about-inner">
+
+      <!-- LEFT: Story text -->
+      <div class="about-text">
+        <p class="section-label">Our Story</p>
+        <!-- EDIT THIS: About section heading -->
+        <h2 class="section-title">A family recipe, <em>every morning.</em></h2>
+
+        <!-- EDIT THIS: Your bakery story — change these paragraphs to your own story -->
+        <p>
+          Haru Bakery House began in 2021 with a simple idea: <strong>bake like you're feeding family.</strong>
+          Our founder grew up watching her grandmother shape red bean buns before sunrise in a small Seoul kitchen —
+          and that warmth is what we bring to Melbourne every single day.
+        </p>
+        <p>
+          We use <strong>no preservatives, no shortcuts</strong>. Just good flour, real butter, and seasonal
+          ingredients sourced locally. Everything you see in our cabinet was baked this morning.
+        </p>
+        <p>
+          Haru means "day" in Korean — a reminder that the best things are worth doing daily,
+          with full attention and care.
+        </p>
+      </div>
+
+      <!-- RIGHT: Value cards -->
+      <!-- EDIT THIS: Change the icons, titles, and descriptions in these cards -->
+      <div class="about-visual">
+        <div class="about-card">
+          <span class="about-card-icon" aria-hidden="true">🌅</span>
+          <div class="about-card-text">
+            <strong>Baked before sunrise</strong>
+            <span>Fresh out of the oven by 7:30am, every day</span>
+          </div>
+        </div>
+        <div class="about-card">
+          <span class="about-card-icon" aria-hidden="true">🌿</span>
+          <div class="about-card-text">
+            <strong>Local & seasonal</strong>
+            <span>Ingredients sourced from Melbourne markets</span>
+          </div>
+        </div>
+        <div class="about-card">
+          <span class="about-card-icon" aria-hidden="true">🇰🇷</span>
+          <div class="about-card-text">
+            <strong>Korean heritage</strong>
+            <span>Family recipes passed down three generations</span>
+          </div>
+        </div>
+        <div class="about-card">
+          <span class="about-card-icon" aria-hidden="true">❤️</span>
+          <div class="about-card-text">
+            <strong>Made with love</strong>
+            <span>Small batch, handcrafted — never mass produced</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================================================
+       VISIT US SECTION
+       Edit: address, hours, phone, Instagram handle
+       =================================================== -->
+  <section id="visit">
+    <div class="visit-header">
+      <p class="section-label">Come See Us</p>
+      <h2 class="section-title">You know where to find us</h2>
+      <p class="section-subtitle">We're tucked in the heart of Fitzroy. Look for the warm light and the smell of fresh bread.</p>
+    </div>
+
+    <div class="visit-grid">
+
+      <!-- EDIT THIS: Address card -->
+      <div class="visit-card">
+        <span class="visit-card-icon" aria-hidden="true">📍</span>
+        <h3>Location</h3>
+        <p>
+          <!-- EDIT THIS: Your address -->
+          142 Smith Street<br>
+          Fitzroy VIC 3065<br>
+          Melbourne, Australia
+        </p>
+        <a href="https://maps.google.com" target="_blank" rel="noopener" style="margin-top:0.75rem; color: var(--blush); font-weight:600; font-size:0.85rem;">
+          Get Directions →
+        </a>
+      </div>
+
+      <!-- EDIT THIS: Opening hours card -->
+      <div class="visit-card">
+        <span class="visit-card-icon" aria-hidden="true">🕗</span>
+        <h3>Opening Hours</h3>
+        <p>
+          <!-- EDIT THIS: Your opening hours -->
+          Tue – Fri: 7:30am – 5pm<br>
+          Sat – Sun: 8am – 4pm<br>
+          Monday: Closed
+        </p>
+        <span class="hours-note">Closed Mondays</span><!-- EDIT THIS: Closed day note -->
+      </div>
+
+      <!-- EDIT THIS: Contact card -->
+      <div class="visit-card">
+        <span class="visit-card-icon" aria-hidden="true">📱</span>
+        <h3>Get in Touch</h3>
+        <!-- EDIT THIS: Your phone number and Instagram handle -->
+        <a href="tel:+61398765432">(03) 9876 5432</a>
+        <a href="mailto:hello@harubakeryhouse.com">hello@harubakeryhouse.com</a>
+        <a href="https://www.instagram.com/harubakeryhouse/" target="_blank" rel="noopener" style="margin-top:0.5rem; font-weight:600; color: var(--blush);">
+          @harubakeryhouse
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================================================
+       INSTAGRAM / GALLERY SECTION
+       Replace the emoji tiles with actual photos if you have them
+       Or embed an Instagram widget here later
+       =================================================== -->
+  <section id="instagram">
+    <div class="insta-header">
+      <!-- EDIT THIS: Instagram section heading -->
+      <p class="section-label">On Instagram</p>
+      <h2 class="section-title" style="font-size:1.8rem;">@harubakeryhouse</h2>
+      <p>Follow along for daily bakes, behind-the-scenes moments, and limited specials.</p>
+    </div>
+
+    <!-- These are placeholder tiles — replace with real photos or an Instagram embed widget -->
+    <div class="insta-grid" aria-hidden="true">
+      <div class="insta-tile">🎂</div>
+      <div class="insta-tile">🥐</div>
+      <div class="insta-tile">🍵</div>
+      <div class="insta-tile">🍞</div>
+      <div class="insta-tile">🌸</div>
+      <div class="insta-tile">🍓</div>
+    </div>
+
+    <!-- EDIT THIS: Change the Instagram handle in the link below -->
+    <a href="https://www.instagram.com/harubakeryhouse/" target="_blank" rel="noopener" class="insta-follow-btn">
+      <span>📸</span> Follow on Instagram
+    </a>
+  </section>
+
+  <!-- ===================================================
+       FOOTER
+       Edit: bakery name, copyright year, Instagram link
+       =================================================== -->
+  <footer>
+    <!-- EDIT THIS: Footer logo / bakery name -->
+    <div class="footer-logo">Haru Bakery House</div>
+    <div class="footer-korean">하루 베이커리</div>
+    <!-- EDIT THIS: Change the year and Instagram handle -->
+    <p>© 2025 Haru Bakery House. Made with love in Melbourne. &nbsp;·&nbsp; <a href="https://www.instagram.com/harubakeryhouse/" target="_blank" rel="noopener">Instagram</a></p>
+  </footer>
+
+</body>
+</html>
