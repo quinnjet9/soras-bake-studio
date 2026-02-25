@@ -5,9 +5,9 @@
   <!-- EDIT THIS: Update the description for SEO -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="About Sora's Bake Studio — The story behind Fitzroy's favourite bakery. Hand-laminated pastries, made-to-order cakes, and a love for Korean home baking." />
+  <meta name="description" content="Contact Sora's Bake Studio — 142 Smith Street, Fitzroy VIC 3065. Custom cakes, catering enquiries, and general questions welcome." />
   <!-- EDIT THIS: Page tab title -->
-  <title>About — Sora's Bake Studio</title>
+  <title>Contact — Sora's Bake Studio</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -32,9 +32,9 @@
       <nav class="header__nav" aria-label="Main navigation">
         <a href="index.html">Home</a>
         <a href="menu.html">Menu</a>
+        <a href="about.html">About</a>
         <!-- "active" class underlines the current page link -->
-        <a href="about.html" class="active">About</a>
-        <a href="contact.html">Contact</a>
+        <a href="contact.html" class="active">Contact</a>
       </nav>
       <div style="display:flex;align-items:center;gap:8px;">
         <div class="header__icons">
@@ -75,164 +75,151 @@
 
   <!-- ===== MAIN CONTENT ===== -->
   <main>
-
-    <!-- ===== PAGE HERO IMAGE ===== -->
-    <!-- Full-width image at the top — no text overlay, just a visual opener -->
-    <!-- EDIT THIS: Change the background-image URL to update the hero photo -->
-    <div class="page-hero" style="background-image: url('https://images.unsplash.com/photo-1507048331197-7d4ac70811cf?w=1600&q=80');">
-      <div class="page-hero__overlay"></div>
-    </div>
-
-
-    <!-- ===== SORA'S STORY ===== -->
-    <!-- Centred story text, max 760px wide -->
     <section class="section">
       <div class="wrapper">
-        <div class="about-story">
-          <span class="eyebrow">Our Story</span>
-          <!-- EDIT THIS: Change this headline -->
-          <h1 class="about-story__headline">Hi, I'm Sora.</h1>
-          <!-- EDIT THIS: Change these paragraphs to update Sora's story -->
-          <p class="about-story__body">
-            I grew up watching my grandmother bake red bean buns every Sunday morning in her tiny Seoul
-            kitchen. The smell of butter and dough, the patience it takes, the way food brings people
-            together — that never left me.
-          </p>
-          <p class="about-story__body">
-            In 2020, I packed up my life in Sydney and moved to Melbourne with one goal: to open a bakery
-            that felt like home. Sora's Bake Studio has been open since 2021, and every single day I get
-            to do exactly what I love.
-          </p>
-        </div>
+
+        <!-- ===== PAGE HEADING ===== -->
+        <!-- EDIT THIS: Change this page title -->
+        <h1 class="page-title">Get in touch</h1>
+
+        <!-- ===== CONTACT LAYOUT ===== -->
+        <!-- Left: contact form — Right: business info -->
+        <div class="contact-layout">
+
+          <!-- ===== LEFT: CONTACT FORM ===== -->
+          <!-- EDIT THIS: Wire this form up to your email service -->
+          <!-- Options: Netlify Forms, Formspree (free), EmailJS, or a custom backend -->
+          <div>
+            <form class="contact-form" onsubmit="handleContactSubmit(event)">
+
+              <!-- Name field -->
+              <div class="form-group">
+                <label class="form-label" for="contactName">Name</label>
+                <input
+                  class="form-input"
+                  type="text"
+                  id="contactName"
+                  name="name"
+                  placeholder="Your full name"
+                  required
+                />
+              </div>
+
+              <!-- Email field -->
+              <div class="form-group">
+                <label class="form-label" for="contactEmail">Email</label>
+                <input
+                  class="form-input"
+                  type="email"
+                  id="contactEmail"
+                  name="email"
+                  placeholder="your@email.com"
+                  required
+                />
+              </div>
+
+              <!-- Subject dropdown -->
+              <!-- EDIT THIS: Add/remove subject options to match your business -->
+              <div class="form-group">
+                <label class="form-label" for="contactSubject">Subject</label>
+                <select class="form-select" id="contactSubject" name="subject">
+                  <option value="" disabled selected>Select a topic</option>
+                  <option>General Enquiry</option>
+                  <option>Custom Cake Order</option>
+                  <option>Catering Request</option>
+                  <option>Press &amp; Media</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <!-- Message textarea -->
+              <div class="form-group">
+                <label class="form-label" for="contactMessage">Message</label>
+                <textarea
+                  class="form-textarea"
+                  id="contactMessage"
+                  name="message"
+                  placeholder="How can we help you?"
+                  rows="6"
+                  required
+                ></textarea>
+              </div>
+
+              <!-- Submit button (full width) -->
+              <button type="submit" class="form-submit">Send Message</button>
+
+            </form>
+          </div>
+
+
+          <!-- ===== RIGHT: CONTACT INFORMATION ===== -->
+          <!-- EDIT THIS: Update all details below if anything changes -->
+          <div class="contact-info">
+            <h2 class="contact-info__heading">We'd love to hear from you</h2>
+
+            <!-- Address -->
+            <!-- EDIT THIS: Change address if the studio moves -->
+            <div class="contact-info__block">
+              <p class="contact-info__label">Address</p>
+              <p class="contact-info__value">
+                142 Smith Street<br>
+                Fitzroy VIC 3065<br>
+                Australia
+              </p>
+            </div>
+
+            <!-- Email -->
+            <!-- EDIT THIS: Change email address here and in the mailto: link -->
+            <div class="contact-info__block">
+              <p class="contact-info__label">Email</p>
+              <p class="contact-info__value">
+                <a href="mailto:hello@sorasbakestudio.com">hello@sorasbakestudio.com</a>
+              </p>
+            </div>
+
+            <!-- Phone -->
+            <!-- EDIT THIS: Change phone number here and in the tel: link -->
+            <div class="contact-info__block">
+              <p class="contact-info__label">Phone</p>
+              <p class="contact-info__value">
+                <a href="tel:+61398765432">(03) 9876 5432</a>
+              </p>
+            </div>
+
+            <!-- Business hours -->
+            <!-- EDIT THIS: Change opening hours if they change -->
+            <div class="contact-info__block">
+              <p class="contact-info__label">Hours</p>
+              <p class="contact-info__value">
+                Monday – Friday: 7am – 5pm<br>
+                Saturday – Sunday: 8am – 4pm
+              </p>
+            </div>
+
+            <!-- Instagram note -->
+            <!-- EDIT THIS: Update the Instagram handle if it changes -->
+            <div class="contact-info__block">
+              <p class="contact-info__label">Instagram</p>
+              <p class="contact-info__value">
+                <a href="https://instagram.com/sorasbakestudio" target="_blank" rel="noopener">@sorasbakestudio</a>
+              </p>
+            </div>
+
+            <!-- Response time -->
+            <div class="contact-info__block">
+              <p class="contact-info__label">Response time</p>
+              <p class="contact-info__value" style="color: var(--text-muted); font-size: 13px;">
+                We aim to respond to all enquiries within 1–2 business days.
+                For custom cake orders, please reach out at least 2 weeks in advance.
+              </p>
+            </div>
+
+          </div><!-- /contact-info -->
+
+        </div><!-- /contact-layout -->
+
       </div>
     </section>
-
-
-    <!-- ===== VALUES SECTION ===== -->
-    <!-- 3 value cards with icons — warm cream background -->
-    <section class="section" style="background-color: var(--bg-secondary); padding: 80px 0;">
-      <div class="wrapper">
-        <!-- EDIT THIS: Change this heading -->
-        <h2 class="section-title" style="text-align:center; margin-bottom: 56px;">What we stand for</h2>
-        <div class="values-grid">
-
-          <!-- EDIT THIS: Change the icons, titles, and descriptions to match your values -->
-
-          <!-- Value 1: Made from Scratch -->
-          <div class="value-card">
-            <!-- Mixing bowl / hands icon — represents handmade baking -->
-            <div class="value-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="48" height="48">
-                <path d="M17 8C8 10 5.9 16.17 3.82 19.93c-.55 1.01 .08 2.07 1.18 2.07 5.65 0 10.78-4.21 11.4-9.97l.4-3.97"/>
-                <path d="M10.13 10.4c1.01-1.5 2.07-2.8 3.64-3.4"/>
-              </svg>
-            </div>
-            <!-- EDIT THIS: Change value title -->
-            <h3 class="value-card__title">Made from Scratch</h3>
-            <!-- EDIT THIS: Change value description -->
-            <p class="value-card__body">
-              All doughs are hand-laminated here in our Fitzroy kitchen.
-              No pre-mixes, no shortcuts — just butter, flour, and time.
-            </p>
-          </div>
-
-          <!-- Value 2: Seasonally Inspired -->
-          <div class="value-card">
-            <!-- Sun/star icon — represents seasons -->
-            <div class="value-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="48" height="48">
-                <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-              </svg>
-            </div>
-            <!-- EDIT THIS: Change value title -->
-            <h3 class="value-card__title">Seasonally Inspired</h3>
-            <!-- EDIT THIS: Change value description -->
-            <p class="value-card__body">
-              Our menu changes with what's best each month. If the
-              strawberries aren't great, we find something that is.
-            </p>
-          </div>
-
-          <!-- Value 3: Community First -->
-          <div class="value-card">
-            <!-- Heart icon — represents community and connection -->
-            <div class="value-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="48" height="48">
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-              </svg>
-            </div>
-            <!-- EDIT THIS: Change value title -->
-            <h3 class="value-card__title">Community First</h3>
-            <!-- EDIT THIS: Change value description -->
-            <p class="value-card__body">
-              This studio is a place to slow down, connect, and belong.
-              We want everyone to feel welcome from the moment you walk in.
-            </p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ===== TEAM SECTION ===== -->
-    <!-- 3 team member cards with photos -->
-    <section class="section">
-      <div class="wrapper">
-        <!-- EDIT THIS: Change this heading -->
-        <h2 class="section-title">The team</h2>
-        <div class="team-grid">
-
-          <!-- EDIT THIS: Change photos, names, and job titles for each team member -->
-
-          <!-- Team Member 1: Sora — Head Baker & Founder -->
-          <div class="team-card">
-            <div class="team-card__image-wrap">
-              <!-- EDIT THIS: Replace with a real team photo URL -->
-              <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&q=80" alt="Sora — Head Baker and Founder" loading="lazy" />
-            </div>
-            <!-- EDIT THIS: Change name and title -->
-            <p class="team-card__name">Sora</p>
-            <p class="team-card__title">Head Baker &amp; Founder</p>
-          </div>
-
-          <!-- Team Member 2: Ji-ho — Pastry Chef -->
-          <div class="team-card">
-            <div class="team-card__image-wrap">
-              <!-- EDIT THIS: Replace with a real team photo URL -->
-              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Ji-ho — Pastry Chef" loading="lazy" />
-            </div>
-            <p class="team-card__name">Ji-ho</p>
-            <p class="team-card__title">Pastry Chef</p>
-          </div>
-
-          <!-- Team Member 3: Mia — Café Manager -->
-          <div class="team-card">
-            <div class="team-card__image-wrap">
-              <!-- EDIT THIS: Replace with a real team photo URL -->
-              <img src="https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=600&q=80" alt="Mia — Café Manager" loading="lazy" />
-            </div>
-            <p class="team-card__name">Mia</p>
-            <p class="team-card__title">Café Manager</p>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ===== CTA BANNER ===== -->
-    <!-- Warm cream background — pushes people to visit or contact -->
-    <section class="cta-banner">
-      <!-- EDIT THIS: Change headline and button text -->
-      <h2 class="cta-banner__headline">Come visit us</h2>
-      <!-- Links to contact page with address and directions -->
-      <a href="contact.html" class="btn btn--lg">Find us in Fitzroy</a>
-    </section>
-
   </main>
 
 
@@ -311,6 +298,7 @@
 
   <!-- ===== JAVASCRIPT ===== -->
   <script>
+
     // Announcement bar dismiss
     function dismissAnnouncement() {
       const bar = document.getElementById('announcementBar');
@@ -337,6 +325,18 @@
         burger.classList.add('is-open'); document.body.style.overflow = 'hidden';
       }
     }
+
+    // Contact form submit handler
+    // EDIT THIS: Replace the alert with your actual form handling
+    // Recommended services: Netlify Forms (free), Formspree (free), EmailJS
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('contactName').value;
+      // EDIT THIS: Replace this alert with your email service integration
+      alert('Thanks ' + name + '! We\'ll be in touch within 1–2 business days.');
+      e.target.reset(); // Clear the form fields
+    }
+
   </script>
 
 </body>

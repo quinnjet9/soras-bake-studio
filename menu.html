@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ===== HEAD / META ===== -->
+  <!-- EDIT THIS: Update the description for SEO -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Our Menu — Sora's Bake Studio. Croissants, pastries, cakes, drinks and seasonal specials. Made fresh daily in Fitzroy, Melbourne." />
+  <!-- EDIT THIS: Page tab title -->
+  <title>Our Menu — Sora's Bake Studio</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Shared stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== ANNOUNCEMENT BAR ===== -->
+  <div class="announcement-bar" id="announcementBar">
+    ✦ Fresh bakes out daily from 7am &nbsp;✦&nbsp; Order custom cakes — <strong>DM us @sorasbakestudio</strong>
+    <button class="announcement-bar__close" onclick="dismissAnnouncement()" aria-label="Dismiss">×</button>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header" id="siteHeader">
+    <div class="header__inner">
+      <!-- EDIT THIS: Change brand name if needed -->
+      <a href="index.html" class="header__logo">Sora's Bake Studio</a>
+      <nav class="header__nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <!-- "active" class underlines the current page link -->
+        <a href="menu.html" class="active">Menu</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="header__icons">
+          <button class="header__icon-btn header__icon-btn--search" aria-label="Search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </button>
+          <button class="header__icon-btn header__icon-btn--account" aria-label="Account">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+          </button>
+          <button class="header__icon-btn" aria-label="View order">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+          </button>
+        </div>
+        <button class="header__hamburger" id="hamburgerBtn" aria-label="Open menu" onclick="toggleDrawer()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MOBILE DRAWER ===== -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <nav class="mobile-drawer__nav">
+      <a href="index.html">Home</a>
+      <a href="menu.html">Menu</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+  <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
+
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main>
+    <section class="section">
+      <div class="wrapper">
+
+        <!-- ===== BREADCRUMB ===== -->
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <span class="breadcrumb__sep">›</span>
+          <span>Menu</span>
+        </nav>
+
+        <!-- ===== PAGE TITLE ===== -->
+        <!-- EDIT THIS: Change the page heading -->
+        <h1 class="page-title">Our Menu</h1>
+
+        <!-- ===== FILTER BAR ===== -->
+        <!-- Click a tag to highlight it — add real filtering logic when you have a backend -->
+        <div class="filter-bar">
+
+          <!-- EDIT THIS: Add/remove filter tags to match your categories -->
+          <div class="filter-bar__tags">
+            <button class="filter-tag active" onclick="setFilter(this)">All</button>
+            <button class="filter-tag" onclick="setFilter(this)">Croissants &amp; Pastries</button>
+            <button class="filter-tag" onclick="setFilter(this)">Cakes &amp; Tarts</button>
+            <button class="filter-tag" onclick="setFilter(this)">Drinks</button>
+            <button class="filter-tag" onclick="setFilter(this)">Seasonal</button>
+          </div>
+
+          <!-- Sort dropdown -->
+          <!-- EDIT THIS: Add/remove sort options as needed -->
+          <select class="sort-select" aria-label="Sort menu items">
+            <option>Sort: Featured</option>
+            <option>Price: Low to High</option>
+            <option>Price: High to Low</option>
+          </select>
+
+        </div>
+
+
+        <!-- ===== MENU ITEMS GRID (24 items) ===== -->
+        <!-- 4 columns on desktop, 2 on mobile -->
+        <!-- EDIT THIS: Change product names, prices, images, and badges throughout -->
+        <div class="product-grid">
+
+          <!-- ——————————————————
+               HOW TO EDIT MENU ITEMS:
+               1. Change img src= URLs to your own food photos
+               2. Change item names and prices
+               3. Add/remove badges as needed
+               4. Remove the badge span entirely if no badge is needed
+          —————————————————— -->
+
+          <!-- Item 1: Butter Croissant — Fan Fave -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80"
+                   alt="Butter Croissant" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=600&q=80"
+                   alt="" loading="lazy" />
+              <span class="product-card__badge product-card__badge--fave">Fan Fave</span>
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Butter Croissant</p>
+            <div class="product-card__price">$5.50</div>
+          </div>
+
+          <!-- Item 2: Matcha Latte -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=600&q=80"
+                   alt="Matcha Latte" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=600&q=80"
+                   alt="" loading="lazy" />
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Matcha Latte</p>
+            <div class="product-card__price">$7.00</div>
+          </div>
+
+          <!-- Item 3: Strawberry Tart — Seasonal -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=80"
+                   alt="Strawberry Tart" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80"
+                   alt="" loading="lazy" />
+              <span class="product-card__badge">Seasonal</span>
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Strawberry Tart</p>
+            <div class="product-card__price">$8.50</div>
+          </div>
+
+          <!-- Item 4: Pain au Chocolat -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1623334044303-241021148842?w=600&q=80"
+                   alt="Pain au Chocolat" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80"
+                   alt="" loading="lazy" />
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Pain au Chocolat</p>
+            <div class="product-card__price">$6.00</div>
+          </div>
+
+          <!-- Item 5: Honey Cake Slice — New -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&q=80"
+                   alt="Honey Cake Slice" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=600&q=80"
+                   alt="" loading="lazy" />
+              <span class="product-card__badge">New</span>
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Honey Cake Slice</p>
+            <div class="product-card__price">$9.00</div>
+          </div>
+
+          <!-- Item 6: Cinnamon Roll -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=600&q=80"
+                   alt="Cinnamon Roll" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1602351447937-745cb720612f?w=600&q=80"
+                   alt="" loading="lazy" />
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Cinnamon Roll</p>
+            <div class="product-card__price">$7.50</div>
+          </div>
+
+          <!-- Item 7: Almond Croissant -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1603532648955-039310d9ed75?w=600&q=80"
+                   alt="Almond Croissant" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80"
+                   alt="" loading="lazy" />
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Almond Croissant</p>
+            <div class="product-card__price">$7.00</div>
+          </div>
+
+          <!-- Item 8: Bento Cake — Popular -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80"
+                   alt="Bento Cake" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=600&q=80"
+                   alt="" loading="lazy" />
+              <span class="product-card__badge">Popular</span>
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Bento Cake</p>
+            <div class="product-card__price">$55.00</div>
+          </div>
+
+          <!-- Item 9: Lemon Tart -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=600&q=80"
+                   alt="Lemon Tart" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80"
+                   alt="" loading="lazy" />
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Lemon Tart</p>
+            <div class="product-card__price">$8.50</div>
+          </div>
+
+          <!-- Item 10: Kouign Amann -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&q=80"
+                   alt="Kouign Amann" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1623334044303-241021148842?w=600&q=80"
+                   alt="" loading="lazy" />
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Kouign Amann</p>
+            <div class="product-card__price">$7.00</div>
+          </div>
+
+          <!-- Item 11: Madeleine (3pk) -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600&q=80"
+                   alt="Madeleine 3-pack" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=600&q=80"
+                   alt="" loading="lazy" />
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Madeleine (3pk)</p>
+            <div class="product-card__price">$9.00</div>
+          </div>
+
+          <!-- Item 12: Choux au Craquelin -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1532499016263-f2c3e89de9cd?w=600&q=80"
+                   alt="Choux au Craquelin" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=600&q=80"
+                   alt="" loading="lazy" />
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Choux au Craquelin</p>
+            <div class="product-card__price">$8.00</div>
+          </div>
+
+          <!-- Item 13: Hojicha Roll Cake -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&q=80"
+                   alt="Hojicha Roll Cake" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80"
+                   alt="" loading="lazy" />
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Hojicha Roll Cake</p>
+            <div class="product-card__price">$12.00</div>
+          </div>
+
+          <!-- Item 14: Canelé (2pk) -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1586985288123-2495f577dd09?w=600&q=80"
+                   alt="Canelé 2-pack" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=600&q=80"
+                   alt="" loading="lazy" />
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Canelé (2pk)</p>
+            <div class="product-card__price">$10.00</div>
+          </div>
+
+          <!-- Item 15: Miso Caramel Cookie -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=600&q=80"
+                   alt="Miso Caramel Cookie" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600&q=80"
+                   alt="" loading="lazy" />
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Miso Caramel Cookie</p>
+            <div class="product-card__price">$5.00</div>
+          </div>
+
+          <!-- Item 16: Sesame Pound Cake -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=600&q=80"
+                   alt="Sesame Pound Cake" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&q=80"
+                   alt="" loading="lazy" />
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Sesame Pound Cake</p>
+            <div class="product-card__price">$11.00</div>
+          </div>
+
+          <!-- Item 17: Earl Grey Scone -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=600&q=80"
+                   alt="Earl Grey Scone" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&q=80"
+                   alt="" loading="lazy" />
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Earl Grey Scone</p>
+            <div class="product-card__price">$6.50</div>
+          </div>
+
+          <!-- Item 18: Custard Danish -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1559622214-f8a9850965bb?w=600&q=80"
+                   alt="Custard Danish" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1602351447937-745cb720612f?w=600&q=80"
+                   alt="" loading="lazy" />
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Custard Danish</p>
+            <div class="product-card__price">$7.00</div>
+          </div>
+
+          <!-- Item 19: Black Sesame Croissant — New badge -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1603532648955-039310d9ed75?w=600&q=80"
+                   alt="Black Sesame Croissant" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=600&q=80"
+                   alt="" loading="lazy" />
+              <span class="product-card__badge">New</span>
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Black Sesame Croissant</p>
+            <div class="product-card__price">$7.50</div>
+          </div>
+
+          <!-- Item 20: Custom Birthday Cake — Popular badge -->
+          <!-- EDIT THIS: Update the price format if needed (e.g. "from $85") -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?w=600&q=80"
+                   alt="Custom Birthday Cake" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80"
+                   alt="" loading="lazy" />
+              <span class="product-card__badge">Popular</span>
+              <button class="product-card__quick-add">Enquire</button>
+            </div>
+            <p class="product-card__name">Custom Birthday Cake</p>
+            <div class="product-card__price">From $85.00</div>
+          </div>
+
+          <!-- Item 21: Rose Latte -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=600&q=80"
+                   alt="Rose Latte" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=600&q=80"
+                   alt="" loading="lazy" />
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Rose Latte</p>
+            <div class="product-card__price">$7.50</div>
+          </div>
+
+          <!-- Item 22: Iced Matcha -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=600&q=80"
+                   alt="Iced Matcha" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=600&q=80"
+                   alt="" loading="lazy" />
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Iced Matcha</p>
+            <div class="product-card__price">$8.00</div>
+          </div>
+
+          <!-- Item 23: Korean Corn Dog -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1612392166886-ee8475b03af2?w=600&q=80"
+                   alt="Korean Corn Dog" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=600&q=80"
+                   alt="" loading="lazy" />
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Korean Corn Dog</p>
+            <div class="product-card__price">$6.00</div>
+          </div>
+
+          <!-- Item 24: Tiramisu Cup -->
+          <div class="product-card">
+            <div class="product-card__image-wrap">
+              <img class="product-card__img"
+                   src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&q=80"
+                   alt="Tiramisu Cup" loading="lazy" />
+              <img class="product-card__img--hover"
+                   src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&q=80"
+                   alt="" loading="lazy" />
+              <button class="product-card__quick-add">Add to order</button>
+            </div>
+            <p class="product-card__name">Tiramisu Cup</p>
+            <div class="product-card__price">$10.00</div>
+          </div>
+
+        </div><!-- /product-grid -->
+
+        <!-- Note: All 24 items displayed on one page — no pagination needed -->
+
+      </div>
+    </section>
+  </main>
+
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer__grid">
+
+      <!-- Column 1: Brand -->
+      <div>
+        <p class="footer__brand-name">Sora's Bake Studio</p>
+        <p class="footer__tagline">Handcrafted with love, every single morning.</p>
+        <div class="footer__socials">
+          <a href="https://instagram.com/sorasbakestudio" class="footer__social-link" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </a>
+          <a href="#" class="footer__social-link" aria-label="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+          </a>
+          <a href="#" class="footer__social-link" aria-label="TikTok">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 2: Menu links -->
+      <div>
+        <p class="footer__col-heading">Menu</p>
+        <ul class="footer__links">
+          <li><a href="menu.html">All Items</a></li>
+          <li><a href="menu.html">Croissants &amp; Pastries</a></li>
+          <li><a href="menu.html">Cakes &amp; Tarts</a></li>
+          <li><a href="menu.html">Seasonal Specials</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Visit Us -->
+      <div>
+        <p class="footer__col-heading">Visit Us</p>
+        <ul class="footer__links">
+          <li><a href="contact.html">Find Us</a></li>
+          <li><a href="contact.html">Opening Hours</a></li>
+          <li><a href="contact.html">Custom Orders</a></li>
+          <li><a href="contact.html">Catering</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4: About -->
+      <div>
+        <p class="footer__col-heading">About</p>
+        <ul class="footer__links">
+          <li><a href="about.html">Our Story</a></li>
+          <li><a href="about.html">Meet the Team</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+
+    </div><!-- /footer__grid -->
+
+    <div class="footer__bottom">
+      <span>© 2025 Sora's Bake Studio. All rights reserved.</span>
+      <div class="footer__bottom-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+
+  </footer>
+
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+
+    // Announcement bar dismiss
+    function dismissAnnouncement() {
+      const bar = document.getElementById('announcementBar');
+      if (bar) {
+        bar.style.display = 'none';
+        sessionStorage.setItem('announcementDismissed', 'true');
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+      if (sessionStorage.getItem('announcementDismissed') === 'true') {
+        const bar = document.getElementById('announcementBar');
+        if (bar) bar.style.display = 'none';
+      }
+    });
+
+    // Mobile drawer toggle
+    function toggleDrawer() {
+      const drawer  = document.getElementById('mobileDrawer');
+      const overlay = document.getElementById('drawerOverlay');
+      const burger  = document.getElementById('hamburgerBtn');
+      const isOpen  = drawer.classList.contains('is-open');
+      if (isOpen) {
+        drawer.classList.remove('is-open');
+        overlay.classList.remove('is-visible');
+        burger.classList.remove('is-open');
+        document.body.style.overflow = '';
+      } else {
+        drawer.classList.add('is-open');
+        overlay.classList.add('is-visible');
+        burger.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    // Filter tag toggle — visual only
+    // EDIT THIS: Add real category filtering logic here when you have a backend
+    function setFilter(btn) {
+      document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+  </script>
+
+</body>
+</html>
