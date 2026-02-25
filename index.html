@@ -4,476 +4,858 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- EDIT THIS: Browser tab title -->
-  <title>Sora's Bake Studio — Homemade Cakes, Melbourne</title>
+  <title>Sora's Bake Studio — Korean Bakery, Melbourne</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <!-- DM Sans: clean, modern, minimal -->
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <!-- Assistant: clean geometric sans-serif, closest to Dawn's default feel -->
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     /* ============================================================
-       COLOURS — Edit these to change the whole site
+       DESIGN TOKENS — change these to rebrand the whole site
        ============================================================ */
     :root {
-      --white: #ffffff;
-      --off-white: #fafaf8;       /* EDIT THIS: Page background */
-      --pink: #f2c4b2;            /* EDIT THIS: Accent pink (used for borders, highlights) */
-      --pink-dark: #d4907a;       /* EDIT THIS: Darker pink for hover states */
-      --text: #1a1410;            /* EDIT THIS: Main dark text colour */
-      --text-mid: #6b5c53;        /* EDIT THIS: Secondary text colour */
-      --text-light: #b0a097;      /* Light/muted text */
-      --border: #ede8e3;          /* Subtle border */
-      --card-shadow: 0 2px 20px rgba(0,0,0,0.06);
-      --card-shadow-hover: 0 8px 40px rgba(0,0,0,0.12);
+      /* EDIT: Colours */
+      --bg:          #ffffff;           /* Page background */
+      --bg-alt:      #fdf9f7;           /* Alternate section background (very light warm blush) */
+      --text:        #1a1410;           /* Main text */
+      --text-mid:    #6b5c53;           /* Secondary text */
+      --text-muted:  #a89890;           /* Captions, labels */
+      --accent:      #e8b4a0;           /* EDIT: Brand accent colour — soft blush pink */
+      --accent-dark: #c4917a;           /* Darker version for hover states */
+      --border:      #e8e3de;           /* Borders and dividers */
+      --announcement-bg: #3d2b1f;       /* Announcement bar background */
+      --announcement-text: rgba(255,255,255,0.85);
+
+      /* EDIT: Typography */
+      --font: 'Assistant', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      /* EDIT: Spacing — how much padding sections get */
+      --section-pad: 5rem 4rem;
+      --section-pad-sm: 4rem 1.5rem;
     }
 
+    /* ============================================================
+       BASE RESET
+       ============================================================ */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--text); line-height: 1.6; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+    button { font-family: var(--font); cursor: pointer; }
 
     /* ============================================================
-       ANNOUNCEMENT BAR — thin strip at the very top
+       ANNOUNCEMENT BAR
        ============================================================ */
     .announcement-bar {
-      background: var(--text);
-      color: rgba(255,255,255,0.85);
+      background: var(--announcement-bg);
+      color: var(--announcement-text);
       text-align: center;
-      padding: 0.5rem 1rem;
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
+      font-size: 0.8125rem;           /* 13px */
+      letter-spacing: 0.06em;
+      padding: 0.625rem 1rem;
     }
-    /* EDIT THIS: Announcement bar text */
-    .announcement-bar a { color: var(--pink); text-decoration: none; }
+    /* EDIT THIS: Announcement link colour */
+    .announcement-bar a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
 
     /* ============================================================
-       NAVIGATION
+       HEADER / NAV — Dawn-style: logo left, links right
        ============================================================ */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: var(--white);
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--bg);
       border-bottom: 1px solid var(--border);
-      padding: 0 3rem;
-      height: 64px;
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
     }
 
-    /* Left: nav links */
-    .nav-left { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-left a { text-decoration: none; color: var(--text-mid); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
-    .nav-left a:hover, .nav-left a.active { color: var(--text); }
-
-    /* Centre: logo */
-    .nav-logo { text-align: center; text-decoration: none; }
-    /* EDIT THIS: Bakery name in nav */
-    .nav-logo-main { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 500; color: var(--text); letter-spacing: 0.05em; display: block; line-height: 1; }
-    .nav-logo-sub { font-size: 0.62rem; color: var(--text-light); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 2px; display: block; }
-
-    /* Right: social icons */
-    .nav-right { display: flex; gap: 1rem; justify-content: flex-end; align-items: center; }
-    .nav-right a { color: var(--text-mid); transition: color 0.2s; text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
-    .nav-right a:hover { color: var(--text); }
-    /* Social SVG icons */
-    .nav-icon { width: 18px; height: 18px; fill: none; stroke: var(--text-mid); stroke-width: 1.5; transition: stroke 0.2s; }
-    .nav-right a:hover .nav-icon { stroke: var(--text); }
-
-    /* ============================================================
-       HERO SECTION
-       ============================================================ */
-    #hero {
-      /* EDIT THIS: Hero background photo */
-      background-image:
-        linear-gradient(to right, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.6) 55%, rgba(255,255,255,0.1) 100%),
-        url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1800&q=85&fit=crop&crop=right');
-      background-size: cover;
-      background-position: center right;
-      min-height: 580px;
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 4rem;
+      height: 68px;
       display: flex;
       align-items: center;
-      padding: 4rem 3rem;
+      justify-content: space-between;
+      gap: 2rem;
     }
 
-    .hero-content { max-width: 520px; }
-
-    /* EDIT THIS: Small label above headline */
-    .hero-eyebrow { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pink-dark); margin-bottom: 1rem; }
-
-    /* EDIT THIS: Main headline */
-    .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 400; color: var(--text); line-height: 1.1; margin-bottom: 1.2rem; }
-    .hero-title em { font-style: italic; }
-
-    /* EDIT THIS: Subtitle */
-    .hero-subtitle { font-size: 0.98rem; color: var(--text-mid); margin-bottom: 2.2rem; line-height: 1.75; max-width: 400px; }
-
-    .hero-buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-
-    /* Filled button */
-    .btn-dark { background: var(--text); color: var(--white); padding: 0.8rem 1.8rem; text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: background 0.2s; }
-    .btn-dark:hover { background: #3d2b1f; }
-
-    /* Outlined button */
-    .btn-outline { background: transparent; color: var(--text); padding: 0.8rem 1.8rem; text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; border: 1.5px solid var(--text); transition: background 0.2s, color 0.2s; }
-    .btn-outline:hover { background: var(--text); color: var(--white); }
-
-    /* ============================================================
-       DIVIDER — thin pink line between sections
-       ============================================================ */
-    .section-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
-
-    /* ============================================================
-       BEST SELLING CAKES SECTION
-       ============================================================ */
-    #bestsellers { padding: 5rem 3rem; }
-
-    .section-header { text-align: center; margin-bottom: 3rem; }
-    /* EDIT THIS: Section label */
-    .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.6rem; display: block; }
-    /* EDIT THIS: Section heading */
-    .section-heading { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 400; color: var(--text); }
-
-    /* 4-column product grid */
-    .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; max-width: 1200px; margin: 0 auto 2.5rem; }
-
-    /* Product card */
-    .product-card { background: var(--white); border: 1px solid var(--border); text-decoration: none; color: var(--text); display: block; transition: box-shadow 0.25s, transform 0.25s; }
-    .product-card:hover { box-shadow: var(--card-shadow-hover); transform: translateY(-3px); }
-
-    /* Product photo */
-    /* EDIT THIS: Each card's background-image — search "product-card" in CSS */
-    .product-card-photo { aspect-ratio: 1; background-size: cover; background-position: center; position: relative; overflow: hidden; }
-    .product-card-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
-    .product-card:hover .product-card-photo img { transform: scale(1.04); }
-
-    /* "Bestseller" badge on photo */
-    .product-badge { position: absolute; top: 0.7rem; left: 0.7rem; background: var(--text); color: var(--white); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.55rem; }
-
-    /* Product card body */
-    .product-card-body { padding: 1rem 1rem 1.2rem; border-top: 1px solid var(--border); }
-    /* EDIT THIS: Product name */
-    .product-card-name { font-size: 0.88rem; font-weight: 500; color: var(--text); margin-bottom: 0.2rem; }
-    /* EDIT THIS: Product price */
-    .product-card-price { font-size: 0.82rem; color: var(--text-mid); }
-
-    /* "View all cakes" link */
-    .view-all-link { text-align: center; }
-    .view-all-link a { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); text-decoration: none; border-bottom: 1.5px solid var(--text); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
-    .view-all-link a:hover { color: var(--pink-dark); border-color: var(--pink-dark); }
-
-    /* ============================================================
-       ABOUT BANNER — full-width strip with text + photo
-       ============================================================ */
-    #about-banner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 420px;
+    /* EDIT THIS: Bakery name in header */
+    .header-logo {
+      text-decoration: none;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+      flex-shrink: 0;
     }
 
-    .about-banner-photo {
-      /* EDIT THIS: About banner photo */
-      background-image: url('https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=900&q=85&fit=crop');
+    /* Desktop nav links */
+    .header-nav {
+      display: flex;
+      gap: 0;
+      list-style: none;
+    }
+
+    .header-nav a {
+      display: block;
+      padding: 0.5rem 1.1rem;
+      text-decoration: none;
+      font-size: 0.875rem;            /* 14px */
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: 0.01em;
+      transition: color 0.15s;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;             /* Aligns underline with header border */
+    }
+
+    .header-nav a:hover { color: var(--text-mid); }
+    .header-nav a.active { border-bottom-color: var(--text); }
+
+    /* Right side icons / actions */
+    .header-actions {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .header-icon-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px; height: 40px;
+      background: none;
+      border: none;
+      color: var(--text);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .header-icon-btn:hover { color: var(--text-mid); }
+    .header-icon-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+
+    /* ============================================================
+       HERO — full-width image, text over a gradient overlay
+       ============================================================ */
+    .hero {
+      position: relative;
+      height: min(680px, 80vh);
+      overflow: hidden;
+    }
+
+    /* EDIT THIS: Hero background photo URL */
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1800&q=85&fit=crop');
       background-size: cover;
       background-position: center;
     }
 
-    .about-banner-text {
-      background: var(--text);
-      color: var(--white);
-      padding: 4rem 3.5rem;
+    /* Subtle gradient so white text reads */
+    .hero-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right,
+        rgba(253,249,247,0.88) 0%,
+        rgba(253,249,247,0.55) 50%,
+        rgba(253,249,247,0.05) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 4rem;
+      height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      gap: 1.5rem;
     }
 
-    .about-banner-text .section-label { color: rgba(255,255,255,0.4); margin-bottom: 0.75rem; }
-    .about-banner-text h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 400; color: var(--white); margin-bottom: 1.2rem; line-height: 1.2; }
-    /* EDIT THIS: About banner text */
-    .about-banner-text p { font-size: 0.95rem; color: rgba(255,255,255,0.65); line-height: 1.8; margin-bottom: 2rem; max-width: 420px; }
-    .btn-light { background: transparent; color: var(--white); padding: 0.8rem 1.8rem; text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; border: 1.5px solid rgba(255,255,255,0.5); transition: background 0.2s, border-color 0.2s; display: inline-block; }
-    .btn-light:hover { background: rgba(255,255,255,0.1); border-color: white; }
+    /* EDIT THIS: Small tagline above headline */
+    .hero-eyebrow {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-dark);
+    }
+
+    /* EDIT THIS: Main headline */
+    .hero-title {
+      font-size: clamp(2.25rem, 4.5vw, 3.75rem);
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      max-width: 600px;
+    }
+
+    /* EDIT THIS: Subtitle paragraph */
+    .hero-subtitle {
+      font-size: 1rem;
+      color: var(--text-mid);
+      max-width: 420px;
+      line-height: 1.65;
+    }
+
+    /* EDIT THIS: Button label and link */
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.75rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      align-self: flex-start;
+    }
+
+    .btn-solid {
+      background: var(--text);
+      color: #fff;
+      border: 1.5px solid var(--text);
+    }
+    .btn-solid:hover { background: #3d2b1f; border-color: #3d2b1f; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--text);
+    }
+    .btn-outline:hover { background: var(--text); color: #fff; }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #fff;
+      border: 1.5px solid var(--accent);
+    }
+    .btn-accent:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
 
     /* ============================================================
-       REVIEWS SECTION
+       SECTION TYPOGRAPHY HELPERS
        ============================================================ */
-    #reviews { padding: 5rem 3rem; background: var(--white); }
+    .section-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
 
-    .reviews-header { text-align: center; margin-bottom: 0.5rem; }
-    .reviews-stars { text-align: center; font-size: 1.1rem; color: #c9a96e; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
-    .reviews-count { text-align: center; font-size: 0.8rem; color: var(--text-light); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 3rem; }
+    .section-title {
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
 
-    /* 3-column review cards */
-    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; max-width: 1000px; margin: 0 auto; }
+    .section-subtitle {
+      font-size: 0.9375rem;
+      color: var(--text-mid);
+      max-width: 480px;
+    }
 
-    .review-card { background: var(--off-white); border: 1px solid var(--border); padding: 1.75rem 1.5rem; }
-    .review-stars { font-size: 0.85rem; color: #c9a96e; margin-bottom: 0.75rem; letter-spacing: 0.05em; }
-    /* EDIT THIS: Review text */
-    .review-text { font-size: 0.9rem; color: var(--text-mid); line-height: 1.75; margin-bottom: 1rem; font-style: italic; }
-    .review-author { font-size: 0.78rem; font-weight: 500; color: var(--text); letter-spacing: 0.05em; text-transform: uppercase; }
+    /* ============================================================
+       FEATURED PRODUCTS SECTION
+       ============================================================ */
+    .featured {
+      padding: var(--section-pad);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .featured-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      gap: 1rem;
+    }
+
+    .view-all {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      border-bottom: 1px solid var(--text);
+      padding-bottom: 1px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .view-all:hover { color: var(--text-mid); border-color: var(--text-mid); }
+
+    /* 4-column product grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* Dawn-style product card */
+    .product-card {
+      text-decoration: none;
+      color: var(--text);
+      display: block;
+    }
+
+    .product-card-media {
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: var(--bg-alt);
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .product-card-media img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .product-card:hover .product-card-media img {
+      transform: scale(1.04);
+    }
+
+    /* Badge pill on photo */
+    .product-badge {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+    }
+
+    /* EDIT THIS: Product name and price */
+    .product-card-info { display: flex; flex-direction: column; gap: 0.2rem; }
+    .product-card-name { font-size: 0.9375rem; font-weight: 600; color: var(--text); }
+    .product-card-price { font-size: 0.875rem; color: var(--text-mid); }
+
+    /* ============================================================
+       DIVIDER LINE
+       ============================================================ */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0;
+    }
+
+    /* ============================================================
+       IMAGE + TEXT SECTION (Dawn's "Image with text" block)
+       ============================================================ */
+    .image-text {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 480px;
+    }
+
+    .image-text-media {
+      overflow: hidden;
+    }
+
+    .image-text-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+
+    .image-text-media:hover img { transform: scale(1.03); }
+
+    .image-text-body {
+      padding: 4rem 5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.25rem;
+      background: var(--bg-alt);
+    }
+
+    /* Flip order on alternating sections */
+    .image-text.reverse .image-text-media { order: 2; }
+    .image-text.reverse .image-text-body   { order: 1; background: var(--bg); }
+
+    /* ============================================================
+       REVIEWS — Dawn-style: star count, then card grid
+       ============================================================ */
+    .reviews {
+      padding: var(--section-pad);
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .reviews-header { text-align: center; margin-bottom: 2.5rem; }
+
+    .star-rating {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .star-rating svg { width: 18px; height: 18px; fill: var(--accent); }
+
+    .reviews-count {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* EDIT THIS: Review card content */
+    .review-card {
+      padding: 2rem;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+    }
+
+    .review-stars { display: flex; gap: 0.15rem; margin-bottom: 1rem; }
+    .review-stars svg { width: 14px; height: 14px; fill: var(--accent); }
+    .review-text { font-size: 0.9375rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 1rem; }
+    .review-author { font-size: 0.8125rem; font-weight: 600; color: var(--text); letter-spacing: 0.04em; text-transform: uppercase; }
+
+    /* ============================================================
+       NEWSLETTER STRIP
+       ============================================================ */
+    .newsletter {
+      background: var(--bg-alt);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 3.5rem 4rem;
+      text-align: center;
+    }
+
+    .newsletter h2 {
+      font-size: 1.375rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    .newsletter p {
+      font-size: 0.9375rem;
+      color: var(--text-mid);
+      margin-bottom: 1.5rem;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 0;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    /* EDIT THIS: Newsletter email input */
+    .newsletter-form input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      font-family: var(--font);
+      border: 1.5px solid var(--text);
+      border-right: none;
+      outline: none;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .newsletter-form input::placeholder { color: var(--text-muted); }
+
+    .newsletter-form button {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      background: var(--text);
+      color: #fff;
+      border: 1.5px solid var(--text);
+      transition: background 0.15s;
+    }
+    .newsletter-form button:hover { background: #3d2b1f; border-color: #3d2b1f; }
 
     /* ============================================================
        FOOTER
        ============================================================ */
     footer {
-      background: var(--white);
-      border-top: 1px solid var(--border);
-      padding: 3rem 3rem 2rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 2rem;
+      padding: 3.5rem 4rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
-    .footer-col h4 { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text); margin-bottom: 1rem; }
-    .footer-col p, .footer-col a { font-size: 0.85rem; color: var(--text-mid); line-height: 1.9; text-decoration: none; display: block; }
-    .footer-col a:hover { color: var(--text); }
-    .footer-col.center { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .footer-logo-main { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--text); margin-bottom: 0.3rem; }
-    .footer-logo-sub { font-size: 0.65rem; color: var(--text-light); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem; }
-    .footer-social { display: flex; gap: 1rem; margin-top: 0.5rem; }
-    .footer-social a { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; }
-    .footer-social a:hover { color: var(--text); }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+    }
 
-    /* Footer copyright bar */
-    .footer-bottom { grid-column: 1 / -1; border-top: 1px solid var(--border); padding-top: 1.5rem; margin-top: 1rem; text-align: center; font-size: 0.78rem; color: var(--text-light); }
+    /* EDIT THIS: Footer bakery name and tagline */
+    .footer-brand-name { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.4rem; }
+    .footer-brand-sub  { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .footer-brand-desc { font-size: 0.875rem; color: var(--text-mid); line-height: 1.65; max-width: 260px; }
+
+    .footer-col h4 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-col a { font-size: 0.875rem; color: var(--text-mid); text-decoration: none; transition: color 0.15s; }
+    .footer-col a:hover { color: var(--text); }
+
+    /* EDIT THIS: Copyright year */
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
 
     /* ============================================================
-       RESPONSIVE
+       MOBILE / RESPONSIVE
        ============================================================ */
-    @media (max-width: 1000px) {
+    @media (max-width: 1100px) {
+      :root { --section-pad: 4rem 2.5rem; }
+      .header-inner { padding: 0 2.5rem; }
+      .hero-content { padding: 0 2.5rem; }
+      .image-text-body { padding: 3rem; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      footer { padding: 3rem 2.5rem 2rem; }
+    }
+
+    @media (max-width: 900px) {
       .product-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 800px) {
-      nav { padding: 0 1.5rem; }
-      #hero { padding: 3rem 1.5rem; min-height: 480px; }
-      #bestsellers, #reviews { padding: 4rem 1.5rem; }
-      .about-banner-text { padding: 3rem 2rem; }
-      #about-banner { grid-template-columns: 1fr; }
-      .about-banner-photo { min-height: 280px; order: -1; }
+      .image-text { grid-template-columns: 1fr; }
+      .image-text-media { min-height: 300px; order: 0 !important; }
+      .image-text-body { order: 1 !important; }
       .reviews-grid { grid-template-columns: 1fr; }
-      footer { grid-template-columns: 1fr; padding: 2.5rem 1.5rem; }
-      .footer-col.center { align-items: flex-start; text-align: left; }
     }
-    @media (max-width: 600px) {
-      nav { grid-template-columns: auto 1fr auto; gap: 1rem; padding: 0 1rem; }
-      .nav-left { gap: 1.2rem; }
-      /* Hide right nav on small screens */
-      .nav-right { display: none; }
-      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+
+    @media (max-width: 680px) {
+      :root { --section-pad: var(--section-pad-sm); }
+      .header-inner { padding: 0 1.25rem; }
+      .hero-content { padding: 0 1.5rem; }
+      /* Hide nav links, keep logo + instagram icon on mobile */
+      .header-nav { display: none; }
+      .newsletter { padding: 3rem 1.5rem; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-form input { border-right: 1.5px solid var(--text); }
+      footer { padding: 2.5rem 1.5rem 1.5rem; }
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
 <body>
 
   <!-- ===== ANNOUNCEMENT BAR ===== -->
-  <!-- EDIT THIS: Announcement text -->
+  <!-- EDIT THIS: Announcement text and link -->
   <div class="announcement-bar">
-    Free delivery on orders over $80 &nbsp;·&nbsp; <a href="cakes.html">Order now →</a>
+    Free delivery on orders over $80 &nbsp;&nbsp;·&nbsp;&nbsp;
+    <a href="cakes.html">Shop now</a>
   </div>
 
-  <!-- ===== NAVIGATION ===== -->
-  <nav>
-    <!-- Left: page links -->
-    <ul class="nav-left">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="cakes.html">Cakes</a></li>
-      <li><a href="about.html">About</a></li>
-    </ul>
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="header-inner">
 
-    <!-- Centre: logo -->
-    <!-- EDIT THIS: Bakery name -->
-    <a class="nav-logo" href="index.html">
-      <span class="nav-logo-main">Sora's Bake Studio</span>
-      <span class="nav-logo-sub">소라 베이크 스튜디오</span>
-    </a>
+      <!-- EDIT THIS: Bakery name -->
+      <a class="header-logo" href="index.html">Sora's Bake Studio</a>
 
-    <!-- Right: social links -->
-    <div class="nav-right">
-      <!-- EDIT THIS: Social media links -->
-      <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
-        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-      </a>
-      <a href="https://www.instagram.com/sorasbakestudio/" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg class="nav-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-      </a>
+      <!-- Nav links — active class on the current page -->
+      <nav>
+        <ul class="header-nav">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="cakes.html">Cakes</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </nav>
+
+      <!-- Right: social icon links -->
+      <!-- EDIT THIS: Your social media URLs -->
+      <div class="header-actions">
+        <a href="https://www.instagram.com/sorasbakestudio/" target="_blank" rel="noopener" class="header-icon-btn" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener" class="header-icon-btn" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+      </div>
+
     </div>
-  </nav>
+  </header>
 
   <!-- ===== HERO ===== -->
-  <!-- Background photo set in CSS above — search "Hero background photo" -->
-  <section id="hero">
+  <!-- EDIT: background photo in CSS above — search "Hero background photo URL" -->
+  <section class="hero">
+    <div class="hero-img"></div>
     <div class="hero-content">
-      <!-- EDIT THIS: Small eyebrow text -->
+      <!-- EDIT THIS: Eyebrow, headline, subtitle, button -->
       <p class="hero-eyebrow">Handmade in Melbourne</p>
-      <!-- EDIT THIS: Main headline -->
-      <h1 class="hero-title">Homemade creation,<br><em>baked to perfection.</em></h1>
-      <!-- EDIT THIS: Subtitle -->
-      <p class="hero-subtitle">Korean-inspired cakes and pastries, crafted fresh daily in small batches. Made with love, every single morning.</p>
-      <!-- EDIT THIS: Button labels and links -->
-      <div class="hero-buttons">
-        <a href="cakes.html" class="btn-dark">Shop Cakes</a>
-        <a href="about.html" class="btn-outline">Our Story</a>
-      </div>
+      <h1 class="hero-title">Korean cakes,<br>baked with love.</h1>
+      <p class="hero-subtitle">Small-batch, fresh every morning. Korean-inspired flavours made from family recipes.</p>
+      <a href="cakes.html" class="btn btn-solid">Shop all cakes</a>
     </div>
   </section>
 
-  <hr class="section-divider" />
+  <hr class="divider" />
 
-  <!-- ===== BEST SELLING CAKES ===== -->
-  <section id="bestsellers">
-    <div class="section-header">
-      <span class="section-label">Customer Favourites</span>
-      <!-- EDIT THIS: Section heading -->
-      <h2 class="section-heading">Best Selling Cakes</h2>
+  <!-- ===== FEATURED PRODUCTS ===== -->
+  <section class="featured">
+
+    <div class="featured-header">
+      <div>
+        <p class="section-eyebrow">This week</p>
+        <!-- EDIT THIS: Section heading -->
+        <h2 class="section-title">Best sellers</h2>
+      </div>
+      <a href="cakes.html" class="view-all">View all →</a>
     </div>
 
-    <!-- 4-column product grid -->
-    <!-- EDIT THIS: Product names, prices, and photo URLs -->
-    <div class="product-grid" style="max-width:1200px;margin:0 auto 2.5rem;">
+    <!-- EDIT THIS: Product cards — name, price, photo, badge -->
+    <div class="product-grid">
 
-      <!-- ===== PRODUCT 1 ===== -->
+      <!-- Product 1 -->
       <a href="cakes.html" class="product-card">
-        <div class="product-card-photo">
-          <!-- EDIT THIS: Product photo -->
+        <div class="product-card-media">
+          <!-- EDIT THIS: Product photo URL -->
           <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600&q=80&fit=crop" alt="Soufflé Cheesecake" loading="lazy" />
           <span class="product-badge">Bestseller</span>
         </div>
-        <div class="product-card-body">
-          <div class="product-card-name">Soufflé Cheesecake</div><!-- EDIT THIS: Name -->
-          <div class="product-card-price">From $7.50</div><!-- EDIT THIS: Price -->
+        <div class="product-card-info">
+          <span class="product-card-name">Soufflé Cheesecake</span><!-- EDIT: name -->
+          <span class="product-card-price">From $7.50</span><!-- EDIT: price -->
         </div>
       </a>
 
-      <!-- ===== PRODUCT 2 ===== -->
+      <!-- Product 2 -->
       <a href="cakes.html" class="product-card">
-        <div class="product-card-photo">
-          <!-- EDIT THIS: Product photo -->
+        <div class="product-card-media">
           <img src="https://images.unsplash.com/photo-1488477304112-4944851de03d?w=600&q=80&fit=crop" alt="Strawberry Shortcake" loading="lazy" />
           <span class="product-badge">Popular</span>
         </div>
-        <div class="product-card-body">
-          <div class="product-card-name">Strawberry Shortcake</div>
-          <div class="product-card-price">From $8.00</div>
+        <div class="product-card-info">
+          <span class="product-card-name">Strawberry Shortcake</span>
+          <span class="product-card-price">From $8.00</span>
         </div>
       </a>
 
-      <!-- ===== PRODUCT 3 ===== -->
+      <!-- Product 3 -->
       <a href="cakes.html" class="product-card">
-        <div class="product-card-photo">
+        <div class="product-card-media">
           <img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=600&q=80&fit=crop" alt="Matcha Layer Cake" loading="lazy" />
         </div>
-        <div class="product-card-body">
-          <div class="product-card-name">Matcha Layer Cake</div>
-          <div class="product-card-price">From $6.50</div>
+        <div class="product-card-info">
+          <span class="product-card-name">Matcha Layer Cake</span>
+          <span class="product-card-price">From $6.50</span>
         </div>
       </a>
 
-      <!-- ===== PRODUCT 4 ===== -->
+      <!-- Product 4 -->
       <a href="cakes.html" class="product-card">
-        <div class="product-card-photo">
+        <div class="product-card-media">
           <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=600&q=80&fit=crop" alt="Hojicha Tiramisu" loading="lazy" />
-          <span class="product-badge">Weekend Only</span>
+          <span class="product-badge">Weekend only</span>
         </div>
-        <div class="product-card-body">
-          <div class="product-card-name">Hojicha Tiramisu</div>
-          <div class="product-card-price">From $7.00</div>
+        <div class="product-card-info">
+          <span class="product-card-name">Hojicha Tiramisu</span>
+          <span class="product-card-price">From $7.00</span>
         </div>
       </a>
 
-    </div>
-
-    <!-- View all link -->
-    <div class="view-all-link">
-      <a href="cakes.html">View all cakes</a>
     </div>
   </section>
 
-  <hr class="section-divider" />
+  <hr class="divider" />
 
-  <!-- ===== ABOUT BANNER ===== -->
-  <!-- Photo on the left, dark text block on the right -->
-  <!-- Photo URL is in CSS above — search "About banner photo" -->
-  <div id="about-banner">
-    <div class="about-banner-photo"></div>
-    <div class="about-banner-text">
-      <span class="section-label">Our Story</span>
-      <!-- EDIT THIS: Banner heading -->
-      <h2>Baked with love,<br><em>rooted in Seoul.</em></h2>
-      <!-- EDIT THIS: Banner text -->
-      <p>Every cake starts the same way — with a recipe passed down from our founder's grandmother in Seoul, and a commitment to never cut corners. Small batches, fresh every day, no exceptions.</p>
-      <a href="about.html" class="btn-light">Read our story</a>
+  <!-- ===== IMAGE + TEXT — "Our Story" block ===== -->
+  <!-- EDIT: photo in the img src below; text in the body div -->
+  <div class="image-text">
+    <div class="image-text-media">
+      <!-- EDIT THIS: Image with text photo -->
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=900&q=85&fit=crop" alt="Baker at work" loading="lazy" />
+    </div>
+    <div class="image-text-body">
+      <p class="section-eyebrow">Our story</p>
+      <!-- EDIT THIS: Heading, text, button -->
+      <h2 class="section-title">Baked before sunrise, every day.</h2>
+      <p style="font-size:0.9375rem;color:var(--text-mid);line-height:1.7;">
+        Sora's Bake Studio began in 2021 with one rule: bake like you're feeding family. Every morning before Melbourne wakes up, we're already in the kitchen — no shortcuts, no preservatives, just real ingredients and a grandmother's recipe.
+      </p>
+      <a href="about.html" class="btn btn-outline">Read our story</a>
     </div>
   </div>
 
-  <hr class="section-divider" />
+  <!-- ===== IMAGE + TEXT — reversed: "Visit Us" block ===== -->
+  <div class="image-text reverse">
+    <div class="image-text-media">
+      <!-- EDIT THIS: Visit photo -->
+      <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=900&q=85&fit=crop" alt="Bakery interior" loading="lazy" />
+    </div>
+    <div class="image-text-body">
+      <p class="section-eyebrow">Visit us</p>
+      <!-- EDIT THIS: Address, hours, button -->
+      <h2 class="section-title">Come find us in Fitzroy.</h2>
+      <div style="font-size:0.9375rem;color:var(--text-mid);line-height:2;">
+        <p>📍 142 Smith Street, Fitzroy VIC 3065</p><!-- EDIT: address -->
+        <p>🕗 Tue–Fri 7:30am–5pm &nbsp;·&nbsp; Sat–Sun 8am–4pm</p><!-- EDIT: hours -->
+        <p>📞 (03) 9876 5432</p><!-- EDIT: phone -->
+      </div>
+      <a href="https://maps.google.com" target="_blank" rel="noopener" class="btn btn-outline">Get directions</a>
+    </div>
+  </div>
+
+  <hr class="divider" />
 
   <!-- ===== REVIEWS ===== -->
-  <section id="reviews">
+  <section class="reviews">
+
     <div class="reviews-header">
-      <span class="section-label">What our customers say</span>
-      <h2 class="section-heading" style="margin-bottom:0.5rem;">Let customers speak for us</h2>
+      <!-- Star icons -->
+      <div class="star-rating" aria-label="5 out of 5 stars">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <p class="reviews-count">4.9 · 200+ reviews</p><!-- EDIT: review count -->
     </div>
-    <!-- EDIT THIS: Star rating and review count -->
-    <div class="reviews-stars">★★★★★</div>
-    <div class="reviews-count">From 200+ reviews</div>
 
-    <!-- EDIT THIS: Review cards — text and author name -->
+    <!-- EDIT THIS: Review cards — text and author -->
     <div class="reviews-grid">
-
       <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"The soufflé cheesecake was absolutely incredible — light as air and not too sweet. It disappeared within minutes at our family dinner."</p>
-        <div class="review-author">Sarah M. — Melbourne</div>
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-text">"The soufflé cheesecake was unlike anything I've had in Melbourne — light as air, not too sweet, and gone within minutes at our family dinner."</p>
+        <p class="review-author">Sarah M. — Melbourne</p>
       </div>
-
       <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Ordered the strawberry shortcake for my partner's birthday and it was stunning. The cream is not oily at all — just perfect. Best cake in Melbourne!"</p>
-        <div class="review-author">James K. — Fitzroy</div>
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-text">"Ordered the strawberry shortcake for my partner's birthday. Stunning presentation, the cream was perfect — not oily at all. Best cake in Melbourne!"</p>
+        <p class="review-author">James K. — Fitzroy</p>
       </div>
-
       <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <p class="review-text">"The matcha danish had such a genuine flavour — you can tell the ingredients are premium quality. Will definitely be coming back every weekend."</p>
-        <div class="review-author">Mia T. — Richmond</div>
+        <div class="review-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="review-text">"The matcha danish was genuinely the best pastry I've had in this city. You can taste how good the ingredients are. Will be back every single weekend."</p>
+        <p class="review-author">Mia T. — Richmond</p>
       </div>
-
     </div>
+
   </section>
+
+  <!-- ===== NEWSLETTER ===== -->
+  <div class="newsletter">
+    <!-- EDIT THIS: Newsletter heading and subtext -->
+    <h2>Stay in the loop</h2>
+    <p>New flavours, seasonal specials, and sold-out alerts — straight to your inbox.</p>
+    <form class="newsletter-form" onsubmit="return false;">
+      <input type="email" placeholder="your@email.com" aria-label="Email address" /><!-- EDIT: placeholder -->
+      <button type="submit">Subscribe</button><!-- EDIT: button text -->
+    </form>
+  </div>
 
   <!-- ===== FOOTER ===== -->
   <footer>
+    <div class="footer-top">
 
-    <!-- Left column: contact info -->
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <!-- EDIT THIS: Email, address, phone -->
-      <a href="mailto:hello@sorasbakestudio.com">hello@sorasbakestudio.com</a>
-      <p>142 Smith Street<br>Fitzroy VIC 3065</p>
-      <a href="tel:+61398765432">(03) 9876 5432</a>
-    </div>
-
-    <!-- Centre column: logo -->
-    <div class="footer-col center">
-      <!-- EDIT THIS: Footer bakery name -->
-      <div class="footer-logo-main">Sora's Bake Studio</div>
-      <div class="footer-logo-sub">소라 베이크 스튜디오</div>
-      <div class="footer-social">
-        <!-- EDIT THIS: Social links -->
-        <a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a>
-        <a href="https://www.instagram.com/sorasbakestudio/" target="_blank" rel="noopener">Instagram</a>
+      <!-- Brand column -->
+      <div>
+        <!-- EDIT THIS: Footer brand name and description -->
+        <p class="footer-brand-name">Sora's Bake Studio</p>
+        <p class="footer-brand-sub">소라 베이크 스튜디오</p>
+        <p class="footer-brand-desc">Small-batch Korean-inspired cakes, baked fresh every morning in Fitzroy, Melbourne.</p>
       </div>
+
+      <!-- Quick links -->
+      <div class="footer-col">
+        <h4>Quick links</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="cakes.html">Cakes</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="footer-col">
+        <h4>Contact</h4><!-- EDIT: contact details -->
+        <ul>
+          <li><a href="mailto:hello@sorasbakestudio.com">hello@sorasbakestudio.com</a></li>
+          <li><a href="tel:+61398765432">(03) 9876 5432</a></li>
+          <li><a href="#">142 Smith St, Fitzroy VIC 3065</a></li>
+        </ul>
+      </div>
+
+      <!-- Social -->
+      <div class="footer-col">
+        <h4>Follow us</h4>
+        <ul><!-- EDIT: social links -->
+          <li><a href="https://www.instagram.com/sorasbakestudio/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a></li>
+        </ul>
+      </div>
+
     </div>
 
-    <!-- Right column: navigation links -->
-    <div class="footer-col" style="text-align:right;">
-      <h4>Navigate</h4>
-      <a href="index.html">Home</a>
-      <a href="cakes.html">Cakes</a>
-      <a href="about.html">About</a>
-    </div>
-
-    <!-- Copyright bar -->
     <!-- EDIT THIS: Copyright year -->
-    <div class="footer-bottom">© 2025 Sora's Bake Studio. All rights reserved.</div>
-
+    <div class="footer-bottom">
+      <span>© 2025 Sora's Bake Studio. All rights reserved.</span>
+      <span>Made with love in Melbourne 🌸</span>
+    </div>
   </footer>
 
 </body>

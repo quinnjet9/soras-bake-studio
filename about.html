@@ -6,273 +6,229 @@
   <title>About — Sora's Bake Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --white: #ffffff;
-      --off-white: #fafaf8;
-      --pink: #f2c4b2;
-      --pink-dark: #d4907a;
-      --text: #1a1410;
-      --text-mid: #6b5c53;
-      --text-light: #b0a097;
-      --border: #ede8e3;
-      --card-shadow-hover: 0 8px 40px rgba(0,0,0,0.12);
+      --bg: #ffffff; --bg-alt: #fdf9f7;
+      --text: #1a1410; --text-mid: #6b5c53; --text-muted: #a89890;
+      --accent: #e8b4a0; --accent-dark: #c4917a;
+      --border: #e8e3de;
+      --announcement-bg: #3d2b1f;
+      --font: 'Assistant', -apple-system, sans-serif;
     }
-
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--text); line-height: 1.6; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.5; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
 
-    /* ===== ANNOUNCEMENT BAR ===== */
-    .announcement-bar { background: var(--text); color: rgba(255,255,255,0.85); text-align: center; padding: 0.5rem 1rem; font-size: 0.8rem; letter-spacing: 0.08em; }
-    .announcement-bar a { color: var(--pink); text-decoration: none; }
+    .announcement-bar { background: var(--announcement-bg); color: rgba(255,255,255,0.85); text-align: center; font-size: 0.8125rem; letter-spacing: 0.06em; padding: 0.625rem 1rem; }
+    .announcement-bar a { color: var(--accent); text-decoration: underline; }
+    header { position: sticky; top: 0; z-index: 200; background: var(--bg); border-bottom: 1px solid var(--border); }
+    .header-inner { max-width: 1400px; margin: 0 auto; padding: 0 4rem; height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .header-logo { text-decoration: none; font-size: 1.3rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; flex-shrink: 0; }
+    .header-nav { display: flex; list-style: none; }
+    .header-nav a { display: block; padding: 0.5rem 1.1rem; text-decoration: none; font-size: 0.875rem; font-weight: 500; color: var(--text); transition: color 0.15s; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+    .header-nav a:hover { color: var(--text-mid); }
+    .header-nav a.active { border-bottom-color: var(--text); }
+    .header-actions { display: flex; gap: 0.5rem; }
+    .header-icon-btn { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: none; border: none; color: var(--text); text-decoration: none; }
+    .header-icon-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; }
 
-    /* ===== NAV ===== */
-    nav { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--border); padding: 0 3rem; height: 64px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
-    .nav-left { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-left a { text-decoration: none; color: var(--text-mid); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
-    .nav-left a:hover, .nav-left a.active { color: var(--text); }
-    .nav-logo { text-align: center; text-decoration: none; }
-    /* EDIT THIS: Bakery name */
-    .nav-logo-main { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 500; color: var(--text); letter-spacing: 0.05em; display: block; line-height: 1; }
-    .nav-logo-sub { font-size: 0.62rem; color: var(--text-light); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 2px; display: block; }
-    .nav-right { display: flex; gap: 1rem; justify-content: flex-end; align-items: center; }
-    .nav-right a { color: var(--text-mid); transition: color 0.2s; text-decoration: none; }
-    .nav-right a:hover { color: var(--text); }
-    .nav-icon { width: 18px; height: 18px; fill: none; stroke: var(--text-mid); stroke-width: 1.5; transition: stroke 0.2s; }
-    .nav-right a:hover .nav-icon { stroke: var(--text); }
+    .divider { border: none; border-top: 1px solid var(--border); }
 
-    .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.4rem; display: block; }
+    /* Image + text block — reused from index */
+    .image-text { display: grid; grid-template-columns: 1fr 1fr; min-height: 520px; }
+    .image-text-media { overflow: hidden; }
+    .image-text-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
+    .image-text-media:hover img { transform: scale(1.03); }
+    .image-text-body { padding: 4rem 5rem; display: flex; flex-direction: column; justify-content: center; gap: 1.25rem; background: var(--bg-alt); }
+    .image-text.reverse .image-text-media { order: 2; }
+    .image-text.reverse .image-text-body { order: 1; background: var(--bg); }
+    .section-eyebrow { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); }
+    .section-title { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 700; letter-spacing: -0.02em; color: var(--text); }
+    .body-text { font-size: 0.9375rem; color: var(--text-mid); line-height: 1.75; }
+    .body-text strong { color: var(--text); font-weight: 600; }
 
-    /* ===== HERO — full bleed photo with text overlaid ===== */
-    #about-hero {
-      /* EDIT THIS: About hero photo */
-      background-image:
-        linear-gradient(to right, rgba(250,250,248,0.95) 0%, rgba(250,250,248,0.6) 55%, rgba(250,250,248,0.05) 100%),
-        url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1800&q=85&fit=crop&crop=right');
-      background-size: cover; background-position: center right;
-      min-height: 500px; display: flex; align-items: center; padding: 4rem 3rem;
-    }
-    .about-hero-content { max-width: 520px; }
-    .about-hero-content h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 400; color: var(--text); line-height: 1.1; margin-bottom: 1.2rem; }
-    .about-hero-content h1 em { font-style: italic; }
-    .about-hero-content p { font-size: 1rem; color: var(--text-mid); line-height: 1.8; }
+    .btn { display: inline-block; padding: 0.8rem 1.75rem; font-size: 0.875rem; font-weight: 600; letter-spacing: 0.04em; text-decoration: none; transition: background 0.15s, color 0.15s, border-color 0.15s; }
+    .btn-outline { background: transparent; color: var(--text); border: 1.5px solid var(--text); }
+    .btn-outline:hover { background: var(--text); color: #fff; }
+    .btn-solid { background: var(--text); color: #fff; border: 1.5px solid var(--text); }
+    .btn-solid:hover { background: #3d2b1f; border-color: #3d2b1f; }
 
-    /* ===== STORY SECTION ===== */
-    #story { padding: 5.5rem 3rem; }
-    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; max-width: 1100px; margin: 0 auto; align-items: start; }
-
-    /* EDIT THIS: Story text */
-    .story-text h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 400; color: var(--text); margin-bottom: 1.5rem; line-height: 1.2; }
-    .story-text p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.85; margin-bottom: 1.1rem; }
-    .story-text p strong { color: var(--text); font-weight: 500; }
-
-    /* Photo collage */
-    /* EDIT THIS: Swap these photo URLs for your own */
-    .story-photos { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 280px 200px; gap: 0.6rem; }
-    .story-photo { background-size: cover; background-position: center; }
-    .story-photo.tall { grid-row: span 2; background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=85&fit=crop'); }
-    .story-photo.sm-top { background-image: url('https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=500&q=80&fit=crop'); }
-    .story-photo.sm-bot { background-image: url('https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=500&q=80&fit=crop'); }
-
-    /* ===== VALUES — 4 column strip ===== */
-    #values { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--white); }
-    .values-grid { display: grid; grid-template-columns: repeat(4, 1fr); max-width: 1200px; margin: 0 auto; }
-    .value-item { padding: 3rem 2rem; border-right: 1px solid var(--border); }
+    /* Values strip */
+    .values { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .values-inner { display: grid; grid-template-columns: repeat(4, 1fr); max-width: 1400px; margin: 0 auto; }
+    .value-item { padding: 2.5rem 2rem; border-right: 1px solid var(--border); }
     .value-item:last-child { border-right: none; }
-    .value-item-icon { font-size: 1.5rem; margin-bottom: 1rem; display: block; }
-    /* EDIT THIS: Value titles and descriptions */
-    .value-item h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400; color: var(--text); margin-bottom: 0.6rem; }
-    .value-item p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.7; }
+    .value-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .value-item h3 { font-size: 0.9375rem; font-weight: 700; margin-bottom: 0.4rem; letter-spacing: -0.01em; }
+    .value-item p { font-size: 0.8125rem; color: var(--text-mid); line-height: 1.6; }
 
-    /* ===== FOUNDER QUOTE ===== */
-    #quote { padding: 6rem 3rem; text-align: center; }
-    blockquote { max-width: 680px; margin: 0 auto; }
-    blockquote p { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 400; font-style: italic; color: var(--text); line-height: 1.5; margin-bottom: 1.5rem; }
-    /* EDIT THIS: Quote attribution */
-    blockquote cite { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-light); font-style: normal; }
+    /* Founder quote */
+    .quote-section { padding: 5rem 4rem; text-align: center; max-width: 1400px; margin: 0 auto; }
+    blockquote p { font-size: clamp(1.25rem, 2.5vw, 1.75rem); font-style: italic; color: var(--text); line-height: 1.5; letter-spacing: -0.01em; margin-bottom: 1.25rem; max-width: 680px; margin-left: auto; margin-right: auto; }
+    blockquote cite { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); font-style: normal; }
 
-    /* ===== CTA STRIP ===== */
-    #cta { background: var(--text); padding: 4rem 3rem; text-align: center; }
-    #cta .section-label { color: rgba(255,255,255,0.4); margin-bottom: 0.75rem; }
-    #cta h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 400; color: var(--white); margin-bottom: 2rem; }
-    .btn-light { background: transparent; color: var(--white); padding: 0.8rem 2rem; text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; border: 1.5px solid rgba(255,255,255,0.5); transition: background 0.2s, border-color 0.2s; display: inline-block; }
-    .btn-light:hover { background: rgba(255,255,255,0.1); border-color: white; }
+    /* CTA strip */
+    .cta-strip { background: var(--bg-alt); border-top: 1px solid var(--border); padding: 4rem; text-align: center; }
+    .cta-strip h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
 
-    /* ===== FOOTER ===== */
-    footer { background: var(--white); border-top: 1px solid var(--border); padding: 3rem 3rem 2rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; }
-    .footer-col h4 { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text); margin-bottom: 1rem; }
-    .footer-col p, .footer-col a { font-size: 0.85rem; color: var(--text-mid); line-height: 1.9; text-decoration: none; display: block; }
+    footer { padding: 3.5rem 4rem 2rem; max-width: 1400px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+    .footer-brand-name { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.4rem; }
+    .footer-brand-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .footer-brand-desc { font-size: 0.875rem; color: var(--text-mid); line-height: 1.65; max-width: 260px; }
+    .footer-col h4 { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-col a { font-size: 0.875rem; color: var(--text-mid); text-decoration: none; transition: color 0.15s; }
     .footer-col a:hover { color: var(--text); }
-    .footer-col.center { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .footer-logo-main { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--text); margin-bottom: 0.3rem; }
-    .footer-logo-sub { font-size: 0.65rem; color: var(--text-light); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem; }
-    .footer-social { display: flex; gap: 1rem; margin-top: 0.5rem; }
-    .footer-social a { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; }
-    .footer-social a:hover { color: var(--text); }
-    .footer-bottom { grid-column: 1 / -1; border-top: 1px solid var(--border); padding-top: 1.5rem; margin-top: 1rem; text-align: center; font-size: 0.78rem; color: var(--text-light); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; font-size: 0.8125rem; color: var(--text-muted); flex-wrap: wrap; gap: 0.5rem; }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 900px) {
-      .story-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .values-grid { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 1100px) {
+      .header-inner, .quote-section, .cta-strip, footer { padding-left: 2.5rem; padding-right: 2.5rem; }
+      .image-text-body { padding: 3rem 2.5rem; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .values-inner { grid-template-columns: repeat(2, 1fr); }
       .value-item:nth-child(2) { border-right: none; }
-      .value-item:nth-child(3) { border-top: 1px solid var(--border); }
-      .value-item:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
+      .value-item:nth-child(3), .value-item:nth-child(4) { border-top: 1px solid var(--border); }
+      .value-item:nth-child(4) { border-right: none; }
     }
-    @media (max-width: 600px) {
-      nav { grid-template-columns: auto 1fr auto; padding: 0 1rem; }
-      .nav-left { gap: 1.2rem; }
-      .nav-right { display: none; }
-      #about-hero { padding: 3rem 1.5rem; min-height: 380px; }
-      #story, #quote, #cta { padding: 4rem 1.5rem; }
-      .values-grid { grid-template-columns: 1fr; }
+    @media (max-width: 700px) {
+      .header-inner, .quote-section, .cta-strip, footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .header-nav { display: none; }
+      .image-text { grid-template-columns: 1fr; }
+      .image-text-media { min-height: 280px; order: 0 !important; }
+      .image-text-body { order: 1 !important; padding: 2.5rem 1.5rem; }
+      .values-inner { grid-template-columns: 1fr; }
       .value-item { border-right: none; border-top: 1px solid var(--border); }
       .value-item:first-child { border-top: none; }
-      .story-photos { grid-template-columns: 1fr; grid-template-rows: 220px 160px 160px; }
-      .story-photo.tall { grid-row: span 1; }
-      footer { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
-      .footer-col.center { align-items: flex-start; text-align: left; }
+      .quote-section { padding: 4rem 1.5rem; }
+      .cta-strip { padding: 3.5rem 1.5rem; }
+      .footer-top { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== ANNOUNCEMENT BAR ===== -->
-  <!-- EDIT THIS: Announcement text -->
-  <div class="announcement-bar">
-    Free delivery on orders over $80 &nbsp;·&nbsp; <a href="cakes.html">Order now →</a>
+  <div class="announcement-bar">Free delivery on orders over $80 &nbsp;·&nbsp; <a href="cakes.html">Shop now</a></div>
+
+  <header>
+    <div class="header-inner">
+      <a class="header-logo" href="index.html">Sora's Bake Studio</a><!-- EDIT -->
+      <nav><ul class="header-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cakes.html">Cakes</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+      </ul></nav>
+      <div class="header-actions">
+        <a href="https://www.instagram.com/sorasbakestudio/" target="_blank" rel="noopener" class="header-icon-btn" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero image + text block -->
+  <!-- EDIT: photo src, eyebrow, heading, body text -->
+  <div class="image-text">
+    <div class="image-text-media">
+      <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=900&q=85&fit=crop" alt="Baker at work" loading="lazy"/>
+    </div>
+    <div class="image-text-body">
+      <p class="section-eyebrow">Our story</p>
+      <h1 class="section-title">A family recipe,<br>every morning.</h1>
+      <p class="body-text">Sora's Bake Studio began in 2021 with a simple idea: <strong>bake like you're feeding family.</strong> Our founder grew up watching her grandmother shape red bean buns before sunrise in a small Seoul kitchen — and that warmth is what we bring to Melbourne every single morning.</p>
+    </div>
   </div>
 
-  <!-- ===== NAV ===== -->
-  <nav>
-    <ul class="nav-left">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="cakes.html">Cakes</a></li>
-      <li><a href="about.html" class="active">About</a></li>
-    </ul>
-    <a class="nav-logo" href="index.html">
-      <!-- EDIT THIS: Bakery name -->
-      <span class="nav-logo-main">Sora's Bake Studio</span>
-      <span class="nav-logo-sub">소라 베이크 스튜디오</span>
-    </a>
-    <div class="nav-right">
-      <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
-        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-      </a>
-      <a href="https://www.instagram.com/sorasbakestudio/" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg class="nav-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-      </a>
-    </div>
-  </nav>
-
-  <!-- ===== ABOUT HERO ===== -->
-  <!-- Background photo set in CSS above — search "About hero photo" -->
-  <section id="about-hero">
-    <div class="about-hero-content">
-      <span class="section-label">Our Story</span>
-      <!-- EDIT THIS: Hero headline -->
-      <h1>A family recipe,<br><em>every morning.</em></h1>
-      <!-- EDIT THIS: Hero subtitle -->
-      <p>Where Korean warmth meets Melbourne mornings. Every cake starts with a grandmother's recipe and a commitment to never cut corners.</p>
-    </div>
-  </section>
-
-  <!-- ===== STORY ===== -->
-  <section id="story">
-    <div class="story-grid">
-
-      <!-- LEFT: text — EDIT these paragraphs -->
-      <div class="story-text">
-        <span class="section-label">How it started</span>
-        <!-- EDIT THIS: Story heading -->
-        <h2>Baked with love,<br>rooted in Seoul.</h2>
-        <!-- EDIT THIS: Story paragraphs -->
-        <p>Sora's Bake Studio began in 2021 with a simple idea: <strong>bake like you're feeding family.</strong> Our founder grew up watching her grandmother shape red bean buns before sunrise in a small Seoul kitchen — and that warmth is what we bring to Melbourne every single morning.</p>
-        <p>We use <strong>no preservatives, no shortcuts.</strong> Just good flour, real butter, and seasonal ingredients sourced from Melbourne markets. Everything in our cabinet was baked this morning.</p>
-        <p>Sora means "sky" in Korean — a reminder to always aim higher, and to fill each day with something beautiful, one bake at a time.</p>
-      </div>
-
-      <!-- RIGHT: photo collage — EDIT URLs in CSS above (search "story-photo") -->
-      <div class="story-photos">
-        <div class="story-photo tall"></div>
-        <div class="story-photo sm-top"></div>
-        <div class="story-photo sm-bot"></div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ===== VALUES ===== -->
-  <!-- EDIT THIS: Value titles and descriptions -->
-  <section id="values">
-    <div class="values-grid">
+  <!-- Values strip -->
+  <!-- EDIT: icon, title, description for each value -->
+  <div class="values">
+    <div class="values-inner">
       <div class="value-item">
-        <span class="value-item-icon" aria-hidden="true">🌅</span>
+        <div class="value-icon">🌅</div>
         <h3>Baked before sunrise</h3>
         <p>Fresh out of the oven by 7:30am, every day without exception.</p>
       </div>
       <div class="value-item">
-        <span class="value-item-icon" aria-hidden="true">🌿</span>
+        <div class="value-icon">🌿</div>
         <h3>Local & seasonal</h3>
         <p>Ingredients sourced from Melbourne markets — whatever's best right now.</p>
       </div>
       <div class="value-item">
-        <span class="value-item-icon" aria-hidden="true">🇰🇷</span>
+        <div class="value-icon">🇰🇷</div>
         <h3>Korean heritage</h3>
         <p>Family recipes passed down three generations, brought to Melbourne.</p>
       </div>
       <div class="value-item">
-        <span class="value-item-icon" aria-hidden="true">❤️</span>
+        <div class="value-icon">❤️</div>
         <h3>Small batch always</h3>
         <p>We never mass produce. When it's sold out, it's sold out.</p>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- ===== FOUNDER QUOTE ===== -->
-  <section id="quote">
+  <!-- Second image + text block -->
+  <!-- EDIT: photo src, heading, body text -->
+  <div class="image-text reverse">
+    <div class="image-text-media">
+      <img src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=900&q=85&fit=crop" alt="Fresh bread display" loading="lazy"/>
+    </div>
+    <div class="image-text-body">
+      <p class="section-eyebrow">How we work</p>
+      <h2 class="section-title">No shortcuts.<br>No exceptions.</h2>
+      <p class="body-text">We use <strong>no preservatives</strong>, no artificial flavourings, no frozen dough. Just good flour, real butter, and seasonal ingredients sourced from Melbourne's best markets. Every recipe has been tested hundreds of times before it makes it onto our menu.</p>
+      <p class="body-text">Sora means "sky" in Korean — a reminder to always aim higher, and to fill each day with something worth waking up for.</p>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- Founder quote -->
+  <!-- EDIT: quote text and attribution -->
+  <div class="quote-section">
     <blockquote>
-      <!-- EDIT THIS: The quote text -->
       <p>"I don't want anyone to eat our cakes and feel like they came from a factory. Every single one should feel like it was made just for them."</p>
-      <!-- EDIT THIS: Who said it -->
       <cite>— Sora, Founder</cite>
     </blockquote>
-  </section>
+  </div>
 
-  <!-- ===== CTA STRIP ===== -->
-  <section id="cta">
-    <span class="section-label">Ready to order?</span>
-    <!-- EDIT THIS: CTA heading -->
-    <h2>See this week's cakes</h2>
-    <a href="cakes.html" class="btn-light">Browse the menu</a>
-  </section>
+  <hr class="divider"/>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- CTA strip -->
+  <!-- EDIT: heading and button label -->
+  <div class="cta-strip">
+    <h2>See this week's cakes →</h2>
+    <a href="cakes.html" class="btn btn-solid">Browse the menu</a>
+  </div>
+
   <footer>
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <!-- EDIT THIS: Contact details -->
-      <a href="mailto:hello@sorasbakestudio.com">hello@sorasbakestudio.com</a>
-      <p>142 Smith Street<br>Fitzroy VIC 3065</p>
-      <a href="tel:+61398765432">(03) 9876 5432</a>
-    </div>
-    <div class="footer-col center">
-      <div class="footer-logo-main">Sora's Bake Studio</div><!-- EDIT THIS -->
-      <div class="footer-logo-sub">소라 베이크 스튜디오</div>
-      <div class="footer-social">
-        <a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a>
-        <a href="https://www.instagram.com/sorasbakestudio/" target="_blank" rel="noopener">Instagram</a>
+    <div class="footer-top">
+      <div>
+        <p class="footer-brand-name">Sora's Bake Studio</p><!-- EDIT -->
+        <p class="footer-brand-sub">소라 베이크 스튜디오</p>
+        <p class="footer-brand-desc">Small-batch Korean-inspired cakes, baked fresh every morning in Fitzroy, Melbourne.</p>
       </div>
+      <div class="footer-col"><h4>Quick links</h4><ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cakes.html">Cakes</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul><!-- EDIT -->
+        <li><a href="mailto:hello@sorasbakestudio.com">hello@sorasbakestudio.com</a></li>
+        <li><a href="tel:+61398765432">(03) 9876 5432</a></li>
+        <li><a href="#">142 Smith St, Fitzroy VIC 3065</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Follow us</h4><ul>
+        <li><a href="https://www.instagram.com/sorasbakestudio/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a></li>
+      </ul></div>
     </div>
-    <div class="footer-col" style="text-align:right;">
-      <h4>Navigate</h4>
-      <a href="index.html">Home</a>
-      <a href="cakes.html">Cakes</a>
-      <a href="about.html">About</a>
+    <div class="footer-bottom">
+      <span>© 2025 Sora's Bake Studio. All rights reserved.</span><!-- EDIT: year -->
+      <span>Made with love in Melbourne 🌸</span>
     </div>
-    <div class="footer-bottom">© 2025 Sora's Bake Studio. All rights reserved.</div><!-- EDIT THIS: Year -->
   </footer>
 
 </body>

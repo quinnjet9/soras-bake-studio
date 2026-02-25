@@ -6,268 +6,223 @@
   <title>Cakes — Sora's Bake Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --white: #ffffff;
-      --off-white: #fafaf8;
-      --pink: #f2c4b2;
-      --pink-dark: #d4907a;
-      --text: #1a1410;
-      --text-mid: #6b5c53;
-      --text-light: #b0a097;
-      --border: #ede8e3;
-      --card-shadow-hover: 0 8px 40px rgba(0,0,0,0.12);
+      --bg: #ffffff; --bg-alt: #fdf9f7;
+      --text: #1a1410; --text-mid: #6b5c53; --text-muted: #a89890;
+      --accent: #e8b4a0; --accent-dark: #c4917a;
+      --border: #e8e3de;
+      --announcement-bg: #3d2b1f;
+      --font: 'Assistant', -apple-system, sans-serif;
     }
-
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--text); line-height: 1.6; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.5; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
 
-    /* ===== ANNOUNCEMENT BAR ===== */
-    .announcement-bar { background: var(--text); color: rgba(255,255,255,0.85); text-align: center; padding: 0.5rem 1rem; font-size: 0.8rem; letter-spacing: 0.08em; }
-    .announcement-bar a { color: var(--pink); text-decoration: none; }
+    .announcement-bar { background: var(--announcement-bg); color: rgba(255,255,255,0.85); text-align: center; font-size: 0.8125rem; letter-spacing: 0.06em; padding: 0.625rem 1rem; }
+    .announcement-bar a { color: var(--accent); text-decoration: underline; }
 
-    /* ===== NAV ===== */
-    nav { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--border); padding: 0 3rem; height: 64px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
-    .nav-left { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-left a { text-decoration: none; color: var(--text-mid); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
-    .nav-left a:hover, .nav-left a.active { color: var(--text); }
-    .nav-logo { text-align: center; text-decoration: none; }
-    /* EDIT THIS: Bakery name */
-    .nav-logo-main { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 500; color: var(--text); letter-spacing: 0.05em; display: block; line-height: 1; }
-    .nav-logo-sub { font-size: 0.62rem; color: var(--text-light); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 2px; display: block; }
-    .nav-right { display: flex; gap: 1rem; justify-content: flex-end; align-items: center; }
-    .nav-right a { color: var(--text-mid); transition: color 0.2s; text-decoration: none; }
-    .nav-right a:hover { color: var(--text); }
-    .nav-icon { width: 18px; height: 18px; fill: none; stroke: var(--text-mid); stroke-width: 1.5; transition: stroke 0.2s; }
-    .nav-right a:hover .nav-icon { stroke: var(--text); }
+    header { position: sticky; top: 0; z-index: 200; background: var(--bg); border-bottom: 1px solid var(--border); }
+    .header-inner { max-width: 1400px; margin: 0 auto; padding: 0 4rem; height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .header-logo { text-decoration: none; font-size: 1.3rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; flex-shrink: 0; }
+    .header-nav { display: flex; gap: 0; list-style: none; }
+    .header-nav a { display: block; padding: 0.5rem 1.1rem; text-decoration: none; font-size: 0.875rem; font-weight: 500; color: var(--text); transition: color 0.15s; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+    .header-nav a:hover { color: var(--text-mid); }
+    .header-nav a.active { border-bottom-color: var(--text); }
+    .header-actions { display: flex; gap: 0.5rem; align-items: center; flex-shrink: 0; }
+    .header-icon-btn { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: none; border: none; color: var(--text); text-decoration: none; transition: color 0.15s; }
+    .header-icon-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.5; }
 
-    /* ===== PAGE HEADER ===== */
-    .page-header {
-      /* EDIT THIS: Cakes page header photo */
-      background-image:
-        linear-gradient(to bottom, rgba(250,250,248,0) 0%, rgba(250,250,248,0.05) 100%),
-        url('https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=1600&q=85&fit=crop&crop=center');
-      background-size: cover; background-position: center;
-      height: 320px;
-      display: flex; align-items: flex-end;
-      padding: 2.5rem 3rem;
-      position: relative;
+    /* Page hero banner */
+    .page-banner {
+      background-color: var(--bg-alt);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 4rem;
+      max-width: 1400px;
+      margin: 0 auto;
     }
-    .page-header::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(250,250,248,0.95) 0%, rgba(250,250,248,0.1) 60%); }
-    .page-header-content { position: relative; z-index: 1; }
-    .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.4rem; display: block; }
-    .page-header h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 400; color: var(--text); line-height: 1.1; }
+    .page-banner .eyebrow { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.4rem; }
+    .page-banner h1 { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; }
+    .page-banner p { margin-top: 0.5rem; font-size: 0.9375rem; color: var(--text-mid); }
 
-    /* ===== PRODUCT GRID ===== */
-    #cakes { padding: 3rem 3rem 5rem; }
-    .filter-bar { display: flex; gap: 0.5rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
-    .filter-btn { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.45rem 1.1rem; border: 1.5px solid var(--border); background: transparent; color: var(--text-mid); cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s; }
-    .filter-btn:hover, .filter-btn.active { background: var(--text); color: var(--white); border-color: var(--text); }
+    /* Filter bar */
+    .filter-bar { max-width: 1400px; margin: 0 auto; padding: 1.5rem 4rem 0; display: flex; gap: 0.5rem; flex-wrap: wrap; border-bottom: 1px solid var(--border); }
+    .filter-btn { padding: 0.45rem 1.1rem; font-family: var(--font); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.04em; background: none; border: 1.5px solid var(--border); color: var(--text-mid); cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s; margin-bottom: 1.5rem; }
+    .filter-btn.active, .filter-btn:hover { background: var(--text); color: #fff; border-color: var(--text); }
 
-    /* 3-column grid on cakes page */
-    .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; max-width: 1200px; margin: 0 auto; }
-    .product-card { background: var(--white); border: 1px solid var(--border); text-decoration: none; color: var(--text); display: block; transition: box-shadow 0.25s, transform 0.25s; }
-    .product-card:hover { box-shadow: var(--card-shadow-hover); transform: translateY(-3px); }
-    .product-card-photo { aspect-ratio: 4/3; overflow: hidden; position: relative; }
-    .product-card-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
-    .product-card:hover .product-card-photo img { transform: scale(1.04); }
-    .product-badge { position: absolute; top: 0.7rem; left: 0.7rem; background: var(--text); color: var(--white); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.55rem; }
-    .product-card-body { padding: 1.1rem 1.1rem 1.3rem; border-top: 1px solid var(--border); }
-    /* EDIT THIS: Product name */
-    .product-card-name { font-size: 0.92rem; font-weight: 500; color: var(--text); margin-bottom: 0.25rem; }
-    /* EDIT THIS: Product description */
-    .product-card-desc { font-size: 0.8rem; color: var(--text-mid); line-height: 1.6; margin-bottom: 0.75rem; }
-    /* EDIT THIS: Product price */
-    .product-card-price { font-size: 0.85rem; color: var(--text); font-weight: 500; }
+    /* Product grid */
+    .products-section { max-width: 1400px; margin: 0 auto; padding: 3rem 4rem 5rem; }
+    .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .product-card { text-decoration: none; color: var(--text); display: block; }
+    .product-card-media { aspect-ratio: 1; overflow: hidden; background: var(--bg-alt); margin-bottom: 1rem; position: relative; }
+    .product-card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .product-card:hover .product-card-media img { transform: scale(1.04); }
+    .product-badge { position: absolute; top: 0.75rem; left: 0.75rem; background: var(--accent); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.2rem 0.6rem; }
+    .product-card-name { font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .product-card-desc { font-size: 0.8125rem; color: var(--text-mid); line-height: 1.55; margin-bottom: 0.35rem; }
+    .product-card-price { font-size: 0.875rem; color: var(--text-mid); }
 
-    /* ===== FOOTER ===== */
-    footer { background: var(--white); border-top: 1px solid var(--border); padding: 3rem 3rem 2rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; }
-    .footer-col h4 { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text); margin-bottom: 1rem; }
-    .footer-col p, .footer-col a { font-size: 0.85rem; color: var(--text-mid); line-height: 1.9; text-decoration: none; display: block; }
+    /* Divider */
+    .divider { border: none; border-top: 1px solid var(--border); }
+
+    footer { padding: 3.5rem 4rem 2rem; max-width: 1400px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+    .footer-brand-name { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 0.4rem; }
+    .footer-brand-sub { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem; }
+    .footer-brand-desc { font-size: 0.875rem; color: var(--text-mid); line-height: 1.65; max-width: 260px; }
+    .footer-col h4 { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-col a { font-size: 0.875rem; color: var(--text-mid); text-decoration: none; transition: color 0.15s; }
     .footer-col a:hover { color: var(--text); }
-    .footer-col.center { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .footer-logo-main { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--text); margin-bottom: 0.3rem; }
-    .footer-logo-sub { font-size: 0.65rem; color: var(--text-light); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem; }
-    .footer-social { display: flex; gap: 1rem; margin-top: 0.5rem; }
-    .footer-social a { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; }
-    .footer-social a:hover { color: var(--text); }
-    .footer-bottom { grid-column: 1 / -1; border-top: 1px solid var(--border); padding-top: 1.5rem; margin-top: 1rem; text-align: center; font-size: 0.78rem; color: var(--text-light); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; font-size: 0.8125rem; color: var(--text-muted); flex-wrap: wrap; gap: 0.5rem; }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 900px) { .product-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 600px) {
-      nav { grid-template-columns: auto 1fr auto; padding: 0 1rem; }
-      .nav-left { gap: 1.2rem; }
-      .nav-right { display: none; }
-      .page-header { padding: 2rem 1.5rem; height: 260px; }
-      #cakes { padding: 2.5rem 1.2rem 4rem; }
-      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-      footer { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
-      .footer-col.center { align-items: flex-start; text-align: left; }
+    @media (max-width: 1100px) {
+      .header-inner, .page-banner, .filter-bar, .products-section, footer { padding-left: 2.5rem; padding-right: 2.5rem; }
+      .product-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 700px) {
+      .header-inner, .page-banner, .filter-bar, .products-section, footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .header-nav { display: none; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .footer-top { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== ANNOUNCEMENT BAR ===== -->
-  <!-- EDIT THIS: Announcement text -->
-  <div class="announcement-bar">
-    Free delivery on orders over $80 &nbsp;·&nbsp; <a href="index.html#bestsellers">See bestsellers →</a>
-  </div>
+  <div class="announcement-bar">Free delivery on orders over $80 &nbsp;·&nbsp; <a href="index.html">See bestsellers</a></div>
 
-  <!-- ===== NAV ===== -->
-  <nav>
-    <ul class="nav-left">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="cakes.html" class="active">Cakes</a></li>
-      <li><a href="about.html">About</a></li>
-    </ul>
-    <a class="nav-logo" href="index.html">
-      <!-- EDIT THIS: Bakery name -->
-      <span class="nav-logo-main">Sora's Bake Studio</span>
-      <span class="nav-logo-sub">소라 베이크 스튜디오</span>
-    </a>
-    <div class="nav-right">
-      <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
-        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-      </a>
-      <a href="https://www.instagram.com/sorasbakestudio/" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg class="nav-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-      </a>
-    </div>
-  </nav>
-
-  <!-- ===== PAGE HEADER ===== -->
-  <!-- Background photo set in CSS above — search "Cakes page header photo" -->
-  <div class="page-header">
-    <div class="page-header-content">
-      <span class="section-label">Handmade Daily</span>
-      <!-- EDIT THIS: Page heading -->
-      <h1>Our Cakes</h1>
-    </div>
-  </div>
-
-  <!-- ===== CAKES GRID ===== -->
-  <section id="cakes">
-
-    <!-- Filter buttons — purely visual for now, no JS filtering -->
-    <!-- EDIT THIS: Filter labels -->
-    <div class="filter-bar">
-      <button class="filter-btn active">All</button>
-      <button class="filter-btn">Korean-inspired</button>
-      <button class="filter-btn">Seasonal</button>
-      <button class="filter-btn">Weekend Only</button>
-    </div>
-
-    <!-- EDIT THIS: Product cards — name, description, price, photo, badge -->
-    <div class="product-grid">
-
-      <!-- ===== CAKE 1 ===== -->
-      <a href="#" class="product-card">
-        <div class="product-card-photo">
-          <!-- EDIT THIS: Photo URL -->
-          <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=700&q=80&fit=crop" alt="Soufflé Cheesecake" loading="lazy" />
-          <span class="product-badge">Bestseller</span>
-        </div>
-        <div class="product-card-body">
-          <div class="product-card-name">Soufflé Cheesecake</div><!-- EDIT THIS -->
-          <div class="product-card-desc">Light as a cloud, melts on your tongue. Japanese-style, baked fresh each morning.</div><!-- EDIT THIS -->
-          <div class="product-card-price">From $7.50</div><!-- EDIT THIS -->
-        </div>
-      </a>
-
-      <!-- ===== CAKE 2 ===== -->
-      <a href="#" class="product-card">
-        <div class="product-card-photo">
-          <img src="https://images.unsplash.com/photo-1488477304112-4944851de03d?w=700&q=80&fit=crop" alt="Strawberry Shortcake" loading="lazy" />
-          <span class="product-badge">Popular</span>
-        </div>
-        <div class="product-card-body">
-          <div class="product-card-name">Strawberry Shortcake</div>
-          <div class="product-card-desc">Seasonal strawberries, cloud-light whipped cream, and a delicate génoise sponge.</div>
-          <div class="product-card-price">From $8.00</div>
-        </div>
-      </a>
-
-      <!-- ===== CAKE 3 ===== -->
-      <a href="#" class="product-card">
-        <div class="product-card-photo">
-          <img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=700&q=80&fit=crop" alt="Matcha Layer Cake" loading="lazy" />
-        </div>
-        <div class="product-card-body">
-          <div class="product-card-name">Matcha Layer Cake</div>
-          <div class="product-card-desc">Ceremonial-grade matcha cream, flaky butter pastry, dusted with powdered sugar.</div>
-          <div class="product-card-price">From $6.50</div>
-        </div>
-      </a>
-
-      <!-- ===== CAKE 4 ===== -->
-      <a href="#" class="product-card">
-        <div class="product-card-photo">
-          <img src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=700&q=80&fit=crop" alt="Red Bean Cream Bun" loading="lazy" />
-        </div>
-        <div class="product-card-body">
-          <div class="product-card-name">Red Bean Cream Bun</div>
-          <div class="product-card-desc">Pillowy milk bread, sweet Korean red bean paste, lightly whipped cream.</div>
-          <div class="product-card-price">From $5.50</div>
-        </div>
-      </a>
-
-      <!-- ===== CAKE 5 ===== -->
-      <a href="#" class="product-card">
-        <div class="product-card-photo">
-          <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=700&q=80&fit=crop" alt="Hojicha Tiramisu" loading="lazy" />
-          <span class="product-badge">Weekend Only</span>
-        </div>
-        <div class="product-card-body">
-          <div class="product-card-name">Hojicha Tiramisu</div>
-          <div class="product-card-desc">Roasted green tea meets Italian comfort. Mascarpone, espresso soak, hojicha dusting.</div>
-          <div class="product-card-price">From $7.00</div>
-        </div>
-      </a>
-
-      <!-- ===== CAKE 6 ===== -->
-      <a href="#" class="product-card">
-        <div class="product-card-photo">
-          <img src="https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=700&q=80&fit=crop" alt="Croffle" loading="lazy" />
-          <span class="product-badge">Korean Trend</span>
-        </div>
-        <div class="product-card-body">
-          <div class="product-card-name">Croffle</div>
-          <div class="product-card-desc">Croissant-waffle hybrid pressed golden. Cinnamon sugar, honeycomb butter on the side.</div>
-          <div class="product-card-price">From $6.00</div>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- ===== FOOTER ===== -->
-  <footer>
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <!-- EDIT THIS: Contact details -->
-      <a href="mailto:hello@sorasbakestudio.com">hello@sorasbakestudio.com</a>
-      <p>142 Smith Street<br>Fitzroy VIC 3065</p>
-      <a href="tel:+61398765432">(03) 9876 5432</a>
-    </div>
-    <div class="footer-col center">
-      <div class="footer-logo-main">Sora's Bake Studio</div><!-- EDIT THIS -->
-      <div class="footer-logo-sub">소라 베이크 스튜디오</div>
-      <div class="footer-social">
-        <a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a>
-        <a href="https://www.instagram.com/sorasbakestudio/" target="_blank" rel="noopener">Instagram</a>
+  <header>
+    <div class="header-inner">
+      <a class="header-logo" href="index.html">Sora's Bake Studio</a><!-- EDIT -->
+      <nav><ul class="header-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cakes.html" class="active">Cakes</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul></nav>
+      <div class="header-actions">
+        <a href="https://www.instagram.com/sorasbakestudio/" target="_blank" rel="noopener" class="header-icon-btn" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
       </div>
     </div>
-    <div class="footer-col" style="text-align:right;">
-      <h4>Navigate</h4>
-      <a href="index.html">Home</a>
-      <a href="cakes.html">Cakes</a>
-      <a href="about.html">About</a>
+  </header>
+
+  <!-- Page header banner -->
+  <div style="border-bottom:1px solid var(--border);">
+    <div class="page-banner">
+      <p class="eyebrow">Handmade daily</p><!-- EDIT -->
+      <h1>Our Cakes</h1><!-- EDIT -->
+      <p>Small-batch, fresh every morning. When it's gone, it's gone.</p><!-- EDIT -->
     </div>
-    <div class="footer-bottom">© 2025 Sora's Bake Studio. All rights reserved.</div><!-- EDIT THIS: Year -->
+  </div>
+
+  <!-- Filter buttons -->
+  <div class="filter-bar">
+    <button class="filter-btn active">All</button><!-- EDIT: filter labels -->
+    <button class="filter-btn">Korean-inspired</button>
+    <button class="filter-btn">Seasonal</button>
+    <button class="filter-btn">Weekend only</button>
+  </div>
+
+  <!-- Product grid -->
+  <div class="products-section">
+    <div class="product-grid">
+
+      <!-- EDIT: Each card — photo, badge, name, description, price -->
+      <a href="#" class="product-card">
+        <div class="product-card-media">
+          <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600&q=80&fit=crop" alt="Soufflé Cheesecake" loading="lazy"/>
+          <span class="product-badge">Bestseller</span>
+        </div>
+        <p class="product-card-name">Soufflé Cheesecake</p><!-- EDIT -->
+        <p class="product-card-desc">Light as a cloud, melts on your tongue. Japanese-style.</p><!-- EDIT -->
+        <p class="product-card-price">From $7.50</p><!-- EDIT -->
+      </a>
+
+      <a href="#" class="product-card">
+        <div class="product-card-media">
+          <img src="https://images.unsplash.com/photo-1488477304112-4944851de03d?w=600&q=80&fit=crop" alt="Strawberry Shortcake" loading="lazy"/>
+          <span class="product-badge">Popular</span>
+        </div>
+        <p class="product-card-name">Strawberry Shortcake</p>
+        <p class="product-card-desc">Seasonal berries, cloud-light cream, génoise sponge.</p>
+        <p class="product-card-price">From $8.00</p>
+      </a>
+
+      <a href="#" class="product-card">
+        <div class="product-card-media">
+          <img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=600&q=80&fit=crop" alt="Matcha Layer Cake" loading="lazy"/>
+        </div>
+        <p class="product-card-name">Matcha Layer Cake</p>
+        <p class="product-card-desc">Ceremonial-grade matcha, flaky butter pastry layers.</p>
+        <p class="product-card-price">From $6.50</p>
+      </a>
+
+      <a href="#" class="product-card">
+        <div class="product-card-media">
+          <img src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=600&q=80&fit=crop" alt="Red Bean Cream Bun" loading="lazy"/>
+        </div>
+        <p class="product-card-name">Red Bean Cream Bun</p>
+        <p class="product-card-desc">Pillowy milk bread, sweet red bean, whipped cream.</p>
+        <p class="product-card-price">From $5.50</p>
+      </a>
+
+      <a href="#" class="product-card">
+        <div class="product-card-media">
+          <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&q=80&fit=crop" alt="Hojicha Tiramisu" loading="lazy"/>
+          <span class="product-badge">Weekend only</span>
+        </div>
+        <p class="product-card-name">Hojicha Tiramisu</p>
+        <p class="product-card-desc">Roasted green tea, mascarpone, espresso soak.</p>
+        <p class="product-card-price">From $7.00</p>
+      </a>
+
+      <a href="#" class="product-card">
+        <div class="product-card-media">
+          <img src="https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=600&q=80&fit=crop" alt="Croffle" loading="lazy"/>
+          <span class="product-badge">Korean trend</span>
+        </div>
+        <p class="product-card-name">Croffle</p>
+        <p class="product-card-desc">Croissant-waffle hybrid, cinnamon sugar, honeycomb butter.</p>
+        <p class="product-card-price">From $6.00</p>
+      </a>
+
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <footer>
+    <div class="footer-top">
+      <div>
+        <p class="footer-brand-name">Sora's Bake Studio</p><!-- EDIT -->
+        <p class="footer-brand-sub">소라 베이크 스튜디오</p>
+        <p class="footer-brand-desc">Small-batch Korean-inspired cakes, baked fresh every morning in Fitzroy, Melbourne.</p><!-- EDIT -->
+      </div>
+      <div class="footer-col"><h4>Quick links</h4><ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cakes.html">Cakes</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul><!-- EDIT -->
+        <li><a href="mailto:hello@sorasbakestudio.com">hello@sorasbakestudio.com</a></li>
+        <li><a href="tel:+61398765432">(03) 9876 5432</a></li>
+        <li><a href="#">142 Smith St, Fitzroy VIC 3065</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Follow us</h4><ul><!-- EDIT -->
+        <li><a href="https://www.instagram.com/sorasbakestudio/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Sora's Bake Studio. All rights reserved.</span><!-- EDIT: year -->
+      <span>Made with love in Melbourne 🌸</span>
+    </div>
   </footer>
 
 </body>
