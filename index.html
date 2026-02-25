@@ -3,255 +3,478 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sora's Bake Studio</title>
+  <!-- EDIT THIS: Browser tab title -->
+  <title>Sora's Bake Studio — Homemade Cakes, Melbourne</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- DM Sans: clean, modern, minimal -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
   <style>
     /* ============================================================
-       COLOURS — Edit these to change the whole site's colour scheme
+       COLOURS — Edit these to change the whole site
        ============================================================ */
     :root {
-      --cream: #faf8f4;
-      --blush: #e8b4a0;
-      --blush-dark: #d4907a;
-      --blush-light: #f5ddd4;
-      --sage: #b8c9a3;
-      --sage-light: #dde8d5;
-      --brown: #3d2b1f;
-      --brown-mid: #7a5c4e;
-      --brown-light: #c4a898;
       --white: #ffffff;
-      --card-bg: #fffdf9;
-      --border: #f0e8e1;
-      --shadow: rgba(61, 43, 31, 0.10);
+      --off-white: #fafaf8;       /* EDIT THIS: Page background */
+      --pink: #f2c4b2;            /* EDIT THIS: Accent pink (used for borders, highlights) */
+      --pink-dark: #d4907a;       /* EDIT THIS: Darker pink for hover states */
+      --text: #1a1410;            /* EDIT THIS: Main dark text colour */
+      --text-mid: #6b5c53;        /* EDIT THIS: Secondary text colour */
+      --text-light: #b0a097;      /* Light/muted text */
+      --border: #ede8e3;          /* Subtle border */
+      --card-shadow: 0 2px 20px rgba(0,0,0,0.06);
+      --card-shadow-hover: 0 8px 40px rgba(0,0,0,0.12);
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Nunito', sans-serif; background: var(--cream); color: var(--brown); line-height: 1.7; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--off-white); color: var(--text); line-height: 1.6; }
 
-    h1, h2, h3 { font-family: 'Playfair Display', serif; line-height: 1.2; }
+    /* ============================================================
+       ANNOUNCEMENT BAR — thin strip at the very top
+       ============================================================ */
+    .announcement-bar {
+      background: var(--text);
+      color: rgba(255,255,255,0.85);
+      text-align: center;
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+    }
+    /* EDIT THIS: Announcement bar text */
+    .announcement-bar a { color: var(--pink); text-decoration: none; }
 
-    /* ===== NAV ===== */
+    /* ============================================================
+       NAVIGATION
+       ============================================================ */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(250,248,244,0); backdrop-filter: blur(0px);
-      border-bottom: 1px solid transparent;
-      padding: 0 2.5rem; height: 72px;
-      display: flex; align-items: center; justify-content: space-between;
-      transition: background 0.4s, backdrop-filter 0.4s, border-color 0.4s;
+      position: sticky; top: 0; z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 3rem;
+      height: 64px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
     }
-    nav.scrolled { background: rgba(250,248,244,0.94); backdrop-filter: blur(14px); border-bottom-color: var(--border); }
-    .nav-logo { display: flex; flex-direction: column; align-items: flex-start; text-decoration: none; }
+
+    /* Left: nav links */
+    .nav-left { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-left a { text-decoration: none; color: var(--text-mid); font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-left a:hover, .nav-left a.active { color: var(--text); }
+
+    /* Centre: logo */
+    .nav-logo { text-align: center; text-decoration: none; }
     /* EDIT THIS: Bakery name in nav */
-    .nav-logo-main { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--white); transition: color 0.4s; }
-    nav.scrolled .nav-logo-main { color: var(--brown); }
-    .nav-logo-sub { font-size: 0.68rem; color: rgba(255,255,255,0.7); letter-spacing: 0.12em; font-weight: 600; transition: color 0.4s; }
-    nav.scrolled .nav-logo-sub { color: var(--blush); }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { text-decoration: none; color: rgba(255,255,255,0.85); font-weight: 600; font-size: 0.88rem; letter-spacing: 0.03em; transition: color 0.3s; }
-    nav.scrolled .nav-links a { color: var(--brown-mid); }
-    .nav-links a:hover, nav.scrolled .nav-links a:hover { color: var(--blush) !important; }
-    .nav-links a.active { color: var(--blush) !important; }
-    nav.scrolled .nav-links a.active { color: var(--blush) !important; }
+    .nav-logo-main { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 500; color: var(--text); letter-spacing: 0.05em; display: block; line-height: 1; }
+    .nav-logo-sub { font-size: 0.62rem; color: var(--text-light); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 2px; display: block; }
 
-    /* ===== HERO ===== */
-    /* EDIT THIS: Hero background photo URL */
+    /* Right: social icons */
+    .nav-right { display: flex; gap: 1rem; justify-content: flex-end; align-items: center; }
+    .nav-right a { color: var(--text-mid); transition: color 0.2s; text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+    .nav-right a:hover { color: var(--text); }
+    /* Social SVG icons */
+    .nav-icon { width: 18px; height: 18px; fill: none; stroke: var(--text-mid); stroke-width: 1.5; transition: stroke 0.2s; }
+    .nav-right a:hover .nav-icon { stroke: var(--text); }
+
+    /* ============================================================
+       HERO SECTION
+       ============================================================ */
     #hero {
+      /* EDIT THIS: Hero background photo */
       background-image:
-        linear-gradient(to bottom, rgba(30,18,10,0.55) 0%, rgba(30,18,10,0.35) 40%, rgba(30,18,10,0.65) 100%),
-        url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1800&q=85&fit=crop&crop=center');
-      background-size: cover; background-position: center; background-attachment: fixed;
-      min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      text-align: center; padding: 5rem 2rem 4rem; position: relative;
+        linear-gradient(to right, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.6) 55%, rgba(255,255,255,0.1) 100%),
+        url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1800&q=85&fit=crop&crop=right');
+      background-size: cover;
+      background-position: center right;
+      min-height: 580px;
+      display: flex;
+      align-items: center;
+      padding: 4rem 3rem;
     }
-    .hero-content { position: relative; z-index: 1; max-width: 700px; }
-    .hero-icon { font-size: 3.5rem; margin-bottom: 1.2rem; display: block; animation: float 3s ease-in-out infinite; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3)); }
-    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+    .hero-content { max-width: 520px; }
+
+    /* EDIT THIS: Small label above headline */
+    .hero-eyebrow { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pink-dark); margin-bottom: 1rem; }
+
     /* EDIT THIS: Main headline */
-    .hero-title { font-size: clamp(3rem, 7.5vw, 5.5rem); font-weight: 700; color: var(--white); line-height: 1.08; margin-bottom: 0.5rem; text-shadow: 0 2px 20px rgba(0,0,0,0.3); }
-    .hero-title em { font-style: italic; color: var(--blush); }
-    /* EDIT THIS: Korean tagline */
-    .hero-korean { font-size: 0.9rem; color: rgba(255,255,255,0.7); letter-spacing: 0.22em; margin-bottom: 1.5rem; font-weight: 600; text-transform: uppercase; }
+    .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 400; color: var(--text); line-height: 1.1; margin-bottom: 1.2rem; }
+    .hero-title em { font-style: italic; }
+
     /* EDIT THIS: Subtitle */
-    .hero-subtitle { font-size: 1.1rem; color: rgba(255,255,255,0.82); margin-bottom: 2.8rem; line-height: 1.7; max-width: 520px; margin-left: auto; margin-right: auto; }
-    .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .btn-primary { background: var(--blush); color: var(--white); padding: 0.9rem 2.2rem; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 0.95rem; transition: background 0.2s, transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(232,180,160,0.5); }
-    .btn-primary:hover { background: var(--blush-dark); transform: translateY(-2px); }
-    .btn-secondary { background: rgba(255,255,255,0.12); color: var(--white); padding: 0.9rem 2.2rem; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 0.95rem; border: 2px solid rgba(255,255,255,0.5); backdrop-filter: blur(8px); transition: background 0.2s, transform 0.2s; }
-    .btn-secondary:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); }
-    .hero-scroll-hint { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.45); font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; animation: bounce 2s ease-in-out infinite; }
-    @keyframes bounce { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
+    .hero-subtitle { font-size: 0.98rem; color: var(--text-mid); margin-bottom: 2.2rem; line-height: 1.75; max-width: 400px; }
 
-    /* ===== VISIT / INFO SECTION ===== */
-    #visit { padding: 6rem 2rem; text-align: center; }
-    .section-label { font-family: 'Nunito', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--blush); margin-bottom: 0.5rem; }
-    .section-title { font-size: clamp(1.8rem, 4vw, 2.5rem); color: var(--brown); margin-bottom: 1rem; }
-    .section-subtitle { color: var(--brown-mid); font-size: 1.05rem; max-width: 500px; margin: 0 auto 3rem; }
-    .visit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 900px; margin: 0 auto; }
-    .visit-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 2rem 1.5rem; text-align: center; }
-    .visit-card-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
-    .visit-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 0.75rem; color: var(--brown); }
-    .visit-card p, .visit-card a { color: var(--brown-mid); font-size: 0.92rem; line-height: 1.85; text-decoration: none; display: block; }
-    .visit-card a:hover { color: var(--blush); }
-    /* EDIT THIS: Closed day badge */
-    .hours-note { display: inline-block; margin-top: 0.75rem; font-size: 0.78rem; font-weight: 700; color: var(--blush-dark); background: var(--blush-light); padding: 0.25rem 0.75rem; border-radius: 999px; letter-spacing: 0.05em; }
+    .hero-buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
-    /* ===== INSTAGRAM STRIP ===== */
-    #instagram { padding: 4rem 2rem; background: var(--brown); text-align: center; }
-    #instagram .section-label { color: var(--blush); }
-    #instagram h2 { color: var(--white); font-size: 1.9rem; margin-bottom: 0.5rem; }
-    #instagram p { color: rgba(255,255,255,0.6); font-size: 0.95rem; margin-bottom: 2.5rem; }
-    .insta-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.5rem; max-width: 1000px; margin: 0 auto 2.5rem; }
-    .insta-tile { aspect-ratio: 1; background-size: cover; background-position: center; border-radius: 10px; position: relative; cursor: pointer; }
-    .insta-tile::after { content: '📸'; position: absolute; inset: 0; background: rgba(232,180,160,0.5); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; opacity: 0; transition: opacity 0.3s; border-radius: 10px; }
-    .insta-tile:hover::after { opacity: 1; }
-    /* EDIT THIS: Replace these with your own Instagram photo URLs */
-    .insta-tile:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=400&q=80&fit=crop'); }
-    .insta-tile:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=400&q=80&fit=crop'); }
-    .insta-tile:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=400&q=80&fit=crop'); }
-    .insta-tile:nth-child(4) { background-image: url('https://images.unsplash.com/photo-1506459225024-1428097a7e18?w=400&q=80&fit=crop'); }
-    .insta-tile:nth-child(5) { background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80&fit=crop'); }
-    .insta-tile:nth-child(6) { background-image: url('https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=400&q=80&fit=crop'); }
-    .insta-follow-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: white; padding: 0.8rem 1.9rem; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 0.9rem; transition: opacity 0.2s, transform 0.2s; box-shadow: 0 4px 20px rgba(220,39,67,0.4); }
-    .insta-follow-btn:hover { opacity: 0.88; transform: translateY(-2px); }
+    /* Filled button */
+    .btn-dark { background: var(--text); color: var(--white); padding: 0.8rem 1.8rem; text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; transition: background 0.2s; }
+    .btn-dark:hover { background: #3d2b1f; }
 
-    /* ===== FOOTER ===== */
-    footer { background: #2a1c12; color: rgba(255,255,255,0.5); padding: 2.5rem 2rem; text-align: center; }
-    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: white; margin-bottom: 0.3rem; }
-    .footer-korean { font-size: 0.72rem; letter-spacing: 0.15em; color: var(--blush); margin-bottom: 1.2rem; }
-    footer p { font-size: 0.85rem; }
-    footer a { color: var(--blush); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
+    /* Outlined button */
+    .btn-outline { background: transparent; color: var(--text); padding: 0.8rem 1.8rem; text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; border: 1.5px solid var(--text); transition: background 0.2s, color 0.2s; }
+    .btn-outline:hover { background: var(--text); color: var(--white); }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 700px) {
-      nav { padding: 0 1.2rem; }
-      .nav-links { gap: 1.2rem; }
-      .visit-grid { grid-template-columns: 1fr; max-width: 420px; }
-      .insta-grid { grid-template-columns: repeat(3,1fr); }
+    /* ============================================================
+       DIVIDER — thin pink line between sections
+       ============================================================ */
+    .section-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    /* ============================================================
+       BEST SELLING CAKES SECTION
+       ============================================================ */
+    #bestsellers { padding: 5rem 3rem; }
+
+    .section-header { text-align: center; margin-bottom: 3rem; }
+    /* EDIT THIS: Section label */
+    .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.6rem; display: block; }
+    /* EDIT THIS: Section heading */
+    .section-heading { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 400; color: var(--text); }
+
+    /* 4-column product grid */
+    .product-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; max-width: 1200px; margin: 0 auto 2.5rem; }
+
+    /* Product card */
+    .product-card { background: var(--white); border: 1px solid var(--border); text-decoration: none; color: var(--text); display: block; transition: box-shadow 0.25s, transform 0.25s; }
+    .product-card:hover { box-shadow: var(--card-shadow-hover); transform: translateY(-3px); }
+
+    /* Product photo */
+    /* EDIT THIS: Each card's background-image — search "product-card" in CSS */
+    .product-card-photo { aspect-ratio: 1; background-size: cover; background-position: center; position: relative; overflow: hidden; }
+    .product-card-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s; }
+    .product-card:hover .product-card-photo img { transform: scale(1.04); }
+
+    /* "Bestseller" badge on photo */
+    .product-badge { position: absolute; top: 0.7rem; left: 0.7rem; background: var(--text); color: var(--white); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.55rem; }
+
+    /* Product card body */
+    .product-card-body { padding: 1rem 1rem 1.2rem; border-top: 1px solid var(--border); }
+    /* EDIT THIS: Product name */
+    .product-card-name { font-size: 0.88rem; font-weight: 500; color: var(--text); margin-bottom: 0.2rem; }
+    /* EDIT THIS: Product price */
+    .product-card-price { font-size: 0.82rem; color: var(--text-mid); }
+
+    /* "View all cakes" link */
+    .view-all-link { text-align: center; }
+    .view-all-link a { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); text-decoration: none; border-bottom: 1.5px solid var(--text); padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+    .view-all-link a:hover { color: var(--pink-dark); border-color: var(--pink-dark); }
+
+    /* ============================================================
+       ABOUT BANNER — full-width strip with text + photo
+       ============================================================ */
+    #about-banner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 420px;
+    }
+
+    .about-banner-photo {
+      /* EDIT THIS: About banner photo */
+      background-image: url('https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=900&q=85&fit=crop');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .about-banner-text {
+      background: var(--text);
+      color: var(--white);
+      padding: 4rem 3.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .about-banner-text .section-label { color: rgba(255,255,255,0.4); margin-bottom: 0.75rem; }
+    .about-banner-text h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 400; color: var(--white); margin-bottom: 1.2rem; line-height: 1.2; }
+    /* EDIT THIS: About banner text */
+    .about-banner-text p { font-size: 0.95rem; color: rgba(255,255,255,0.65); line-height: 1.8; margin-bottom: 2rem; max-width: 420px; }
+    .btn-light { background: transparent; color: var(--white); padding: 0.8rem 1.8rem; text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; border: 1.5px solid rgba(255,255,255,0.5); transition: background 0.2s, border-color 0.2s; display: inline-block; }
+    .btn-light:hover { background: rgba(255,255,255,0.1); border-color: white; }
+
+    /* ============================================================
+       REVIEWS SECTION
+       ============================================================ */
+    #reviews { padding: 5rem 3rem; background: var(--white); }
+
+    .reviews-header { text-align: center; margin-bottom: 0.5rem; }
+    .reviews-stars { text-align: center; font-size: 1.1rem; color: #c9a96e; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+    .reviews-count { text-align: center; font-size: 0.8rem; color: var(--text-light); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 3rem; }
+
+    /* 3-column review cards */
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; max-width: 1000px; margin: 0 auto; }
+
+    .review-card { background: var(--off-white); border: 1px solid var(--border); padding: 1.75rem 1.5rem; }
+    .review-stars { font-size: 0.85rem; color: #c9a96e; margin-bottom: 0.75rem; letter-spacing: 0.05em; }
+    /* EDIT THIS: Review text */
+    .review-text { font-size: 0.9rem; color: var(--text-mid); line-height: 1.75; margin-bottom: 1rem; font-style: italic; }
+    .review-author { font-size: 0.78rem; font-weight: 500; color: var(--text); letter-spacing: 0.05em; text-transform: uppercase; }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 3rem 3rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .footer-col h4 { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text); margin-bottom: 1rem; }
+    .footer-col p, .footer-col a { font-size: 0.85rem; color: var(--text-mid); line-height: 1.9; text-decoration: none; display: block; }
+    .footer-col a:hover { color: var(--text); }
+    .footer-col.center { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .footer-logo-main { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--text); margin-bottom: 0.3rem; }
+    .footer-logo-sub { font-size: 0.65rem; color: var(--text-light); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1rem; }
+    .footer-social { display: flex; gap: 1rem; margin-top: 0.5rem; }
+    .footer-social a { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; }
+    .footer-social a:hover { color: var(--text); }
+
+    /* Footer copyright bar */
+    .footer-bottom { grid-column: 1 / -1; border-top: 1px solid var(--border); padding-top: 1.5rem; margin-top: 1rem; text-align: center; font-size: 0.78rem; color: var(--text-light); }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 1000px) {
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 800px) {
+      nav { padding: 0 1.5rem; }
+      #hero { padding: 3rem 1.5rem; min-height: 480px; }
+      #bestsellers, #reviews { padding: 4rem 1.5rem; }
+      .about-banner-text { padding: 3rem 2rem; }
+      #about-banner { grid-template-columns: 1fr; }
+      .about-banner-photo { min-height: 280px; order: -1; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      footer { grid-template-columns: 1fr; padding: 2.5rem 1.5rem; }
+      .footer-col.center { align-items: flex-start; text-align: left; }
+    }
+    @media (max-width: 600px) {
+      nav { grid-template-columns: auto 1fr auto; gap: 1rem; padding: 0 1rem; }
+      .nav-left { gap: 1.2rem; }
+      /* Hide right nav on small screens */
+      .nav-right { display: none; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== NAV ===== -->
-  <nav id="main-nav">
+  <!-- ===== ANNOUNCEMENT BAR ===== -->
+  <!-- EDIT THIS: Announcement text -->
+  <div class="announcement-bar">
+    Free delivery on orders over $80 &nbsp;·&nbsp; <a href="cakes.html">Order now →</a>
+  </div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav>
+    <!-- Left: page links -->
+    <ul class="nav-left">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="cakes.html">Cakes</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+
+    <!-- Centre: logo -->
+    <!-- EDIT THIS: Bakery name -->
     <a class="nav-logo" href="index.html">
-      <!-- EDIT THIS: Bakery name -->
       <span class="nav-logo-main">Sora's Bake Studio</span>
       <span class="nav-logo-sub">소라 베이크 스튜디오</span>
     </a>
-    <ul class="nav-links">
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="menu.html">Menu</a></li>
-      <li><a href="about.html">About</a></li>
-    </ul>
+
+    <!-- Right: social links -->
+    <div class="nav-right">
+      <!-- EDIT THIS: Social media links -->
+      <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/sorasbakestudio/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg class="nav-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+    </div>
   </nav>
 
   <!-- ===== HERO ===== -->
-  <!-- Background photo is set in the CSS above — search for "Hero background photo URL" -->
+  <!-- Background photo set in CSS above — search "Hero background photo" -->
   <section id="hero">
     <div class="hero-content">
-      <!-- EDIT THIS: Icon above the headline -->
-      <span class="hero-icon" aria-hidden="true">🥐</span>
+      <!-- EDIT THIS: Small eyebrow text -->
+      <p class="hero-eyebrow">Handmade in Melbourne</p>
       <!-- EDIT THIS: Main headline -->
-      <h1 class="hero-title">Baked fresh,<br><em>every single day.</em></h1>
-      <!-- EDIT THIS: Korean tagline -->
-      <p class="hero-korean">매일 신선하게 구워집니다</p>
+      <h1 class="hero-title">Homemade creation,<br><em>baked to perfection.</em></h1>
       <!-- EDIT THIS: Subtitle -->
-      <p class="hero-subtitle">Slow-baked with love and Korean soul. Each morning we start from scratch — because the best things in life shouldn't be rushed.</p>
-      <!-- EDIT THIS: Button labels -->
+      <p class="hero-subtitle">Korean-inspired cakes and pastries, crafted fresh daily in small batches. Made with love, every single morning.</p>
+      <!-- EDIT THIS: Button labels and links -->
       <div class="hero-buttons">
-        <a href="menu.html" class="btn-primary">See Our Menu</a>
-        <a href="#visit" class="btn-secondary">Find Us</a>
+        <a href="cakes.html" class="btn-dark">Shop Cakes</a>
+        <a href="about.html" class="btn-outline">Our Story</a>
       </div>
-    </div>
-    <div class="hero-scroll-hint" aria-hidden="true"><span>scroll</span><span>↓</span></div>
-  </section>
-
-  <!-- ===== VISIT / ADDRESS + HOURS ===== -->
-  <section id="visit">
-    <p class="section-label">Come See Us</p>
-    <!-- EDIT THIS: Section heading -->
-    <h2 class="section-title">You know where to find us</h2>
-    <p class="section-subtitle">Tucked in the heart of Fitzroy. Look for the warm light and the smell of fresh bread.</p>
-
-    <div class="visit-grid">
-
-      <!-- EDIT THIS: Address -->
-      <div class="visit-card">
-        <span class="visit-card-icon" aria-hidden="true">📍</span>
-        <h3>Location</h3>
-        <p>
-          142 Smith Street<br>
-          Fitzroy VIC 3065<br>
-          Melbourne, Australia
-        </p>
-        <a href="https://maps.google.com" target="_blank" rel="noopener" style="margin-top:0.75rem;color:var(--blush);font-weight:700;font-size:0.85rem;">Get Directions →</a>
-      </div>
-
-      <!-- EDIT THIS: Opening hours -->
-      <div class="visit-card">
-        <span class="visit-card-icon" aria-hidden="true">🕗</span>
-        <h3>Opening Hours</h3>
-        <p>
-          Tue – Fri: 7:30am – 5pm<br>
-          Sat – Sun: 8am – 4pm<br>
-          Monday: Closed
-        </p>
-        <span class="hours-note">Closed Mondays</span>
-      </div>
-
-      <!-- EDIT THIS: Phone, email, Instagram -->
-      <div class="visit-card">
-        <span class="visit-card-icon" aria-hidden="true">📱</span>
-        <h3>Get in Touch</h3>
-        <a href="tel:+61398765432">(03) 9876 5432</a>
-        <a href="mailto:hello@sorasbakestudio.com">hello@sorasbakestudio.com</a>
-        <a href="https://www.instagram.com/sorasbakestudio/" target="_blank" rel="noopener" style="margin-top:0.5rem;font-weight:700;color:var(--blush);">@sorasbakestudio</a>
-      </div>
-
     </div>
   </section>
 
-  <!-- ===== INSTAGRAM ===== -->
-  <section id="instagram">
-    <p class="section-label">On Instagram</p>
-    <!-- EDIT THIS: Instagram handle -->
-    <h2>@sorasbakestudio</h2>
-    <p>Follow along for daily bakes, behind-the-scenes moments, and limited specials.</p>
-    <!-- EDIT: Replace photo URLs in CSS above (search "insta-tile") -->
-    <div class="insta-grid">
-      <div class="insta-tile"></div>
-      <div class="insta-tile"></div>
-      <div class="insta-tile"></div>
-      <div class="insta-tile"></div>
-      <div class="insta-tile"></div>
-      <div class="insta-tile"></div>
+  <hr class="section-divider" />
+
+  <!-- ===== BEST SELLING CAKES ===== -->
+  <section id="bestsellers">
+    <div class="section-header">
+      <span class="section-label">Customer Favourites</span>
+      <!-- EDIT THIS: Section heading -->
+      <h2 class="section-heading">Best Selling Cakes</h2>
     </div>
-    <!-- EDIT THIS: Instagram handle in the link -->
-    <a href="https://www.instagram.com/sorasbakestudio/" target="_blank" rel="noopener" class="insta-follow-btn">📸 &nbsp;Follow on Instagram</a>
+
+    <!-- 4-column product grid -->
+    <!-- EDIT THIS: Product names, prices, and photo URLs -->
+    <div class="product-grid" style="max-width:1200px;margin:0 auto 2.5rem;">
+
+      <!-- ===== PRODUCT 1 ===== -->
+      <a href="cakes.html" class="product-card">
+        <div class="product-card-photo">
+          <!-- EDIT THIS: Product photo -->
+          <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600&q=80&fit=crop" alt="Soufflé Cheesecake" loading="lazy" />
+          <span class="product-badge">Bestseller</span>
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-name">Soufflé Cheesecake</div><!-- EDIT THIS: Name -->
+          <div class="product-card-price">From $7.50</div><!-- EDIT THIS: Price -->
+        </div>
+      </a>
+
+      <!-- ===== PRODUCT 2 ===== -->
+      <a href="cakes.html" class="product-card">
+        <div class="product-card-photo">
+          <!-- EDIT THIS: Product photo -->
+          <img src="https://images.unsplash.com/photo-1488477304112-4944851de03d?w=600&q=80&fit=crop" alt="Strawberry Shortcake" loading="lazy" />
+          <span class="product-badge">Popular</span>
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-name">Strawberry Shortcake</div>
+          <div class="product-card-price">From $8.00</div>
+        </div>
+      </a>
+
+      <!-- ===== PRODUCT 3 ===== -->
+      <a href="cakes.html" class="product-card">
+        <div class="product-card-photo">
+          <img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=600&q=80&fit=crop" alt="Matcha Layer Cake" loading="lazy" />
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-name">Matcha Layer Cake</div>
+          <div class="product-card-price">From $6.50</div>
+        </div>
+      </a>
+
+      <!-- ===== PRODUCT 4 ===== -->
+      <a href="cakes.html" class="product-card">
+        <div class="product-card-photo">
+          <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=600&q=80&fit=crop" alt="Hojicha Tiramisu" loading="lazy" />
+          <span class="product-badge">Weekend Only</span>
+        </div>
+        <div class="product-card-body">
+          <div class="product-card-name">Hojicha Tiramisu</div>
+          <div class="product-card-price">From $7.00</div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- View all link -->
+    <div class="view-all-link">
+      <a href="cakes.html">View all cakes</a>
+    </div>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ===== ABOUT BANNER ===== -->
+  <!-- Photo on the left, dark text block on the right -->
+  <!-- Photo URL is in CSS above — search "About banner photo" -->
+  <div id="about-banner">
+    <div class="about-banner-photo"></div>
+    <div class="about-banner-text">
+      <span class="section-label">Our Story</span>
+      <!-- EDIT THIS: Banner heading -->
+      <h2>Baked with love,<br><em>rooted in Seoul.</em></h2>
+      <!-- EDIT THIS: Banner text -->
+      <p>Every cake starts the same way — with a recipe passed down from our founder's grandmother in Seoul, and a commitment to never cut corners. Small batches, fresh every day, no exceptions.</p>
+      <a href="about.html" class="btn-light">Read our story</a>
+    </div>
+  </div>
+
+  <hr class="section-divider" />
+
+  <!-- ===== REVIEWS ===== -->
+  <section id="reviews">
+    <div class="reviews-header">
+      <span class="section-label">What our customers say</span>
+      <h2 class="section-heading" style="margin-bottom:0.5rem;">Let customers speak for us</h2>
+    </div>
+    <!-- EDIT THIS: Star rating and review count -->
+    <div class="reviews-stars">★★★★★</div>
+    <div class="reviews-count">From 200+ reviews</div>
+
+    <!-- EDIT THIS: Review cards — text and author name -->
+    <div class="reviews-grid">
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"The soufflé cheesecake was absolutely incredible — light as air and not too sweet. It disappeared within minutes at our family dinner."</p>
+        <div class="review-author">Sarah M. — Melbourne</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Ordered the strawberry shortcake for my partner's birthday and it was stunning. The cream is not oily at all — just perfect. Best cake in Melbourne!"</p>
+        <div class="review-author">James K. — Fitzroy</div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"The matcha danish had such a genuine flavour — you can tell the ingredients are premium quality. Will definitely be coming back every weekend."</p>
+        <div class="review-author">Mia T. — Richmond</div>
+      </div>
+
+    </div>
   </section>
 
   <!-- ===== FOOTER ===== -->
   <footer>
-    <!-- EDIT THIS: Footer name + year -->
-    <div class="footer-logo">Sora's Bake Studio</div>
-    <div class="footer-korean">소라 베이크 스튜디오</div>
-    <p>© 2025 Sora's Bake Studio. Made with love in Melbourne. &nbsp;·&nbsp;
-      <a href="https://www.instagram.com/sorasbakestudio/" target="_blank" rel="noopener">Instagram</a>
-    </p>
-  </footer>
 
-  <script>
-    // Makes nav go opaque when scrolled past the hero
-    const nav = document.getElementById('main-nav');
-    const update = () => nav.classList.toggle('scrolled', window.scrollY > 60);
-    window.addEventListener('scroll', update);
-    update();
-  </script>
+    <!-- Left column: contact info -->
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <!-- EDIT THIS: Email, address, phone -->
+      <a href="mailto:hello@sorasbakestudio.com">hello@sorasbakestudio.com</a>
+      <p>142 Smith Street<br>Fitzroy VIC 3065</p>
+      <a href="tel:+61398765432">(03) 9876 5432</a>
+    </div>
+
+    <!-- Centre column: logo -->
+    <div class="footer-col center">
+      <!-- EDIT THIS: Footer bakery name -->
+      <div class="footer-logo-main">Sora's Bake Studio</div>
+      <div class="footer-logo-sub">소라 베이크 스튜디오</div>
+      <div class="footer-social">
+        <!-- EDIT THIS: Social links -->
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.instagram.com/sorasbakestudio/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+
+    <!-- Right column: navigation links -->
+    <div class="footer-col" style="text-align:right;">
+      <h4>Navigate</h4>
+      <a href="index.html">Home</a>
+      <a href="cakes.html">Cakes</a>
+      <a href="about.html">About</a>
+    </div>
+
+    <!-- Copyright bar -->
+    <!-- EDIT THIS: Copyright year -->
+    <div class="footer-bottom">© 2025 Sora's Bake Studio. All rights reserved.</div>
+
+  </footer>
 
 </body>
 </html>
