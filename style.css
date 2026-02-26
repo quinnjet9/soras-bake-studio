@@ -182,6 +182,18 @@ input, textarea, select {
   border-color: var(--accent);
 }
 
+/* Ghost/outline white button (used on dark/image backgrounds — transparent fill) */
+.btn--outline-white {
+  background-color: transparent;
+  color: var(--white);
+  border-color: var(--white);
+}
+
+.btn--outline-white:hover {
+  background-color: var(--white);
+  color: var(--text);
+}
+
 /* Large button */
 .btn--lg {
   height: 52px;
