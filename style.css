@@ -1182,6 +1182,48 @@ input, textarea, select {
 
 
 /* ============================================================
+   ABOUT PAGE — STORY SPLIT LAYOUT
+   Image left, text right, stacks on mobile
+   ============================================================ */
+.about-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+}
+
+/* Left image */
+.about-split__image-wrap {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+
+.about-split__image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top; /* Keep face in frame */
+}
+
+/* Right text */
+.about-split__text {
+  /* inherits .about-story__headline and .about-story__body styles */
+}
+
+/* Stack vertically on mobile */
+@media (max-width: 768px) {
+  .about-split {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .about-split__image-wrap {
+    aspect-ratio: 3 / 2; /* wider crop on mobile */
+  }
+}
+
+
+/* ============================================================
    CONTACT PAGE
    ============================================================ */
 .contact-layout {
