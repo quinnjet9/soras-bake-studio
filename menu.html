@@ -18,6 +18,9 @@
   <link rel="stylesheet" href="style.css" />
 
   <style>
+    /* ===== MENU PAGE: Hide "Add to order" button — not used here ===== */
+    .product-card__quick-add { display: none !important; }
+
     /* ===== MENU PAGE: Zoom on hover instead of image crossfade ===== */
     /* Add transform to the transition so zoom animates smoothly */
     .product-card__img {
@@ -118,19 +121,20 @@
 
           <!-- EDIT THIS: Add/remove filter tags to match your categories -->
           <div class="filter-bar__tags">
-            <button class="filter-tag active" onclick="setFilter(this)">All</button>
-            <button class="filter-tag" onclick="setFilter(this)">Croissants &amp; Pastries</button>
-            <button class="filter-tag" onclick="setFilter(this)">Cakes &amp; Tarts</button>
-            <button class="filter-tag" onclick="setFilter(this)">Drinks</button>
-            <button class="filter-tag" onclick="setFilter(this)">Seasonal</button>
+            <button class="filter-tag active" data-filter="all" onclick="setFilter(this)">All</button>
+            <button class="filter-tag" data-filter="croissants" onclick="setFilter(this)">Croissants &amp; Pastries</button>
+            <button class="filter-tag" data-filter="cakes" onclick="setFilter(this)">Cakes</button>
+            <button class="filter-tag" data-filter="savoury" onclick="setFilter(this)">Savoury</button>
+            <button class="filter-tag" data-filter="drinks" onclick="setFilter(this)">Drinks</button>
+            <button class="filter-tag" data-filter="special" onclick="setFilter(this)">Special</button>
           </div>
 
           <!-- Sort dropdown -->
           <!-- EDIT THIS: Add/remove sort options as needed -->
-          <select class="sort-select" aria-label="Sort menu items">
-            <option>Sort: Featured</option>
-            <option>Price: Low to High</option>
-            <option>Price: High to Low</option>
+          <select class="sort-select" aria-label="Sort menu items" onchange="sortMenu(this)">
+            <option value="featured">Sort: Featured</option>
+            <option value="low">Price: Low to High</option>
+            <option value="high">Price: High to Low</option>
           </select>
 
         </div>
@@ -150,7 +154,7 @@
           —————————————————— -->
 
           <!-- Item 1: Butter Croissant — Fan Fave -->
-          <div class="product-card">
+          <div class="product-card" data-category="croissants" data-order="0">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80"
@@ -159,14 +163,13 @@
                    src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=600&q=80"
                    alt="" loading="lazy" />
               <span class="product-card__badge product-card__badge--fave">Fan Fave</span>
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Butter Croissant</p>
             <div class="product-card__price">$5.50</div>
           </div>
 
           <!-- Item 2: Matcha Latte -->
-          <div class="product-card">
+          <div class="product-card" data-category="drinks" data-order="1">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=600&q=80"
@@ -174,14 +177,13 @@
               <img class="product-card__img--hover"
                    src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=600&q=80"
                    alt="" loading="lazy" />
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Matcha Latte</p>
             <div class="product-card__price">$7.00</div>
           </div>
 
           <!-- Item 3: Strawberry Tart — Seasonal -->
-          <div class="product-card">
+          <div class="product-card" data-category="cakes" data-order="2">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&q=80"
@@ -190,14 +192,13 @@
                    src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80"
                    alt="" loading="lazy" />
               <span class="product-card__badge">Seasonal</span>
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Strawberry Tart</p>
             <div class="product-card__price">$8.50</div>
           </div>
 
           <!-- Item 4: Pain au Chocolat -->
-          <div class="product-card">
+          <div class="product-card" data-category="croissants" data-order="3">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1623334044303-241021148842?w=600&q=80"
@@ -205,14 +206,13 @@
               <img class="product-card__img--hover"
                    src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80"
                    alt="" loading="lazy" />
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Pain au Chocolat</p>
             <div class="product-card__price">$6.00</div>
           </div>
 
           <!-- Item 5: Honey Cake Slice — New -->
-          <div class="product-card">
+          <div class="product-card" data-category="cakes" data-order="4">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&q=80"
@@ -221,14 +221,13 @@
                    src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=600&q=80"
                    alt="" loading="lazy" />
               <span class="product-card__badge">New</span>
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Honey Cake Slice</p>
             <div class="product-card__price">$9.00</div>
           </div>
 
           <!-- Item 6: Cinnamon Roll -->
-          <div class="product-card">
+          <div class="product-card" data-category="croissants" data-order="5">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1509365465985-25d11c17e812?w=600&q=80"
@@ -236,14 +235,13 @@
               <img class="product-card__img--hover"
                    src="https://images.unsplash.com/photo-1602351447937-745cb720612f?w=600&q=80"
                    alt="" loading="lazy" />
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Cinnamon Roll</p>
             <div class="product-card__price">$7.50</div>
           </div>
 
           <!-- Item 7: Almond Croissant -->
-          <div class="product-card">
+          <div class="product-card" data-category="croissants" data-order="6">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1603532648955-039310d9ed75?w=600&q=80"
@@ -251,14 +249,13 @@
               <img class="product-card__img--hover"
                    src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&q=80"
                    alt="" loading="lazy" />
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Almond Croissant</p>
             <div class="product-card__price">$7.00</div>
           </div>
 
           <!-- Item 8: Bento Cake — Popular -->
-          <div class="product-card">
+          <div class="product-card" data-category="cakes" data-order="7">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80"
@@ -267,14 +264,13 @@
                    src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=600&q=80"
                    alt="" loading="lazy" />
               <span class="product-card__badge">Popular</span>
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Bento Cake</p>
             <div class="product-card__price">$55.00</div>
           </div>
 
           <!-- Item 9: Lemon Tart -->
-          <div class="product-card">
+          <div class="product-card" data-category="cakes" data-order="8">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=600&q=80"
@@ -282,14 +278,13 @@
               <img class="product-card__img--hover"
                    src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80"
                    alt="" loading="lazy" />
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Lemon Tart</p>
             <div class="product-card__price">$8.50</div>
           </div>
 
           <!-- Item 10: Kouign Amann -->
-          <div class="product-card">
+          <div class="product-card" data-category="croissants" data-order="9">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&q=80"
@@ -297,14 +292,13 @@
               <img class="product-card__img--hover"
                    src="https://images.unsplash.com/photo-1623334044303-241021148842?w=600&q=80"
                    alt="" loading="lazy" />
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Kouign Amann</p>
             <div class="product-card__price">$7.00</div>
           </div>
 
           <!-- Item 11: Madeleine (3pk) -->
-          <div class="product-card">
+          <div class="product-card" data-category="croissants" data-order="10">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600&q=80"
@@ -312,14 +306,13 @@
               <img class="product-card__img--hover"
                    src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=600&q=80"
                    alt="" loading="lazy" />
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Madeleine (3pk)</p>
             <div class="product-card__price">$9.00</div>
           </div>
 
           <!-- Item 12: Choux au Craquelin -->
-          <div class="product-card">
+          <div class="product-card" data-category="croissants" data-order="11">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1532499016263-f2c3e89de9cd?w=600&q=80"
@@ -327,14 +320,13 @@
               <img class="product-card__img--hover"
                    src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=600&q=80"
                    alt="" loading="lazy" />
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Choux au Craquelin</p>
             <div class="product-card__price">$8.00</div>
           </div>
 
           <!-- Item 13: Hojicha Roll Cake -->
-          <div class="product-card">
+          <div class="product-card" data-category="special" data-order="12">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&q=80"
@@ -342,14 +334,13 @@
               <img class="product-card__img--hover"
                    src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80"
                    alt="" loading="lazy" />
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Hojicha Roll Cake</p>
             <div class="product-card__price">$12.00</div>
           </div>
 
           <!-- Item 14: Canelé (2pk) -->
-          <div class="product-card">
+          <div class="product-card" data-category="croissants" data-order="13">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1586985288123-2495f577dd09?w=600&q=80"
@@ -357,14 +348,13 @@
               <img class="product-card__img--hover"
                    src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=600&q=80"
                    alt="" loading="lazy" />
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Canelé (2pk)</p>
             <div class="product-card__price">$10.00</div>
           </div>
 
           <!-- Item 15: Miso Caramel Cookie -->
-          <div class="product-card">
+          <div class="product-card" data-category="special" data-order="14">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=600&q=80"
@@ -372,14 +362,13 @@
               <img class="product-card__img--hover"
                    src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=600&q=80"
                    alt="" loading="lazy" />
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Miso Caramel Cookie</p>
             <div class="product-card__price">$5.00</div>
           </div>
 
           <!-- Item 16: Sesame Pound Cake -->
-          <div class="product-card">
+          <div class="product-card" data-category="cakes" data-order="15">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=600&q=80"
@@ -387,14 +376,13 @@
               <img class="product-card__img--hover"
                    src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&q=80"
                    alt="" loading="lazy" />
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Sesame Pound Cake</p>
             <div class="product-card__price">$11.00</div>
           </div>
 
           <!-- Item 17: Earl Grey Scone -->
-          <div class="product-card">
+          <div class="product-card" data-category="croissants" data-order="16">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=600&q=80"
@@ -402,14 +390,13 @@
               <img class="product-card__img--hover"
                    src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&q=80"
                    alt="" loading="lazy" />
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Earl Grey Scone</p>
             <div class="product-card__price">$6.50</div>
           </div>
 
           <!-- Item 18: Custard Danish -->
-          <div class="product-card">
+          <div class="product-card" data-category="croissants" data-order="17">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1559622214-f8a9850965bb?w=600&q=80"
@@ -417,14 +404,13 @@
               <img class="product-card__img--hover"
                    src="https://images.unsplash.com/photo-1602351447937-745cb720612f?w=600&q=80"
                    alt="" loading="lazy" />
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Custard Danish</p>
             <div class="product-card__price">$7.00</div>
           </div>
 
           <!-- Item 19: Black Sesame Croissant — New badge -->
-          <div class="product-card">
+          <div class="product-card" data-category="special" data-order="18">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1603532648955-039310d9ed75?w=600&q=80"
@@ -433,7 +419,6 @@
                    src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?w=600&q=80"
                    alt="" loading="lazy" />
               <span class="product-card__badge">New</span>
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Black Sesame Croissant</p>
             <div class="product-card__price">$7.50</div>
@@ -441,7 +426,7 @@
 
           <!-- Item 20: Custom Birthday Cake — Popular badge -->
           <!-- EDIT THIS: Update the price format if needed (e.g. "from $85") -->
-          <div class="product-card">
+          <div class="product-card" data-category="cakes" data-order="19">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1464349153735-7db50ed83c84?w=600&q=80"
@@ -457,7 +442,7 @@
           </div>
 
           <!-- Item 21: Rose Latte -->
-          <div class="product-card">
+          <div class="product-card" data-category="drinks" data-order="20">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=600&q=80"
@@ -465,14 +450,13 @@
               <img class="product-card__img--hover"
                    src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=600&q=80"
                    alt="" loading="lazy" />
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Rose Latte</p>
             <div class="product-card__price">$7.50</div>
           </div>
 
           <!-- Item 22: Iced Matcha -->
-          <div class="product-card">
+          <div class="product-card" data-category="drinks" data-order="21">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=600&q=80"
@@ -480,14 +464,13 @@
               <img class="product-card__img--hover"
                    src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=600&q=80"
                    alt="" loading="lazy" />
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Iced Matcha</p>
             <div class="product-card__price">$8.00</div>
           </div>
 
           <!-- Item 23: Korean Corn Dog -->
-          <div class="product-card">
+          <div class="product-card" data-category="savoury" data-order="22">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1612392166886-ee8475b03af2?w=600&q=80"
@@ -495,14 +478,13 @@
               <img class="product-card__img--hover"
                    src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=600&q=80"
                    alt="" loading="lazy" />
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Korean Corn Dog</p>
             <div class="product-card__price">$6.00</div>
           </div>
 
           <!-- Item 24: Tiramisu Cup -->
-          <div class="product-card">
+          <div class="product-card" data-category="cakes" data-order="23">
             <div class="product-card__image-wrap">
               <img class="product-card__img"
                    src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=600&q=80"
@@ -510,7 +492,6 @@
               <img class="product-card__img--hover"
                    src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&q=80"
                    alt="" loading="lazy" />
-              <button class="product-card__quick-add">Add to order</button>
             </div>
             <p class="product-card__name">Tiramisu Cup</p>
             <div class="product-card__price">$10.00</div>
@@ -635,11 +616,55 @@
       }
     }
 
-    // Filter tag toggle — visual only
-    // EDIT THIS: Add real category filtering logic here when you have a backend
+    // ============================================================
+    // FILTER — Shows/hides product cards by category
+    // Each card has a data-category attribute (e.g. data-category="cakes")
+    // The filter buttons have a data-filter attribute matching those values
+    // ============================================================
     function setFilter(btn) {
+      // Highlight the clicked button
       document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
       btn.classList.add('active');
+
+      const filter = btn.dataset.filter; // e.g. "cakes", "drinks", "all"
+      const cards  = document.querySelectorAll('.product-card');
+
+      cards.forEach(card => {
+        if (filter === 'all' || card.dataset.category === filter) {
+          card.style.display = '';      // show
+        } else {
+          card.style.display = 'none';  // hide
+        }
+      });
+    }
+
+
+    // ============================================================
+    // SORT — Reorders product cards by price
+    // Reads the price text from each card and sorts numerically
+    // ============================================================
+    function sortMenu(select) {
+      const grid  = document.querySelector('.product-grid');
+      const cards = [...grid.querySelectorAll('.product-card')];
+
+      // Extract numeric price from the price div text (e.g. "$8.50" → 8.50)
+      const getPrice = card => {
+        const priceEl = card.querySelector('.product-card__price');
+        if (!priceEl) return 0;
+        return parseFloat(priceEl.textContent.replace(/[^0-9.]/g, '')) || 0;
+      };
+
+      if (select.value === 'low') {
+        cards.sort((a, b) => getPrice(a) - getPrice(b));
+      } else if (select.value === 'high') {
+        cards.sort((a, b) => getPrice(b) - getPrice(a));
+      } else {
+        // "featured" — restore original order using the data-order attribute
+        cards.sort((a, b) => parseInt(a.dataset.order) - parseInt(b.dataset.order));
+      }
+
+      // Re-append cards in the new order (hidden ones stay hidden)
+      cards.forEach(card => grid.appendChild(card));
     }
 
   </script>
